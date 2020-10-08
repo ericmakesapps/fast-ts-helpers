@@ -1,0 +1,119 @@
+{
+	"extends": ["prettier/@typescript-eslint"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": "./tsconfig.json",
+		"createDefaultProgram": true,
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "implicit-dependencies", "react", "react-hooks"],
+	"rules": {
+		"@typescript-eslint/array-type": "error",
+		"@typescript-eslint/await-thenable": "error",
+		"@typescript-eslint/ban-types": [
+			"error",
+			{
+				"types": {
+					"Object": { "message": "Use {} instead.", "fixWith": "{}" },
+					"object": { "message": "Use {} instead.", "fixWith": "{}" },
+					"String": { "message": "Use string instead.", "fixWith": "string" },
+					"Number": { "message": "Use number instead.", "fixWith": "number" },
+					"Boolean": { "message": "Use boolean instead.", "fixWith": "boolean" }
+				}
+			}
+		],
+		"@typescript-eslint/consistent-type-assertions": [
+			"error",
+			{ "assertionStyle": "as", "objectLiteralTypeAssertions": "never" }
+		],
+		"@typescript-eslint/consistent-type-definitions": ["error", "type"],
+		"@typescript-eslint/default-param-last": "error",
+		"@typescript-eslint/switch-exhaustiveness-check": "error",
+		"@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
+		"@typescript-eslint/no-extra-non-null-assertion": "error",
+		"@typescript-eslint/no-extraneous-class": "error",
+		"@typescript-eslint/no-floating-promises": "error",
+		"@typescript-eslint/no-for-in-array": "error",
+		"@typescript-eslint/no-inferrable-types": "error",
+		"@typescript-eslint/no-misused-new": "error",
+		"@typescript-eslint/no-misused-promises": "error",
+		"@typescript-eslint/no-namespace": "error",
+		"@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+		"@typescript-eslint/no-this-alias": "error",
+		"@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+		"@typescript-eslint/no-unnecessary-type-arguments": "error",
+		"@typescript-eslint/no-unnecessary-type-assertion": "error",
+		"@typescript-eslint/no-unsafe-assignment": "error",
+		"@typescript-eslint/no-unsafe-return": "error",
+		"@typescript-eslint/no-unused-expressions": "error",
+		"@typescript-eslint/no-unused-vars-experimental": [
+			"error",
+			{ "ignoreArgsIfArgsAfterAreUsed": true }
+		],
+		"@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+		"@typescript-eslint/no-useless-constructor": "error",
+		"@typescript-eslint/no-var-requires": "error",
+		"@typescript-eslint/prefer-as-const": "error",
+		"@typescript-eslint/prefer-for-of": "error",
+		"@typescript-eslint/prefer-function-type": "error",
+		"@typescript-eslint/prefer-namespace-keyword": "error",
+		"@typescript-eslint/prefer-nullish-coalescing": "error",
+		"@typescript-eslint/prefer-optional-chain": "error",
+		"@typescript-eslint/prefer-reduce-type-parameter": "error",
+		"@typescript-eslint/prefer-ts-expect-error": "error",
+		"@typescript-eslint/promise-function-async": "error",
+		"@typescript-eslint/quotes": ["error", "backtick", { "avoidEscape": true }],
+		"@typescript-eslint/strict-boolean-expressions": [
+			"error",
+			{
+				"allowNullable": true,
+				"allowSafe": true,
+				"ignoreRhs": true
+			}
+		],
+		"@typescript-eslint/triple-slash-reference": "error",
+		"@typescript-eslint/unbound-method": "error",
+
+		"implicit-dependencies/no-implicit": ["error", { "peer": true }],
+
+		"react/jsx-no-bind": ["error"],
+		"react-hooks/exhaustive-deps": ["error", { "additionalHooks": "use[A-Z].*" }],
+
+		"curly": "error",
+		"brace-style": "off",
+		"default-param-last": "off",
+		"dot-notation": "error",
+		"quotes": "off",
+		"no-console": ["error", { "allow": ["warn", "error"] }],
+		"no-duplicate-imports": "error",
+		"no-plusplus": "error",
+		"no-restricted-globals": ["error", "switch"],
+		"no-unused-vars": "off",
+		"no-useless-constructor": "off",
+		"no-unused-expressions": "off",
+		"no-invalid-this": "off",
+		"no-var": "error",
+		"require-await": "off",
+		"padded-blocks": ["error", "never"],
+		"padding-line-between-statements": [
+			"error",
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": ["return", "block-like", "break", "class", "const", "continue", "let"]
+			},
+			{
+				"blankLine": "always",
+				"prev": ["block-like", "const", "let", "import", "class"],
+				"next": "*"
+			},
+			{ "blankLine": "never", "prev": "*", "next": ["case", "default"] },
+			{ "blankLine": "never", "prev": ["case", "default"], "next": "*" },
+			{ "blankLine": "any", "prev": "import", "next": "import" },
+			{ "blankLine": "any", "prev": ["const", "let"], "next": ["const", "let"] }
+		],
+		"prefer-template": "error",
+		"sort-imports": ["error", { "ignoreDeclarationSort": true, "ignoreCase": true }],
+		"yoda": ["error", "never", { "exceptRange": true }]
+	}
+}

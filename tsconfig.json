@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"declaration": true,
+		"outDir": "lib",
+		"removeComments": true,
+		"downlevelIteration": true,
+
+		/* Strict Type-Checking Options */
+		"strict": true,
+
+		/* Additional Checks */
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+
+		/* Module Resolution Options */
+		"esModuleInterop": true,
+
+		/* Source Map Options */
+		"inlineSourceMap": true,
+
+		/* Advanced Options */
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
+	}
+}
