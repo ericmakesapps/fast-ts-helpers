@@ -1,4 +1,4 @@
-import { FalsibleList } from "./Types"
+import { FalsibleList } from "./FalsibleList"
 import { flatfilter } from "./flatfilter"
 
 export type JoinOptions = {

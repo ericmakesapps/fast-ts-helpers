@@ -1,4 +1,4 @@
-import { NestableList } from "./Types"
+import { NestableList } from "./NestableList"
 import { filter } from "./filter"
 import { flat } from "./flat"
 

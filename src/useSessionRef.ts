@@ -1,44 +1,44 @@
-import { useCallback, useRef } from "react"
+import { ReadonlyRefObject } from "./ReadonlyRefObject"
+import { useBackedRef } from "./useBackedRef"
 
-import { tuple } from "./tuple"
-import { ReadonlyRefObject } from "./Types"
-
-export function useSessionRef<T>(
-	name: string
-): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
+/**
+ * Use a ref variable backed by session storage. This is designed only for local access to the variable value (not across different components/environments).
+ *
+ * @param name The name under which to store the variable.
+ * @param defaultValue The default value, if any, of the value.
+ */
 export function useSessionRef<T>(
 	name: string,
 	defaultValue: T
 ): [ReadonlyRefObject<T>, (newValue: T) => void]
+export function useSessionRef<T>(
+	name: string,
+	defaultValue?: T
+): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
 export function useSessionRef<T>(name: string, defaultValue?: T) {
-	let fromSession: T | undefined
+	return useBackedRef<T>(
+		(newValue) => {
+			const stringified = JSON.stringify(newValue)
 
-	const initialized = useRef(false)
+			if (stringified != null) {
+				sessionStorage.setItem(name, stringified)
+			} else {
+				sessionStorage.removeItem(name)
+			}
+		},
+		[name],
+		() => {
+			const stringified = sessionStorage.getItem(name)
 
-	if (!initialized.current) {
-		initialized.current = true
+			if (stringified != null) {
+				try {
+					return JSON.parse(stringified) as T
+				} catch {}
+			}
 
-		const loaded = sessionStorage.getItem(name)
-
-		if (loaded != null) {
-			fromSession = JSON.parse(loaded) as T
-		}
-	}
-
-	const value = useRef(fromSession ?? defaultValue)
-
-	return tuple(
-		value,
-		useCallback(
-			(newValue: T) => {
-				if (value.current !== newValue) {
-					sessionStorage.setItem(name, JSON.stringify(newValue))
-
-					value.current = newValue
-				}
-			},
-			[name]
-		)
+			return undefined
+		},
+		defaultValue
 	)
 }

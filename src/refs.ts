@@ -1,4 +1,5 @@
-import { FalsibleList, Writable } from "./Types"
+import { Writable } from "./Writable"
+import { FalsibleList } from "./FalsibleList"
 import { flatfilter } from "./flatfilter"
 
 /**

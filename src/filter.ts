@@ -1,4 +1,4 @@
-import { NonFalsible } from "./Types"
+import { NonFalsible } from "./NonFalsible"
 
 import { wrap } from "./wrap"
 

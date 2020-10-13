@@ -1,4 +1,4 @@
-import { Falsible } from "./Types"
+import { Falsible } from "./Falsible"
 
 import { memoize } from "./memoize"
 import { combine } from "./combine"

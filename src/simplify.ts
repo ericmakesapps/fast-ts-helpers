@@ -1,4 +1,6 @@
-import { Falsey, NonFalsible, OptionalPropsOf } from "./Types"
+import { NonFalsible } from "./NonFalsible"
+import { OptionalPropsOf } from "./OptionalPropsOf"
+import { Falsey } from "./Falsey"
 import { fallback } from "./fallback"
 
 /**

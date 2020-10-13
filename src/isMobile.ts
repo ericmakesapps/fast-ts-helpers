@@ -1,4 +1,4 @@
-import { mobileBreakpoint } from "./Constants"
+import { mobileBreakpoint } from "./mobileBreakpoint"
 
 import { checkBounds, Orientation } from "./checkBounds"
 

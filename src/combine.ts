@@ -1,4 +1,5 @@
-import { Falsible, Func } from "./Types"
+import { Func } from "./Func"
+import { Falsible } from "./Falsible"
 
 import { flatfilter } from "./flatfilter"
 import { memoize } from "./memoize"

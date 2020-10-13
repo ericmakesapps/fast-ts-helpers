@@ -1,39 +1,41 @@
 /**
- * Create an instance of a wrapper around `localStorage` that stores values using `JSON.stringify` using a specific namespace.
+ * Create a wrapper around `localStorage` that stores values using `JSON.stringify` using a specific namespace.
  */
-export class Storage {
-	constructor(private namespace: string) {}
+export function storageFor(namespace: string) {
+	const prefix = `${namespace}™øå`
 
-	private prefix = `${this.namespace}™øå`
-
-	private p(key: string) {
+	function p(key: string) {
 		// Use some characters that are unlikely to be repeated.
-		return `${this.prefix}${key}`
+		return `${prefix}${key}`
 	}
 
-	get<T>(key: string): T | undefined {
-		if (!this.has(key)) {
+	return {
+		get<T>(key: string) {
+			const string = localStorage.getItem(p(key))
+
+			if (string != null) {
+				try {
+					return JSON.parse(string) as T
+				} catch {}
+			}
+
 			return undefined
-		}
-
-		const string = localStorage.getItem(this.p(key))!
-
-		return Boolean(string) ? (JSON.parse(string) as T) : undefined
-	}
-	set<T>(key: string, value: T) {
-		// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just strigify it.
-		localStorage.setItem(this.p(key), JSON.stringify(value) ?? ``)
-	}
-	remove(key: string) {
-		localStorage.removeItem(this.p(key))
-	}
-	has(key: string) {
-		return Object.keys(localStorage).includes(this.p(key))
-	}
-	clear() {
-		for (const key of Object.keys(localStorage)) {
-			if (key.startsWith(this.prefix)) {
-				localStorage.removeItem(key)
+		},
+		set<T>(key: string, value: T) {
+			// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just strigify it.
+			localStorage.setItem(p(key), JSON.stringify(value) ?? ``)
+		},
+		remove(key: string) {
+			localStorage.removeItem(p(key))
+		},
+		has(key: string) {
+			return Object.keys(localStorage).includes(p(key))
+		},
+		clear() {
+			for (const key of Object.keys(localStorage)) {
+				if (key.startsWith(prefix)) {
+					localStorage.removeItem(key)
+				}
 			}
 		}
 	}
@@ -42,4 +44,4 @@ export class Storage {
 /**
  * A wrapper around `localStorage` that stores values using `JSON.stringify`.
  */
-export const storage = new Storage(`øß√`)
+export const storage = storageFor(`øß√`)

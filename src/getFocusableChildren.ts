@@ -1,4 +1,4 @@
-import { focusableSelector } from "./Constants"
+import { focusableSelector } from "./focusableSelector"
 
 /**
  * Get all the children of a passed element that are focusable.

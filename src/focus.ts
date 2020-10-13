@@ -1,5 +1,5 @@
-import { focusableSelector } from "./Constants"
-import { Falsible } from "./Types"
+import { focusableSelector } from "./focusableSelector"
+import { Falsible } from "./Falsible"
 
 /**
  * Transfer the focus to an element, optionally preventing scrolling. You can use this to focus on elements that aren't actually focusable too, for accessibility.

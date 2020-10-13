@@ -1,4 +1,4 @@
-import { Func } from "./Types"
+import { Func } from "./Func"
 
 import { cacheKey } from "./cacheKey"
 

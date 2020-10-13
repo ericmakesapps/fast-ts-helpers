@@ -1,7 +1,9 @@
-import { Falsible } from "./Types"
+import { flatfilter } from "./flatfilter"
+import { FalsibleList } from "./FalsibleList"
 
-export function concatUrls(...urls: Falsible<string>[]) {
-	const filtered = urls.filter(Boolean) as string[]
+/** Concatenate the passed URL parts into one URL using `/` as the separator, with a leadin slash and without a trailing slash. */
+export function concatUrls(...urls: FalsibleList<string>[]) {
+	const filtered = flatfilter(urls)
 	let protocol = ``
 
 	const first = filtered[0]

@@ -1,4 +1,4 @@
-import { NonFalsible } from "./Types"
+import { NonFalsible } from "./NonFalsible"
 
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.

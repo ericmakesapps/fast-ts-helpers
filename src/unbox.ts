@@ -1,5 +1,3 @@
-import { ValueOrFactory } from "./Types"
-
 /**
  * Unbox a value or factory into the value itself.
  *
@@ -7,6 +5,6 @@ import { ValueOrFactory } from "./Types"
  * @param typeOrFn The value or factory to unbox into an actual value.
  * @returns The value contained in the `ValueOrFactory`.
  */
-export function unbox<Type>(typeOrFn: ValueOrFactory<Type>): Type {
+export function unbox<Type>(typeOrFn: Type | (() => Type)): Type {
 	return typeof typeOrFn === `function` ? (typeOrFn as () => Type)() : typeOrFn
 }

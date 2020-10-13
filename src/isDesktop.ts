@@ -1,4 +1,4 @@
-import { tabletBreakpoint } from "./Constants"
+import { tabletBreakpoint } from "./tabletBreakpoint"
 import { checkBounds } from "./checkBounds"
 
 /**

@@ -1,4 +1,4 @@
-import { Falsible } from "./Types"
+import { Falsible } from "./Falsible"
 
 import { onNonRepeatedKeyDown } from "./onNonRepeatedKeyDown"
 import { memoize } from "./memoize"

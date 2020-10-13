@@ -1,4 +1,4 @@
-import { Falsible } from "./Types"
+import { Falsible } from "./Falsible"
 
 import { combine } from "./combine"
 import { onEnterKeyDown } from "./onEnterKeyDown"
