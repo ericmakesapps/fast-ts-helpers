@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.0.0-dev.3",
+	"version": "0.0.0-dev.4",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -13,14 +13,13 @@
 		"postbuild": "node scripts/copy-for-publish.js",
 		"postinstall": "echo \"The packages listed as peer dependencies are not needed for all functionality. Only if you are importing the functionality that needs an import do you need to add the peer dependency.\"",
 		"prebuild": "rimraf lib/*",
-		"prepublishOnly": "npm run build"
+		"publish": "npm run build && npm publish lib"
 	},
 	"peerDependencies": {
 		"json-stable-stringify": "^1.0.1",
 		"mutation-observer": "^1.0.3",
 		"react": "^16.13.1",
 		"react-router": "^5.2.0",
-		"react-spring": "^8.0.27",
 		"resize-observer-polyfill": "^1.5.1"
 	},
 	"devDependencies": {
