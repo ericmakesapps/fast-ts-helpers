@@ -1,8 +1,8 @@
-import { Falsible } from "./Falsible"
-
-import { memoize } from "./memoize"
 import { combine } from "./combine"
 import { deleteOwnProperties } from "./deleteOwnProperties"
+import { Falsible } from "./Falsible"
+import { memoize } from "./memoize"
+import { truthy } from "./truthy"
 
 /** The keys that are currently pressed. */
 const keysDown: Record<string, boolean> = {}
@@ -23,7 +23,7 @@ export const onNonRepeatedKeyDown = memoize(
 	) => {
 		return {
 			onKeyDown: combine(
-				Boolean(action) &&
+				truthy(action) &&
 					((event: React.KeyboardEvent) => {
 						if (!keysDown[event.key]) {
 							keysDown[event.key] = true
@@ -34,7 +34,7 @@ export const onNonRepeatedKeyDown = memoize(
 				extraOnKeyDown
 			),
 			onKeyUp: combine(
-				Boolean(action) &&
+				truthy(action) &&
 					((event: React.KeyboardEvent) => {
 						if (event.key === `Meta`) {
 							deleteOwnProperties(keysDown)

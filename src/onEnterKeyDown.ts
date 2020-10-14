@@ -1,7 +1,7 @@
 import { Falsible } from "./Falsible"
-
-import { onNonRepeatedKeyDown } from "./onNonRepeatedKeyDown"
 import { memoize } from "./memoize"
+import { onNonRepeatedKeyDown } from "./onNonRepeatedKeyDown"
+import { truthy } from "./truthy"
 
 /**
  * Respond to the event where the user presses the enter key, responding only to the actula press, not the repeated events if the user holds it.
@@ -19,7 +19,7 @@ export const onEnterKeyDown = memoize(
 	) => {
 		return onNonRepeatedKeyDown(
 			(event) => {
-				if (event.key === `Enter` && Boolean(action)) {
+				if (event.key === `Enter` && truthy(action)) {
 					action(event)
 				}
 			},

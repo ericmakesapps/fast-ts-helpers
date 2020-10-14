@@ -1,3 +1,5 @@
+import { truthy } from "./truthy"
+
 /**
  * Parse a date, number, or string into a Date.
  *
@@ -41,7 +43,7 @@ export function parseDate(date: string | number | Date | undefined) {
 	}
 
 	// If the datePart is set, parse that date part
-	if (Boolean(datePart)) {
+	if (truthy(datePart)) {
 		const [rawYear, rawMonth, rawDay] = datePart.split(`-`).map(parseFloat)
 
 		year = rawYear
@@ -58,7 +60,7 @@ export function parseDate(date: string | number | Date | undefined) {
 	let zoneHalf: string | undefined
 
 	// If the time part is defined, get the hour, minute, and second values
-	if (Boolean(timePart)) {
+	if (truthy(timePart)) {
 		const parts = timePart.split(/Z|\+|(?=-)/)
 
 		const timeHalf = parts[0]!
@@ -82,12 +84,12 @@ export function parseDate(date: string | number | Date | undefined) {
 	const manualTime = new Date(year, month, day, hours, minutes, seconds).getTime()
 
 	// If the time part is defined, assume UTC. The other if statement below will offset accordingly.
-	if (Boolean(timePart)) {
+	if (truthy(timePart)) {
 		offset = now.getTimezoneOffset() * 60 * 1000
 	}
 
 	// If the zone half of the time part is defined, do that offset here
-	if (Boolean(zoneHalf)) {
+	if (truthy(zoneHalf)) {
 		const [offsetHours, offsetMinutes] = zoneHalf.split(`:`).map(parseFloat)
 
 		offset += offsetHours * 60 * 60 * 1000

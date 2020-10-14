@@ -1,5 +1,6 @@
 import stringify from "json-stable-stringify"
 
+import { truthy } from "./truthy"
 import { uuid } from "./uuid"
 
 /**
@@ -35,7 +36,7 @@ export function cacheKey<Type>(obj: Type) {
 	}
 
 	function hasCacheKey<T>(obj: T): obj is T & { __cacheKey: string } {
-		return Boolean(obj) && `__cacheKey` in obj
+		return truthy(obj) && `__cacheKey` in obj
 	}
 
 	return stringify(obj, { replacer })
