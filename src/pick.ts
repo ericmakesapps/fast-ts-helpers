@@ -29,14 +29,16 @@ export function pick<T extends object, K extends keyof T>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ret: any = {}
 
-	if (typeof patternOrKey === `object`) {
+	if (patternOrKey instanceof RegExp) {
 		Object.keys(obj).forEach((k) => {
 			if (patternOrKey.test(k)) {
 				ret[k] = obj[k as keyof T]
 			}
 		})
 	} else {
-		;[patternOrKey, ...keys].forEach((k) => (ret[k] = obj[k]))
+		for (const k of [patternOrKey, ...keys]) {
+			ret[k] = obj[k]
+		}
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return

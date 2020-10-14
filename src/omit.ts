@@ -30,18 +30,16 @@ export function omit<T extends object, K extends keyof T>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ret: any = {}
 
-	if (typeof patternOrKey === `object`) {
+	if (patternOrKey instanceof RegExp) {
 		Object.keys(obj).forEach((k) => {
 			if (!patternOrKey.test(k)) {
-				ret[k] = obj[(k as unknown) as K]
+				ret[k] = obj[k as K]
 			}
 		})
 	} else {
-		const allKeys = [patternOrKey, ...keys]
-
 		Object.keys(obj).forEach((k) => {
-			if (!allKeys.includes((k as unknown) as K)) {
-				ret[k] = obj[(k as unknown) as K]
+			if (k !== `${patternOrKey}` && !keys.includes(`${k}` as K)) {
+				ret[k] = obj[k as K]
 			}
 		})
 	}
