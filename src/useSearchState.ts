@@ -1,3 +1,4 @@
+import { SetStateAction } from "react"
 import { useHistory } from "react-router"
 
 import { useBackedState } from "./useBackedState"
@@ -12,11 +13,11 @@ import { useBackedState } from "./useBackedState"
 export function useSearchState<T>(
 	name: string,
 	defaultValue: T
-): [T, (newValue: T) => void]
+): [T, (newValue: SetStateAction<T>) => void]
 export function useSearchState<T>(
 	name: string,
 	defaultValue?: T
-): [T | undefined, (newValue: T | undefined) => void]
+): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
 export function useSearchState<T>(name: string, defaultValue?: T) {
 	const history = useHistory()

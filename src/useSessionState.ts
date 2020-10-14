@@ -1,3 +1,5 @@
+import { SetStateAction } from "react"
+
 import { useBackedState } from "./useBackedState"
 
 /**
@@ -9,11 +11,11 @@ import { useBackedState } from "./useBackedState"
 export function useSessionState<T>(
 	name: string,
 	defaultValue: T
-): [T, (newValue: T) => void]
+): [T, (newValue: SetStateAction<T>) => void]
 export function useSessionState<T>(
 	name: string,
 	defaultValue?: T
-): [T | undefined, (newValue: T | undefined) => void]
+): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
 export function useSessionState<T>(name: string, defaultValue?: T) {
 	return useBackedState<T>(

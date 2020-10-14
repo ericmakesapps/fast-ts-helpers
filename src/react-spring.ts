@@ -15,7 +15,29 @@ import { fallback } from "./fallback"
 import { Falsible } from "./Falsible"
 import { tuple } from "./tuple"
 
-export * from "react-spring/web.cjs"
+export {
+	animated,
+	AnimatedValue,
+	ForwardedProps,
+	HooksBaseProps,
+	InterpolationChain,
+	InterpolationConfig,
+	OpaqueInterpolation,
+	ReactSpringHook,
+	SetUpdateCallbackFn,
+	SetUpdateFn,
+	SpringBaseProps,
+	State,
+	TransitionKeyProps,
+	UseSpringBaseProps,
+	UseSpringProps,
+	UseTransitionProps,
+	UseTransitionResult,
+	config,
+	interpolate,
+	useChain,
+	useTrail
+} from "react-spring/web.cjs"
 
 /** The config that the spring hooks use. You can change the values in this object if you want to change the default. */
 export const SpringConfig = {

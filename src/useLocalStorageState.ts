@@ -1,3 +1,5 @@
+import { SetStateAction } from "react"
+
 import { storage } from "./storage"
 import { useBackedState } from "./useBackedState"
 
@@ -10,11 +12,11 @@ import { useBackedState } from "./useBackedState"
 export function useLocalStorageState<T>(
 	name: string,
 	defaultValue: T
-): [T, (newValue: T) => void]
+): [T, (newValue: SetStateAction<T>) => void]
 export function useLocalStorageState<T>(
 	name: string,
 	defaultValue?: T
-): [T | undefined, (newValue: T | undefined) => void]
+): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
 export function useLocalStorageState<T>(name: string, defaultValue?: T) {
 	return useBackedState<T>(
