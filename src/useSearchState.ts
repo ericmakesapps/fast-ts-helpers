@@ -33,7 +33,7 @@ export function useSearchState<T>(name: string, defaultValue?: T) {
 				params.delete(name)
 			}
 
-			history.replace(name, {
+			history.replace({
 				...history.location,
 				search: params.toString()
 			})
