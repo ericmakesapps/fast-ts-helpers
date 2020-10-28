@@ -1,4 +1,11 @@
-import { useCallback, useRef, useState } from "react"
+import {
+	Dispatch,
+	MutableRefObject,
+	SetStateAction,
+	useCallback,
+	useRef,
+	useState
+} from "react"
 
 import { tuple } from "./tuple"
 import { isCallable } from "./isCallable"
@@ -9,7 +16,18 @@ import { isCallable } from "./isCallable"
  * @param defaultValue The default value of the state/ref.
  * @returns A tuple containing the ref, the setter, and the state values.
  */
-export function useStateRef<T>(defaultValue: T) {
+export function useStateRef<T>(
+	defaultValue: T
+): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
+export function useStateRef<T>(
+	defaultValue?: T
+): [
+	Readonly<MutableRefObject<T | undefined>>,
+	Dispatch<SetStateAction<T | undefined>>,
+	T | undefined
+]
+
+export function useStateRef<T>(defaultValue?: T) {
 	const ref = useRef(defaultValue)
 	const [state, setState] = useState(defaultValue)
 
