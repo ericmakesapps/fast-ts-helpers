@@ -46,8 +46,10 @@ export function useBackedState<T>(
 						return newValue
 					})
 				} else {
-					set(valueOrGetter)
-					setValue(value)
+					const newValue = valueOrGetter
+
+					set(newValue)
+					setValue(newValue)
 				}
 			},
 			// eslint-disable-next-line react-hooks/exhaustive-deps
