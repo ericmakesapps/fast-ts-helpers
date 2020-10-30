@@ -5,7 +5,6 @@
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"declaration": true,
 		"outDir": "lib",
-		"removeComments": true,
 		"downlevelIteration": true,
 
 		/* Strict Type-Checking Options */

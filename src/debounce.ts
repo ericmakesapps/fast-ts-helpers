@@ -18,15 +18,15 @@ export function debounce<T extends (...args: any[]) => void>(
 			timeout = undefined
 
 			if (!immediate) {
-				return func.apply(this, args)
+				func.apply(this, args)
 			}
 		}
 
-		if (immediate && !Boolean(timeout)) {
-			call()
+		if (immediate && timeout == null) {
+			func.apply(this, args)
 		}
 
 		clearTimeout(timeout)
-		timeout = window.setTimeout(call, threshold)
+		timeout = setTimeout(call, threshold)
 	} as T
 }
