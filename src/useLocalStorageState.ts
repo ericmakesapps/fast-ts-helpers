@@ -1,6 +1,6 @@
 import { SetStateAction } from "react"
 
-import { storage } from "./storage"
+import { storage } from "./Storage"
 import { useBackedState } from "./useBackedState"
 
 /**

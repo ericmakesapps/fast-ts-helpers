@@ -7,7 +7,7 @@ import {
 	useState
 } from "react"
 
-import { storage } from "./storage"
+import { storage } from "./Storage"
 import { areEqual } from "./areEqual"
 import { tuple } from "./tuple"
 import { isCallable } from "./isCallable"

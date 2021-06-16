@@ -1,4 +1,4 @@
-import { storage } from "./storage"
+import { storage } from "./Storage"
 import { ReadonlyRefObject } from "./ReadonlyRefObject"
 import { useBackedRef } from "./useBackedRef"
 

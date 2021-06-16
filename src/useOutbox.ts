@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from "react"
 
-import { storage } from "./storage"
+import { storage } from "./Storage"
 import { isCallable } from "./isCallable"
 
 export function useOutbox<T>(box: string, defaultValue: T): Dispatch<SetStateAction<T>>
