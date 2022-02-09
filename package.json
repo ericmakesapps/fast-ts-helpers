@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -8,12 +8,13 @@
 	"author": "Eric Ferreira <eric@ericmakesapps.com>",
 	"scripts": {
 		"build": "tsc",
+		"fix": "run-s lint format",
 		"format": "prettier -c --ignore-path .gitignore \"**/?*.@(js|ts|jsx|tsx|json|md|html|css|scss)\" \".*rc\" \"!.npmrc\" \"!.nvmrc\" \"!**/*.min.!(.)\" --write",
 		"lint": "eslint src --ext .ts,.tsx --max-warnings 0 --fix",
 		"postbuild": "node scripts/copy-for-publish.js",
 		"postinstall": "echo \"The packages listed as peer dependencies are not needed for all functionality. Only if you are importing the functionality that needs an import do you need to add the peer dependency.\"",
 		"prebuild": "rimraf lib/*",
-		"publish": "npm run build && npm publish lib"
+		"publish": "npm run build && cd lib && npm publish"
 	},
 	"peerDependencies": {
 		"json-stable-stringify": "^1.0.1",
@@ -39,6 +40,7 @@
 		"fast-glob": "^3.2.4",
 		"json-stable-stringify": "^1.0.1",
 		"mutation-observer": "^1.0.3",
+		"npm-run-all": "^4.1.5",
 		"prettier": "^2.1.2",
 		"prettier-plugin-package": "^1.2.0",
 		"react": "^16.13.1",

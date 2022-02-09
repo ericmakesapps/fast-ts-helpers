@@ -5,7 +5,7 @@ import { useBackedState } from "./useBackedState"
 /**
  * Use a state variable backed by session storage. This is designed only for local access to the variable value (not across different components/environments).
  *
- * @param name The name under which to store the variable.
+ * @param name The name under which to store the variable. This value should be unique across the app for this one component/page. Don’t use it across components/pages to try to share the value updates. That probably won’t work.
  * @param defaultValue The default value, if any, of the value.
  */
 export function useSessionState<T>(
