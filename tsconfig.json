@@ -19,7 +19,7 @@
 		"esModuleInterop": true,
 
 		/* Source Map Options */
-		"inlineSourceMap": true,
+		"sourceMap": true,
 
 		/* Advanced Options */
 		"skipLibCheck": true,

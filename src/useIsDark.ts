@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { useConstructor } from "./useConstructor"
 
-const query = "(prefers-color-scheme: dark)"
+const query = `(prefers-color-scheme: dark)`
 
 /**
  * Check whether the browser is preferring dark mode right now. Updates according to the browser preference.
  *
  * @returns Whether the browser currently prefers dark mode
  */
-export function isDark() {
+export function useIsDark() {
 	if (!window.matchMedia) {
 		return false
 	}
@@ -27,10 +27,10 @@ export function isDark() {
 			setIsDark(event.matches)
 		}
 
-		queryList.addEventListener("change", listener)
+		queryList.addEventListener(`change`, listener)
 
 		return () => {
-			queryList.removeEventListener("change", listener)
+			queryList.removeEventListener(`change`, listener)
 		}
 	}, [])
 

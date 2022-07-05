@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -12,7 +12,7 @@
 		"format": "prettier -c --ignore-path .gitignore \"**/?*.@(js|ts|jsx|tsx|json|md|html|css|scss)\" \".*rc\" \"!.npmrc\" \"!.nvmrc\" \"!**/*.min.!(.)\" --write",
 		"lint": "eslint src --ext .ts,.tsx --max-warnings 0 --fix",
 		"postbuild": "node scripts/copy-for-publish.js",
-		"postinstall": "echo \"The packages listed as peer dependencies are not needed for all functionality. Only if you are importing the functionality that needs an import do you need to add the peer dependency.\"",
+		"postinstall": "echo \"fast-ts-helpers: The packages listed as peer dependencies are not needed for all functionality. You only need each if you are using the functionality.\"",
 		"prebuild": "rimraf lib/*",
 		"publish": "npm run build && cd lib && npm publish"
 	},
