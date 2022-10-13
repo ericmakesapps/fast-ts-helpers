@@ -8,7 +8,9 @@ import { useEffect, useRef } from "react"
 export function useOnMount(callback: (() => void) | (() => () => void)) {
 	const cb = useRef(callback)
 
+	cb.current = callback
+
 	useEffect(() => {
-		cb.current()
+		return cb.current()
 	}, [])
 }
