@@ -1,12 +1,14 @@
+import { IdType } from "./IdType"
 import { Never } from "./Never"
+import { UnionToTuple } from "./UnionToTuple"
 
-type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never
+type UnionOf<L, R> = (L & Never<Omit<R, keyof L>>) | (R & Never<Omit<L, keyof R>>)
 
-type UnionOf<L, R> = Id<(L & Never<Omit<R, keyof L>>) | (R & Never<Omit<L, keyof R>>)>
+type UnionFromTuple<A extends readonly [...any]> = A extends [infer L, ...infer R]
+	? UnionOf<L, UnionFromTuple<R>>
+	: A[0]
 
 /**
- * Represents a smarter discriminating union between types. All props are available, with unshared properties being optional (or undefined after discrimination).
+ * Makes a discriminating union from the passed union type. All props are available, with unshared properties being optional (or undefined after discrimination).
  */
-export type Union<A extends readonly [...any]> = A extends [infer L, ...infer R]
-	? UnionOf<L, Union<R>>
-	: A[0]
+export type Union<T> = IdType<UnionFromTuple<UnionToTuple<T>>>

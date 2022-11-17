@@ -5,4 +5,4 @@ import { Union } from "./Union"
  *
  * @template Type The type to use for this errorable type.
  */
-export type Errorable<Type extends object> = Union<[{ error: true }, Type]>
+export type Errorable<Type extends object> = Union<{ error: true } | Type>
