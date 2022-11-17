@@ -22,7 +22,7 @@ export function injectDates<Type extends {}>(obj: Type) {
 					)) ||
 				(typeof value === `number` && /(^d|D)ate([A-Z0-9_]|$)/.test(key))
 			) {
-				obj[key] = (parseDate(value) as unknown) as typeof value
+				obj[key] = parseDate(value) as unknown as typeof value
 			} else if (value && typeof value === `object`) {
 				obj[key] = injectDates(value)
 			}

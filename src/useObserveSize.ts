@@ -6,7 +6,7 @@ import { throttle } from "./throttle"
 const ResizeObserver =
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	maybeResizeObserver.default ??
-	((maybeResizeObserver as unknown) as typeof maybeResizeObserver["default"])
+	(maybeResizeObserver as unknown as typeof maybeResizeObserver["default"])
 
 /**
  * Calls a function when this component mounts, and any time the element to which the ref is attached resizes.

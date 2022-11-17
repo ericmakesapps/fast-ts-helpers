@@ -4,23 +4,21 @@ import { Falsible } from "./Falsible"
 import { flatfilter } from "./flatfilter"
 import { memoize } from "./memoize"
 
-const doCombine = memoize(
-	<T extends Func>(...callbacks: T[]): T => {
-		// @ts-expect-error
-		return (...args) => {
-			let last: ReturnType<T>
+const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
+	// @ts-expect-error
+	return (...args) => {
+		let last: ReturnType<T>
 
-			for (const callback of callbacks) {
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				last = callback(...args)
-			}
-
-			// @ts-expect-error
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-			return last
+		for (const callback of callbacks) {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+			last = callback(...args)
 		}
+
+		// @ts-expect-error
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+		return last
 	}
-)
+})
 
 /**
  * Combine multiple callbacks into a single callback. Useful when you need to reuse some callback in multiple places, but also triggering different additional callbacks.

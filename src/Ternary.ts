@@ -13,5 +13,5 @@ export type Ternary<
 	TypeIfTrue extends object,
 	TypeIfFalse extends object
 > = Union<
-	({ [K in Property]: true } & TypeIfTrue) | ({ [K in Property]: false } & TypeIfFalse)
+	[{ [K in Property]: true } & TypeIfTrue, { [K in Property]: false } & TypeIfFalse]
 >
