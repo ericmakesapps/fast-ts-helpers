@@ -1,11 +1,4 @@
 /**
- * Asserts the type of obj at compile-time.
- *
- * @template Type The type being asserted.
- * @param obj The object whose type to assert.
+ * Asserts the type of obj at compile-time. Will throw an error if the type is not compatible.
  */
-// @ts-expect-error
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function assertType<Type>(obj: Type) {
-	return
-}
+export function assertType<Type>(_obj: Type) {}
