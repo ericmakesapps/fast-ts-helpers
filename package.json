@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.1.2-ionic-compat",
+	"version": "0.1.3-ionic-compat",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
