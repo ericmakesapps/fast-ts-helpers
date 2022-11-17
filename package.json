@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -15,7 +15,8 @@
 		"lint": "eslint src --ext .ts,.tsx --max-warnings 0 --fix",
 		"postbuild": "node scripts/copy-for-publish.js",
 		"prebuild": "run-p clean-lib generate-index",
-		"publish": "npm run build && cd lib && npm publish"
+		"publish": "npm run build && cd lib && npm publish",
+		"version": "npm --no-git-tag-version version"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",

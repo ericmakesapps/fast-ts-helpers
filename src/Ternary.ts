@@ -1,5 +1,5 @@
 import { Key } from "./Key"
-import { UnionByProp } from "./UnionByProp"
+import { Union } from "./Union"
 
 /**
  * Represents a type equivalent `TypeIfTrue` if the value of `Property` is `true` or `TypeIfFalse` if the value of `Property` is `false`.
@@ -8,8 +8,10 @@ import { UnionByProp } from "./UnionByProp"
  * @template TypeIfTrue The type to return if the value of `Property` is `true`.
  * @template TypeIfFalse The type to return if the value of `Property` is `false`.
  */
-export type TernaryByProp<
+export type Ternary<
 	Property extends Key,
 	TypeIfTrue extends object,
 	TypeIfFalse extends object
-> = UnionByProp<Property, true, TypeIfTrue, false, TypeIfFalse>
+> = Union<
+	[{ [K in Property]: true } & TypeIfTrue, { [K in Property]: false } & TypeIfFalse]
+>
