@@ -1,4 +1,4 @@
-import { storage } from "./Storage"
+import { Storage } from "./Storage"
 import { ReadonlyRefObject } from "./ReadonlyRefObject"
 import { useBackedRef } from "./useBackedRef"
 
@@ -19,9 +19,9 @@ export function useLocalStorageRef<T>(
 
 export function useLocalStorageRef<T>(name: string, defaultValue?: T) {
 	return useBackedRef<T>(
-		(newValue) => storage.set(name, newValue),
+		(newValue) => Storage.set(name, newValue),
 		[name],
-		() => storage.get<T>(name),
+		() => Storage.get<T>(name),
 		defaultValue
 	)
 }

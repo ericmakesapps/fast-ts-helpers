@@ -7,7 +7,7 @@ import {
 	useState
 } from "react"
 
-import { storage } from "./Storage"
+import { Storage } from "./Storage"
 import { areEqual } from "./areEqual"
 import { tuple } from "./tuple"
 import { isCallable } from "./isCallable"
@@ -24,17 +24,17 @@ export function useMailbox<T>(
 
 export function useMailbox<T>(box: string, defaultValue?: T) {
 	const [value, setValue] = useState(
-		useMemo(() => storage.get<T>(box), [box]) ?? defaultValue
+		useMemo(() => Storage.get<T>(box), [box]) ?? defaultValue
 	)
 
-	if (defaultValue != null && !storage.has(box)) {
-		storage.set(box, defaultValue)
+	if (defaultValue != null && !Storage.has(box)) {
+		Storage.set(box, defaultValue)
 	}
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setValue((value) => {
-				const newValue = storage.get<T>(box)
+				const newValue = Storage.get<T>(box)
 
 				if (!areEqual(value, newValue)) {
 					return newValue
@@ -55,12 +55,12 @@ export function useMailbox<T>(box: string, defaultValue?: T) {
 					setValue((value) => {
 						const newValue = valueOrFactory(value)
 
-						storage.set(box, newValue)
+						Storage.set(box, newValue)
 
 						return newValue
 					})
 				} else {
-					storage.set(box, valueOrFactory)
+					Storage.set(box, valueOrFactory)
 
 					setValue(valueOrFactory)
 				}

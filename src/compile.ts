@@ -1,4 +1,4 @@
-import { escape } from "./regexEscape"
+import { escapeForRegex } from "./escapeForRegex"
 
 type Group = {
 	[key: string]: Group
@@ -29,7 +29,7 @@ export function compile(options: string[]) {
 		let includeEmpty = false
 
 		for (const [index, [key, subgroup]] of entries.entries()) {
-			regex += escape(key)
+			regex += escapeForRegex(key)
 
 			const hasChildren = Object.keys(subgroup).length > 0
 

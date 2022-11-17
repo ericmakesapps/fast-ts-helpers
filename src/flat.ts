@@ -9,6 +9,8 @@ import { wrap } from "./wrap"
  * @param array The array to completely flatten.
  * @returns A flattened version of the passed array.
  */
-export function flat<Type>(array: NestableList<Type>) {
+export function flat<Type>(
+	array: NestableList<Type> extends any ? NestableList<Type> : never
+) {
 	return wrap(array).flat(Infinity) as Type[]
 }

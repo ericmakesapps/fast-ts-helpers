@@ -18,14 +18,7 @@ export function useMeasure(
 		height?: boolean
 	} = { width: true, height: true }
 ) {
-	const [bounds, setBounds] = useState<ClientRect>({
-		bottom: 0,
-		height: 0,
-		left: 0,
-		right: 0,
-		top: 0,
-		width: 0
-	})
+	const [bounds, setBounds] = useState(() => new DOMRect())
 
 	const ref = useObserveSize(
 		(entries) => {

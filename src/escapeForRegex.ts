@@ -4,6 +4,6 @@
  * @param str The string to escape for regular expression.
  * @returns The escaped string.
  */
-export function escape(str: string) {
+export function escapeForRegex(str: string) {
 	return str.replace(/[.*+\-?^${}()|[\]\\]/g, `\\$&`)
 }

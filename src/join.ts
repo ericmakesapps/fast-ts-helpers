@@ -8,6 +8,8 @@ export type JoinOptions = {
 /**
  * Automatically resolve a nested optional array of strings into a single string using the passed separator. If using all literal strings, just use a literal class (it will save cycles).
  *
+ * If you are using Tailwindcss, use `twMerge` or `twJoin` from the package `tailwind-merge` instead.
+ *
  * @param options The options containing the separator to use.
  * @param potentials The potential classes.
  * @returns The joined string of all the items.
@@ -15,6 +17,8 @@ export type JoinOptions = {
 export function join(options: JoinOptions, ...potentials: FalsibleList<string>[]): string
 /**
  * Automatically resolve a nested optional array of strings into a single space separated string. If using all literal strings, just use a literal class (it will save cycles).
+ *
+ * If you are using Tailwindcss, use `twMerge` or `twJoin` from the package `tailwind-merge` instead.
  *
  * @param potentials The potential classes.
  * @returns The joined string of all the items.

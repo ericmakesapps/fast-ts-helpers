@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from "react"
 
-import { storage } from "./Storage"
+import { Storage } from "./Storage"
 import { isCallable } from "./isCallable"
 
 export function useOutbox<T>(box: string, defaultValue: T): Dispatch<SetStateAction<T>>
@@ -10,17 +10,17 @@ export function useOutbox<T>(
 ): Dispatch<SetStateAction<T | undefined>>
 
 export function useOutbox<T>(box: string, defaultValue: T) {
-	if (defaultValue != null && !storage.has(box)) {
-		storage.set(box, defaultValue)
+	if (defaultValue != null && !Storage.has(box)) {
+		Storage.set(box, defaultValue)
 	}
 
 	return useCallback<Dispatch<SetStateAction<T | undefined>>>(
 		(valueOrFactory) => {
 			const newValue = isCallable(valueOrFactory)
-				? valueOrFactory(storage.get(box))
+				? valueOrFactory(Storage.get(box))
 				: valueOrFactory
 
-			storage.set(box, newValue)
+			Storage.set(box, newValue)
 		},
 		[box]
 	)

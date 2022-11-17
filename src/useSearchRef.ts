@@ -1,4 +1,4 @@
-import { useHistory } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
 import { ReadonlyRefObject } from "./ReadonlyRefObject"
 import { useBackedRef } from "./useBackedRef"
@@ -20,12 +20,13 @@ export function useSearchRef<T>(
 ): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
 export function useSearchRef<T>(name: string, defaultValue?: T) {
-	const history = useHistory()
+	const location = useLocation()
+	const navigate = useNavigate()
 
 	return useBackedRef<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
-			const params = new URLSearchParams(history.location.search)
+			const params = new URLSearchParams(location.search)
 
 			if (stringified != null) {
 				params.set(name, stringified)
@@ -33,14 +34,21 @@ export function useSearchRef<T>(name: string, defaultValue?: T) {
 				params.delete(name)
 			}
 
-			history.replace({
-				...history.location,
-				search: params.toString()
-			})
+			navigate(
+				{
+					pathname: location.pathname,
+					search: params.toString(),
+					hash: location.hash
+				},
+				{
+					replace: true,
+					state: location.state
+				}
+			)
 		},
 		[history, name],
 		() => {
-			const stringified = new URLSearchParams(history.location.search).get(name)
+			const stringified = new URLSearchParams(location.search).get(name)
 
 			if (stringified != null) {
 				try {

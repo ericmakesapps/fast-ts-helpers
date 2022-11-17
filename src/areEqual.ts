@@ -1,6 +1,8 @@
 /**
  * Returns whether the passed values are equal in value, i.e., a deep equals. It does not support circular objects right now, so don't pass one in.
  *
+ * **Note**: this treats `NaN`s as equal.
+ *
  * @param values The items to be compared.
  * @template Type The common type between all values.
  * @returns Whether all of the passed values are equal.
@@ -24,7 +26,7 @@ export function areEqual<Type>(...values: Type[]) {
 			return false
 		}
 
-		if (typeof a === `object`) {
+		if (a && b && typeof a === `object`) {
 			if (Array.isArray(a) !== Array.isArray(b)) {
 				return false
 			}

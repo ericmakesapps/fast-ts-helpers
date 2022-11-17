@@ -35,7 +35,7 @@ export function cacheKey<Type>(obj: Type) {
 		return value
 	}
 
-	function hasCacheKey<T>(obj: T): obj is T & { __cacheKey: string } {
+	function hasCacheKey(obj: any): obj is { __cacheKey: string } {
 		return truthy(obj) && `__cacheKey` in obj
 	}
 

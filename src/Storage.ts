@@ -1,7 +1,4 @@
-/**
- * Create a wrapper around `localStorage` that stores values using `JSON.stringify` using a specific namespace.
- */
-export function storageFor(namespace: string) {
+function createStoreFor(namespace: string) {
 	const prefix = `${namespace}™øå`
 
 	function p(key: string) {
@@ -22,7 +19,7 @@ export function storageFor(namespace: string) {
 			return undefined
 		},
 		set<T>(key: string, value: T) {
-			// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just strigify it.
+			// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just stringify it.
 			localStorage.setItem(p(key), JSON.stringify(value) ?? ``)
 		},
 		remove(key: string) {
@@ -42,6 +39,6 @@ export function storageFor(namespace: string) {
 }
 
 /**
- * A wrapper around `localStorage` that stores values using `JSON.stringify`.
+ * A wrapper around `localStorage` that stores values using `JSON.stringify`. You can use directly, or call it to create a storage with a namespace.
  */
-export const storage = storageFor(`øß√`)
+export const Storage = Object.assign(createStoreFor, createStoreFor(`øß√`))

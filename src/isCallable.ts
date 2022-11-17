@@ -3,6 +3,6 @@
  *
  * @param thing The thing that is potentially callable.
  */
-export function isCallable<T>(thing: T): thing is T & CallableFunction {
+export function isCallable(thing: unknown): thing is CallableFunction {
 	return typeof thing === `function`
 }

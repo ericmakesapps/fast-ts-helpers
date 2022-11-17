@@ -38,7 +38,7 @@ export function omit<T extends object, K extends keyof T>(
 		})
 	} else {
 		Object.keys(obj).forEach((k) => {
-			if (k !== `${patternOrKey}` && !keys.includes(`${k}` as K)) {
+			if (k !== String(patternOrKey) && !keys.includes(`${k}` as K)) {
 				ret[k] = obj[k as K]
 			}
 		})
