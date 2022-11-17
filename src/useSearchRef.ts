@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router"
+import { useLocation, useHistory } from "react-router"
 
 import { ReadonlyRefObject } from "./ReadonlyRefObject"
 import { useBackedRef } from "./useBackedRef"
@@ -21,7 +21,7 @@ export function useSearchRef<T>(
 
 export function useSearchRef<T>(name: string, defaultValue?: T) {
 	const location = useLocation()
-	const navigate = useNavigate()
+	const history = useHistory()
 
 	return useBackedRef<T>(
 		(newValue) => {
@@ -34,17 +34,10 @@ export function useSearchRef<T>(name: string, defaultValue?: T) {
 				params.delete(name)
 			}
 
-			navigate(
-				{
-					pathname: location.pathname,
-					search: params.toString(),
-					hash: location.hash
-				},
-				{
-					replace: true,
-					state: location.state
-				}
-			)
+			history.replace({
+				...location,
+				search: params.toString()
+			})
 		},
 		[history, name],
 		() => {

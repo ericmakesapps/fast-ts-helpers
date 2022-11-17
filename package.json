@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.1.1",
+	"version": "0.1.1-ionic-compat",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -15,11 +15,12 @@
 		"lint": "eslint src --ext .ts,.tsx --max-warnings 0 --fix",
 		"postbuild": "node scripts/copy-for-publish.js",
 		"prebuild": "run-p clean-lib generate-index",
-		"publish": "npm run build && cd lib && npm publish"
+		"publish": "npm run build && cd lib && npm publish",
+		"version": "npm --no-git-tag-version version"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-router": "^6.4.3"
+		"react-router": "^5.2.0"
 	},
 	"dependencies": {
 		"copy-to-clipboard": "^3.3.3",
@@ -45,7 +46,7 @@
 		"prettier": "^2.7.1",
 		"prettier-plugin-package": "^1.3.0",
 		"react": "^18.2.0",
-		"react-router": "^6.4.3",
+		"react-router": "^5.2.0",
 		"rimraf": "^3.0.2",
 		"typescript": "^4.9.3"
 	}
