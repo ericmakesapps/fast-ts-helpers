@@ -14,14 +14,13 @@ export function simplify<Type extends object>(
 	obj: Type
 ): {
 	[K in OptionalPropsOf<Type>]?: NonFalsible<Type[K]>
-} &
-	{
-		[K in Exclude<keyof Type, OptionalPropsOf<Type>>]: Falsey extends Type[K]
-			? NonFalsible<Type[K]> | undefined
-			: Type[K] extends string | number | boolean
-			? NonFalsible<Type[K]> | undefined
-			: Type[K]
-	} {
+} & {
+	[K in Exclude<keyof Type, OptionalPropsOf<Type>>]: Falsey extends Type[K]
+		? NonFalsible<Type[K]> | undefined
+		: Type[K] extends string | number | boolean
+		? NonFalsible<Type[K]> | undefined
+		: Type[K]
+} {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ret: any = {}
 

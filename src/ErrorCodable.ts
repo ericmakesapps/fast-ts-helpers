@@ -5,4 +5,4 @@ import { Union } from "./Union"
  *
  * @template Type The type to use for this error codable type.
  */
-export type ErrorCodable<Type extends object> = Union<{ error: string } | Type>
+export type ErrorCodable<Type extends object> = Union<[{ error: string }, Type]>

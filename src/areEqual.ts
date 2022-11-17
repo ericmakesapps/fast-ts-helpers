@@ -47,7 +47,7 @@ export function areEqual<Type>(...values: Type[]) {
 			return true
 		}
 
-		if (typeof a === `number` && isNaN(a) && isNaN((b as unknown) as number)) {
+		if (typeof a === `number` && isNaN(a) && isNaN(b as unknown as number)) {
 			// NaN === NaN for me. This is different from standard, so beware.
 			return true
 		}

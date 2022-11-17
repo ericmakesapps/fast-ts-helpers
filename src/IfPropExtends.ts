@@ -17,9 +17,7 @@ export type IfPropExtends<
 > =
 	| ({
 			[K in Property]: Value
-	  } &
-			Type)
+	  } & Type)
 	| ({
 			[K in Property]: FallbackValue
-	  } &
-			Never<Type>)
+	  } & Never<Type>)

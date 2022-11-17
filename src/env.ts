@@ -4,9 +4,7 @@ declare const process:
 	  }
 	| undefined
 
-function get<T>(
-	parser: (val: string) => T
-): {
+function get<T>(parser: (val: string) => T): {
 	(name: string, defaultTo: T): T
 	(name: string, defaultTo?: T): T | undefined
 } {
