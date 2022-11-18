@@ -1,5 +1,6 @@
+/* eslint-disable no-restricted-globals */
+
 import { SetStateAction } from "react"
-import { useLocation, useNavigate } from "react-router"
 
 import { useBackedState } from "./useBackedState"
 
@@ -20,31 +21,18 @@ export function useSearchState<T>(
 ): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
 export function useSearchState<T>(name: string, defaultValue?: T) {
-	const location = useLocation()
-	const navigate = useNavigate()
-
 	return useBackedState<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
-			const params = new URLSearchParams(location.search)
+			const url = new URL(location.href)
 
 			if (stringified != null) {
-				params.set(name, stringified)
+				url.searchParams.set(name, stringified)
 			} else {
-				params.delete(name)
+				url.searchParams.delete(name)
 			}
 
-			navigate(
-				{
-					pathname: location.pathname,
-					search: params.toString(),
-					hash: location.hash
-				},
-				{
-					replace: true,
-					state: location.state
-				}
-			)
+			history.replaceState(history.state, "", url)
 		},
 		[history, name],
 		() => {

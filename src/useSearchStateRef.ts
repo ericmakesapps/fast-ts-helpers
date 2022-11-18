@@ -25,7 +25,6 @@ export function useSearchStateRef<T>(
 
 export function useSearchStateRef<T>(name: string, defaultValue?: T) {
 	const ref = useRef(defaultValue)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const [state, setState] = useSearchState(name, defaultValue)
 
 	return tuple(

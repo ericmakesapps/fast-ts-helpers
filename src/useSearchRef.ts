@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router"
+/* eslint-disable no-restricted-globals */
 
 import { ReadonlyRefObject } from "./ReadonlyRefObject"
 import { useBackedRef } from "./useBackedRef"
@@ -20,31 +20,18 @@ export function useSearchRef<T>(
 ): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
 export function useSearchRef<T>(name: string, defaultValue?: T) {
-	const location = useLocation()
-	const navigate = useNavigate()
-
 	return useBackedRef<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
-			const params = new URLSearchParams(location.search)
+			const url = new URL(location.href)
 
 			if (stringified != null) {
-				params.set(name, stringified)
+				url.searchParams.set(name, stringified)
 			} else {
-				params.delete(name)
+				url.searchParams.delete(name)
 			}
 
-			navigate(
-				{
-					pathname: location.pathname,
-					search: params.toString(),
-					hash: location.hash
-				},
-				{
-					replace: true,
-					state: location.state
-				}
-			)
+			history.replaceState(history.state, "", url)
 		},
 		[history, name],
 		() => {
