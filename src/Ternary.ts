@@ -1,3 +1,4 @@
+import { IdType } from "./IdType"
 import { Key } from "./Key"
 import { Union } from "./Union"
 
@@ -12,6 +13,8 @@ export type Ternary<
 	Property extends Key,
 	TypeIfTrue extends object,
 	TypeIfFalse extends object
-> = Union<
-	[{ [K in Property]: true } & TypeIfTrue, { [K in Property]: false } & TypeIfFalse]
+> = IdType<
+	Union<
+		[{ [K in Property]: true } & TypeIfTrue, { [K in Property]: false } & TypeIfFalse]
+	>
 >

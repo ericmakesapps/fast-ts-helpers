@@ -1,3 +1,4 @@
+import { IdType } from "./IdType"
 import { Key } from "./Key"
 import { Never } from "./Never"
 
@@ -14,10 +15,11 @@ export type IfPropExtends<
 	Value,
 	Type extends object,
 	FallbackValue
-> =
+> = IdType<
 	| ({
 			[K in Property]: Value
 	  } & Type)
 	| ({
 			[K in Property]: FallbackValue
 	  } & Never<Type>)
+>

@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
