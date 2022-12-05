@@ -2,5 +2,8 @@
 	"extends": ["react-app"],
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint"],
-	"root": true
+	"root": true,
+	"rules": {
+		"react/self-closing-comp": ["error"]
+	}
 }
