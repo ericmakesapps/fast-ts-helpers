@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 
 /**
  * Return the previous value of a variable (good for change detection).
@@ -17,9 +17,14 @@ export function usePrevious<T>(value: T, startUndefined: true): T | undefined
 export function usePrevious<T>(value: T, startUndefined?: false): T
 
 export function usePrevious<T>(value: T, startUndefined = false) {
-	const ref = useRef(startUndefined ? undefined : value)
+	const currentValue = useRef(startUndefined ? undefined : value)
 
-	useEffect(() => void (ref.current = value), [value])
+	// Store the previous value in a local variable, to return in a sec.
+	const previousValue = currentValue.current
 
-	return ref.current
+	// Save the current value into the ref.
+	currentValue.current = value
+
+	// Return the previous value.
+	return previousValue
 }
