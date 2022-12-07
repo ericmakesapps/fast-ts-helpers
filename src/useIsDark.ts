@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
+import { ifBrowser } from "./ifBrowser"
 
-const query: MediaQueryList | undefined = window.matchMedia?.(
-	`(prefers-color-scheme: dark)`
+const query = ifBrowser(
+	() => window.matchMedia?.(`(prefers-color-scheme: dark)`),
+	undefined
 )
 
 /**

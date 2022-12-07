@@ -2,13 +2,19 @@ import { DependencyList, useEffect, useMemo, useState } from "react"
 
 import { throttle } from "./throttle"
 import { cacheKey } from "./cacheKey"
+import { ifBrowser } from "./ifBrowser"
 
 declare const require: (thing: string) => unknown
 
-const MutationObserver = require(`mutation-observer`) as {
-	prototype: MutationObserver
-	new (callback: MutationCallback): MutationObserver
-}
+type MutationObserverConstructor = typeof MutationObserver
+
+const MyMutationObserver =
+	typeof MutationObserver !== "undefined"
+		? MutationObserver
+		: ifBrowser(
+				() => require(`mutation-observer`) as MutationObserverConstructor,
+				undefined
+		  )
 
 /**
  * Calls a function when this component mounts, and any time changes falling under the passed options happen to the element to which the ref as attached.
@@ -31,8 +37,8 @@ export function useObserve(
 	const opt = useMemo(() => options, [cacheKey(options)])
 
 	useEffect(() => {
-		if (node) {
-			const observer = new MutationObserver(cb)
+		if (node && MyMutationObserver) {
+			const observer = new MyMutationObserver(cb)
 
 			cb([], observer)
 
