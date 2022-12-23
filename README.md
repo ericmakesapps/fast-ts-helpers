@@ -4,7 +4,7 @@ This repository contains a set of helpers that I've collected over time. I like 
 
 ## Testing
 
-No tests yet. Those will come later, maybe.
+Tests are being added! Feel free to add some tests too, and put up a PR.
 
 ## Developing
 

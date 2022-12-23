@@ -7,7 +7,7 @@
  * @template Type The common type between all values.
  * @returns Whether all of the passed values are equal.
  */
-export function areEqual<Type>(...values: Type[]) {
+export function areEqual(...values: any[]) {
 	// Iteratively compare each item to all the ones after it in the list. If any are unequal, return false. Don't need any smarts here, as JS is always single threaded right now.
 	for (let i = 0; i < values.length - 1; i += 1) {
 		for (let j = i + 1; j < values.length; j += 1) {
@@ -17,21 +17,30 @@ export function areEqual<Type>(...values: Type[]) {
 		}
 	}
 
-	function doEqual<T>(a: T, b: T) {
+	function doEqual(a: any, b: any) {
+		// Return true if they are equal via simple equality
 		if (a === b) {
 			return true
 		}
 
-		if (Boolean(a) !== Boolean(b) || typeof a !== typeof b) {
+		// Return false if their truthiness isn't equal
+		if (Boolean(a) !== Boolean(b)) {
 			return false
 		}
 
-		if (a && b && typeof a === `object`) {
+		// Return false if they don't have the same type
+		if (typeof a !== typeof b) {
+			return false
+		}
+
+		// If a is truthy and and object, that means b is also truthy and also an object
+		if (a && typeof a === `object`) {
+			// Return false if one is an array but the other isn't
 			if (Array.isArray(a) !== Array.isArray(b)) {
 				return false
 			}
 
-			// Prepare for deep comparison
+			// Let's compare key by key now
 			const keys = Object.keys(a)
 
 			if (keys.length !== Object.keys(b).length) {
@@ -39,7 +48,7 @@ export function areEqual<Type>(...values: Type[]) {
 			}
 
 			for (const key of keys) {
-				if (!areEqual(a[key as keyof T], b[key as keyof T])) {
+				if (!areEqual(a[key], b[key])) {
 					return false
 				}
 			}
@@ -47,7 +56,7 @@ export function areEqual<Type>(...values: Type[]) {
 			return true
 		}
 
-		if (typeof a === `number` && isNaN(a) && isNaN(b as unknown as number)) {
+		if (typeof a === `number` && isNaN(a) && isNaN(b)) {
 			// NaN === NaN for me. This is different from standard, so beware.
 			return true
 		}

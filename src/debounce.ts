@@ -22,8 +22,7 @@ export function debounce<T extends (...args: any[]) => unknown>(
 	threshold = 100,
 	immediate = false
 ) {
-	let timeout: number | undefined
-
+	let timeout: number | NodeJS.Timeout | undefined
 	let returnVal: unknown
 
 	return function (this: T, ...args: unknown[]) {
