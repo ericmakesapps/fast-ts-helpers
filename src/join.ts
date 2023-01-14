@@ -1,5 +1,6 @@
 import FalsibleList from "./FalsibleList"
-import flatfilter from "./flatfilter"
+import filter from "./filter"
+import flat from "./flat"
 
 export type JoinOptions = {
 	separator?: string
@@ -39,7 +40,7 @@ function join(
 		potentials.unshift(options as FalsibleList<string>)
 	}
 
-	const values = flatfilter(potentials)
+	const values = filter(flat(potentials))
 
 	return values.length > 0 ? values.reduce((trans, next) => trans + separator + next) : ``
 }

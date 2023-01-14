@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -8,9 +8,9 @@
 	"author": "Eric Ferreira <eric@ericmakesapps.com>",
 	"scripts": {
 		"build": "tsc",
-		"check": "run-p lint format test",
+		"check": "run-p lint format \"test -- --watchAll=false\"",
 		"clean-lib": "rimraf lib/*",
-		"fix": "run-s fix:lint fix:format test",
+		"fix": "run-s fix:lint fix:format \"test -- --watchAll=false\"",
 		"fix:format": "npm run format -- --write",
 		"fix:lint": "npm run lint -- --fix",
 		"format": "prettier -c --ignore-path .gitignore \"**/?*.@(js|ts|jsx|tsx|json|md|html|css|scss)\"",
@@ -18,8 +18,7 @@
 		"postbuild": "node scripts/copy-for-publish.js",
 		"prebuild": "run-p clean-lib check",
 		"publish": "npm run build && cd lib && npm publish",
-		"test": "jest --coverage",
-		"test:watch": "npm run test -- --watch",
+		"test": "jest --coverage --watch",
 		"version": "npm --no-git-tag-version version"
 	},
 	"peerDependencies": {

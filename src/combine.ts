@@ -1,8 +1,9 @@
 import Func from "./Func"
 import Falsible from "./Falsible"
 
-import flatfilter from "./flatfilter"
 import memoize from "./memoize"
+import filter from "./filter"
+import flat from "./flat"
 
 const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
 	// @ts-expect-error
@@ -30,7 +31,7 @@ const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
 function combine<Args extends unknown[]>(
 	...callbacks: Falsible<(...args: Args) => void>[]
 ): ((...arg: Args) => void) | undefined {
-	const filtered = flatfilter(callbacks)
+	const filtered = filter(flat(callbacks))
 
 	return filtered.length > 0 ? doCombine(...filtered) : undefined
 }

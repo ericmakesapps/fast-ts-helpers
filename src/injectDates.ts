@@ -2,7 +2,7 @@ import fullyMatches from "./fullyMatches"
 import parseDate from "./parseDate"
 
 /**
- * Inject actual Date objects in place of date strings and numbers in the passed object. **This mutates the passed in object**.
+ * Inject actual Date objects in place of date strings and numbers in the passed object. **This mutates the passed in object**. If the value is a string, it matches the string against a regex for ISO date strings. If the value is a number, it matches the property name for the "date" in the name.
  *
  * @template Type The type of the object where dates are being injected.
  * @param obj The object in which to inject Dates for all date properties.

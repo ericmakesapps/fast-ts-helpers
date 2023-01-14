@@ -1,6 +1,7 @@
 import Writable from "./Writable"
 import FalsibleList from "./FalsibleList"
-import flatfilter from "./flatfilter"
+import filter from "./filter"
+import flat from "./flat"
 
 /**
  * Combine a set of refs into a single ref callback.
@@ -11,7 +12,7 @@ import flatfilter from "./flatfilter"
  */
 function refs<Type>(...refsToCombine: FalsibleList<React.Ref<Type>>[]) {
 	return (instance: Type | null) => {
-		for (const ref of flatfilter(refsToCombine)) {
+		for (const ref of filter(flat(refsToCombine))) {
 			if (typeof ref === `function`) {
 				ref(instance)
 			} else if (typeof ref === `object` && `current` in ref) {
