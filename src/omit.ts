@@ -13,6 +13,20 @@ function omit<Type extends object, Key extends keyof Type>(
 ): Omit<Type, Key>
 
 /**
+ * Return a version of the passed object which excludes the properties with the passed keys.
+ *
+ * @template Type The type of object from which properties are being omitted.
+ * @template Key The keys that should be omitted.
+ * @param obj The object from which to omit values.
+ * @param keys The keys whose values to omit.
+ * @returns A version of the object without the specified keys.
+ */
+function omit<Type extends object, Key extends keyof Type>(
+	obj: Type | undefined,
+	...keys: Key[]
+): Omit<Type, Key> | undefined
+
+/**
  * Return a version of the passed object which excludes the properties with keys that match the passed RegExp.
  *
  * @template Type The type of object from which properties are being omitted.
@@ -22,11 +36,28 @@ function omit<Type extends object, Key extends keyof Type>(
  */
 function omit<Type extends object>(obj: Type, pattern: RegExp): Partial<Type>
 
+/**
+ * Return a version of the passed object which excludes the properties with keys that match the passed RegExp.
+ *
+ * @template Type The type of object from which properties are being omitted.
+ * @param obj The object from which to omit the values whose keys match the pattern.
+ * @param pattern The pattern against which to test keys for those whose values to omit.
+ * @returns A version of the object without the keys that match RegExp.
+ */
+function omit<Type extends object>(
+	obj: Type | undefined,
+	pattern: RegExp
+): Partial<Type> | undefined
+
 function omit<T extends object, K extends keyof T>(
-	obj: T,
+	obj: T | undefined,
 	patternOrKey: K | RegExp,
 	...keys: K[]
 ) {
+	if (!obj) {
+		return obj
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ret: any = {}
 
