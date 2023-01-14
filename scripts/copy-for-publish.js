@@ -47,7 +47,15 @@ async function run() {
 					JSON.stringify(lock, undefined, `\t`)
 				)
 			}),
-		fs.copyFile("README.md", `${lib}/README.md`)
+		fs
+			.readdir(".")
+			.then((files) =>
+				Promise.all(
+					files
+						.filter((f) => f.endsWith(".md"))
+						.map((file) => fs.copyFile(file, `${lib}/${file}`))
+				)
+			)
 	])
 }
 

@@ -3,6 +3,8 @@
  *
  * @template Type The type to map.
  */
-export type Never<Type extends object> = {
+type Never<Type extends object> = {
 	[P in keyof Type]?: never
 }
+
+export default Never

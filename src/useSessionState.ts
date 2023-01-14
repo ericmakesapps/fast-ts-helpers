@@ -1,6 +1,6 @@
 import { SetStateAction } from "react"
 
-import { useBackedState } from "./useBackedState"
+import useBackedState from "./useBackedState"
 
 /**
  * Use a state variable backed by session storage. This is designed only for local access to the variable value (not across different components/environments).
@@ -8,16 +8,16 @@ import { useBackedState } from "./useBackedState"
  * @param name The name under which to store the variable. This value should be unique across the app for this one component/page. Don’t use it across components/pages to try to share the value updates. That probably won’t work.
  * @param defaultValue The default value, if any, of the value.
  */
-export function useSessionState<T>(
+function useSessionState<T>(
 	name: string,
 	defaultValue: T
 ): [T, (newValue: SetStateAction<T>) => void]
-export function useSessionState<T>(
+function useSessionState<T>(
 	name: string,
 	defaultValue?: T
 ): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
-export function useSessionState<T>(name: string, defaultValue?: T) {
+function useSessionState<T>(name: string, defaultValue?: T) {
 	return useBackedState<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
@@ -43,3 +43,5 @@ export function useSessionState<T>(name: string, defaultValue?: T) {
 		defaultValue
 	)
 }
+
+export default useSessionState

@@ -1,8 +1,8 @@
-import { flatfilter } from "./flatfilter"
-import { FalsibleList } from "./FalsibleList"
+import flatfilter from "./flatfilter"
+import FalsibleList from "./FalsibleList"
 
 /** Concatenate the passed URL parts into one URL using `/` as the separator, with a leadin slash and without a trailing slash. */
-export function concatUrls(...urls: FalsibleList<string>[]) {
+function concatUrls(...urls: FalsibleList<string>[]) {
 	const filtered = flatfilter(urls)
 
 	if (filtered.length > 0) {
@@ -19,3 +19,5 @@ export function concatUrls(...urls: FalsibleList<string>[]) {
 
 	return ``
 }
+
+export default concatUrls

@@ -5,7 +5,7 @@ import { useRef } from "react"
  *
  * @param callback The callback to call the first time through this component.
  */
-export function useConstructor(callback: () => unknown) {
+function useConstructor(callback: () => unknown) {
 	const hasRun = useRef(false)
 
 	if (!hasRun.current) {
@@ -14,3 +14,5 @@ export function useConstructor(callback: () => unknown) {
 		callback()
 	}
 }
+
+export default useConstructor

@@ -1,8 +1,8 @@
 import { DependencyList, useCallback, useMemo, useRef } from "react"
 
-import { ReadonlyRefObject } from "./ReadonlyRefObject"
-import { tuple } from "./tuple"
-import { areEqual } from "./areEqual"
+import ReadonlyRefObject from "./ReadonlyRefObject"
+import tuple from "./tuple"
+import areEqual from "./areEqual"
 
 /**
  * Use a ref that has some backing for its initial value.
@@ -12,20 +12,20 @@ import { areEqual } from "./areEqual"
  * @param get A callback to get the initial value from backing. This is only used in initializing this ref.
  * @param defaultValue The default value to use for the value.
  */
-export function useBackedRef<T>(
+function useBackedRef<T>(
 	set: (newValue: T) => void,
 	deps: DependencyList,
 	get: () => T,
 	defaultValue: T
 ): [ReadonlyRefObject<T>, (newValue: T) => void]
-export function useBackedRef<T>(
+function useBackedRef<T>(
 	set: (newValue: T | undefined) => void,
 	deps: DependencyList,
 	get: () => T | undefined,
 	defaultValue?: T
 ): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
-export function useBackedRef<T>(
+function useBackedRef<T>(
 	set: (newValue: T | undefined) => void,
 	deps: DependencyList,
 	get: () => T | undefined,
@@ -48,3 +48,5 @@ export function useBackedRef<T>(
 		)
 	)
 }
+
+export default useBackedRef

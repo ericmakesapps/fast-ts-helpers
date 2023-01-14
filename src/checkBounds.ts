@@ -1,6 +1,6 @@
 export type Orientation = "portrait" | "landscape"
 
-export function checkBounds(
+function checkBounds(
 	width: number,
 	bounds: [number, number],
 	orientation?: Orientation
@@ -13,3 +13,5 @@ export function checkBounds(
 		? checkBounds(width, [bounds[0], mid])
 		: checkBounds(width, [mid + 1, bounds[1]])
 }
+
+export default checkBounds

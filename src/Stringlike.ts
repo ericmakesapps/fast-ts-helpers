@@ -3,7 +3,7 @@
  *
  * @template Key The key to map to its string-like version.
  */
-export type Stringlike<Key> = Key extends string
+type Stringlike<Key> = Key extends string
 	? Key
 	: Key extends number
 	? StringForNumber[Key]
@@ -25,3 +25,5 @@ type StringForNumber = {
 	1234: `1234`
 	[n: number]: string
 }
+
+export default Stringlike

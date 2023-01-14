@@ -3,7 +3,7 @@
  *
  * @param callback The callback to call if we are in the browser environment.
  */
-export function inBrowser(callback: () => void) {
+function inBrowser(callback: () => void) {
 	if (
 		Boolean(window) ||
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,3 +12,5 @@ export function inBrowser(callback: () => void) {
 		callback()
 	}
 }
+
+export default inBrowser

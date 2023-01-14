@@ -1,4 +1,4 @@
-import { keys } from "./keys"
+import keys from "./keys"
 
 /**
  * Delete all the entries in this object. **This mutates the object itself**!
@@ -7,10 +7,12 @@ import { keys } from "./keys"
  * @param obj The object whose properties to delete.
  * @returns The same object, but without all of its own properties.
  */
-export function deleteOwnProperties<Type extends object>(obj: Type) {
+function deleteOwnProperties<Type extends object>(obj: Type) {
 	for (const key of keys(obj)) {
 		delete obj[key as keyof Type]
 	}
 
 	return obj as {}
 }
+
+export default deleteOwnProperties

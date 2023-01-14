@@ -1,8 +1,8 @@
 import { DependencyList, useEffect, useMemo, useState } from "react"
 
-import { throttle } from "./throttle"
-import { cacheKey } from "./cacheKey"
-import { ifBrowser } from "./ifBrowser"
+import throttle from "./throttle"
+import cacheKey from "./cacheKey"
+import ifBrowser from "./ifBrowser"
 
 declare const require: (thing: string) => unknown
 
@@ -24,7 +24,7 @@ const MyMutationObserver =
  * @param options The options to use for the observation.
  * @returns The ref callback to attach to the component to observe.
  */
-export function useObserve(
+function useObserve(
 	callback: MutationCallback,
 	deps: DependencyList,
 	options: MutationObserverInit
@@ -52,3 +52,5 @@ export function useObserve(
 
 	return setNode as (node: Node | null) => void
 }
+
+export default useObserve

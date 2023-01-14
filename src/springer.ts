@@ -31,7 +31,7 @@ const reusedTuple: [number, number] = [0, 0]
  * @param wobble The wobble of the spring. Defaults to `0`.
  * @returns An interpolator with the passed configurations.
  */
-export function springer(tension = 0, wobble = 0) {
+function springer(tension = 0, wobble = 0) {
 	const stiffness = Math.min(Math.max(350 * tension, 20), 350)
 	const damping = Math.min(Math.max(40 - 40 * wobble, 1), 40)
 	const steps: number[] = []
@@ -81,3 +81,5 @@ function stepper(
 
 	return reusedTuple
 }
+
+export default springer

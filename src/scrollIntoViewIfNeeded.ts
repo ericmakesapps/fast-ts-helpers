@@ -1,7 +1,7 @@
-import { parentLeft } from "./parentLeft"
-import { parentTop } from "./parentTop"
-import { isScrollable } from "./isScrollable"
-import { animateScrollTo } from "./animateScrollTo"
+import parentLeft from "./parentLeft"
+import parentTop from "./parentTop"
+import isScrollable from "./isScrollable"
+import animateScrollTo from "./animateScrollTo"
 
 /**
  * Scroll the passed element into view if it is not currently in the view.
@@ -10,7 +10,7 @@ import { animateScrollTo } from "./animateScrollTo"
  * @param options An object container some possible options.
  * @returns A promise that resolves when scrolling is done.
  */
-export async function scrollIntoViewIfNeeded(
+async function scrollIntoViewIfNeeded(
 	element: HTMLElement,
 	{
 		padding = 0,
@@ -102,3 +102,5 @@ export async function scrollIntoViewIfNeeded(
 		})
 	)
 }
+
+export default scrollIntoViewIfNeeded

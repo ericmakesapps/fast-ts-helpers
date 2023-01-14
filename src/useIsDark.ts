@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ifBrowser } from "./ifBrowser"
+import ifBrowser from "./ifBrowser"
 
 const query = ifBrowser(
 	() => window.matchMedia?.(`(prefers-color-scheme: dark)`),
@@ -11,7 +11,7 @@ const query = ifBrowser(
  *
  * @returns Whether the browser currently prefers dark mode
  */
-export function useIsDark() {
+function useIsDark() {
 	const [isDark, setIsDark] = useState(() => query?.matches)
 
 	useEffect(() => {
@@ -28,3 +28,5 @@ export function useIsDark() {
 
 	return isDark
 }
+
+export default useIsDark

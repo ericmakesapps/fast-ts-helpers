@@ -5,9 +5,11 @@
  * @param rhs The right-hand-side of the comparison.
  * @returns A number representing the comparison between the strings.
  */
-export function compare(lhs: string | undefined, rhs: string | undefined) {
+function compare(lhs: string | undefined, rhs: string | undefined) {
 	return (lhs ?? ``).localeCompare(rhs ?? ``, undefined, {
 		numeric: true,
 		sensitivity: `base`
 	}) as -1 | 0 | 1
 }
+
+export default compare

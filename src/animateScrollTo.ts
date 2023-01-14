@@ -1,4 +1,4 @@
-import { springer } from "./springer"
+import springer from "./springer"
 
 const animateScrollInterpolator = springer(0, 0)
 
@@ -28,7 +28,7 @@ function makeTween(
 	}
 }
 
-export async function animateScrollTo(
+async function animateScrollTo(
 	elementOrOptions: HTMLElement | ScrollOptions,
 	options?: ScrollOptions
 ) {
@@ -122,3 +122,5 @@ export async function animateScrollTo(
 
 	return Promise.all(promises).then(() => undefined)
 }
+
+export default animateScrollTo

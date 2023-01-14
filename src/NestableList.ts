@@ -3,4 +3,6 @@
  *
  * @template Type The type contained by this nestable list.
  */
-export type NestableList<Type> = Type | NestableList<Type>[]
+type NestableList<Type> = Type | NestableList<Type>[]
+
+export default NestableList

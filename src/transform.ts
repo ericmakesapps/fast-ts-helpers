@@ -1,4 +1,4 @@
-import { entries } from "./entries"
+import entries from "./entries"
 
 /**
  * Map an object's values to the result of a mapper function.
@@ -9,7 +9,7 @@ import { entries } from "./entries"
  * @param mapper The mapper function to use.
  * @returns A version of the object with its values mapped.
  */
-export function transform<Type extends object, Result>(
+function transform<Type extends object, Result>(
 	obj: Type,
 	mapper: (key: keyof Type, value: Type[typeof key]) => Result
 ): {
@@ -23,3 +23,5 @@ export function transform<Type extends object, Result>(
 		return trans
 	}, {})
 }
+
+export default transform

@@ -1,4 +1,4 @@
-import { wrap } from "./wrap"
+import wrap from "./wrap"
 
 /**
  * Map a single item or an array of items to another type.
@@ -9,9 +9,11 @@ import { wrap } from "./wrap"
  * @param mapper The mapper function.
  * @returns A version of the passed array with its values mapped.
  */
-export function map<Type, Result>(
+function map<Type, Result>(
 	array: Type | Type[],
 	mapper: (item: Type, index: number) => Result
 ) {
 	return wrap(array).map(mapper)
 }
+
+export default map

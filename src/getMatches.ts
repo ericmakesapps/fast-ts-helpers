@@ -5,7 +5,7 @@
  * @param regex The regular expression to use for matching.
  * @returns The matches of the regular expression in the string.
  */
-export function getMatches(text: string, regex: RegExp) {
+function getMatches(text: string, regex: RegExp) {
 	function findMatches(str: string, pattern: RegExp, matches: RegExpMatchArray[] = []) {
 		const match = pattern.exec(str)
 
@@ -20,3 +20,5 @@ export function getMatches(text: string, regex: RegExp) {
 
 	return findMatches(text, new RegExp(regex.source, `${regex.flags}g`))
 }
+
+export default getMatches

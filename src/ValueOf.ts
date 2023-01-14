@@ -1,1 +1,3 @@
-export type ValueOf<T extends {}> = T[keyof T]
+type ValueOf<T extends {}> = T[keyof T]
+
+export default ValueOf

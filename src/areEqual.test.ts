@@ -1,4 +1,4 @@
-import { areEqual } from "./areEqual"
+import areEqual from "./areEqual"
 
 describe("areEqual helper", () => {
 	test("should compare by value", () => {

@@ -1,4 +1,6 @@
 /** Automatically prevent the default of an event. */
-export function preventDefault(event: { preventDefault: () => void }) {
+function preventDefault(event: { preventDefault: () => void }) {
 	event.preventDefault()
 }
+
+export default preventDefault

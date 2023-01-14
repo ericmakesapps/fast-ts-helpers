@@ -1,4 +1,4 @@
-import { truthy } from "./truthy"
+import truthy from "./truthy"
 
 /**
  * Parse a date, number, or string into a Date.
@@ -6,16 +6,16 @@ import { truthy } from "./truthy"
  * @param date The date, number, or string to parse into a Date.
  * @returns The Date that was parsed.
  */
-export function parseDate(date: string | number | Date): Date
+function parseDate(date: string | number | Date): Date
 /**
  * Parse a date, number, or string into a Date.
  *
  * @param date The date, number, or string to parse into a Date.
  * @returns The Date that was parsed.
  */
-export function parseDate(date: string | number | Date | undefined): Date | undefined
+function parseDate(date: string | number | Date | undefined): Date | undefined
 
-export function parseDate(date: string | number | Date | undefined) {
+function parseDate(date: string | number | Date | undefined) {
 	if (date == null || date instanceof Date) {
 		return date
 	}
@@ -103,3 +103,5 @@ export function parseDate(date: string | number | Date | undefined) {
 
 	return new Date(manualTime - offset)
 }
+
+export default parseDate

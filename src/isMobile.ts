@@ -1,6 +1,6 @@
-import { mobileBreakpoint } from "./mobileBreakpoint"
+import mobileBreakpoint from "./mobileBreakpoint"
 
-import { checkBounds, Orientation } from "./checkBounds"
+import checkBounds, { Orientation } from "./checkBounds"
 
 /**
  * Check whether the screen is currently at a mobile viewport size.
@@ -8,6 +8,8 @@ import { checkBounds, Orientation } from "./checkBounds"
  * @param orientation The orientation to use while checking.
  * @returns Whether the viewport is currently mobile.
  */
-export function isMobile(orientation?: Orientation) {
+function isMobile(orientation?: Orientation) {
 	return checkBounds(window.innerWidth, [0, mobileBreakpoint], orientation)
 }
+
+export default isMobile

@@ -1,5 +1,5 @@
-import { fullyMatches } from "./fullyMatches"
-import { parseDate } from "./parseDate"
+import fullyMatches from "./fullyMatches"
+import parseDate from "./parseDate"
 
 /**
  * Inject actual Date objects in place of date strings and numbers in the passed object. **This mutates the passed in object**.
@@ -8,7 +8,7 @@ import { parseDate } from "./parseDate"
  * @param obj The object in which to inject Dates for all date properties.
  * @returns The same object that was passed in.
  */
-export function injectDates<Type extends {}>(obj: Type) {
+function injectDates<Type extends {}>(obj: Type) {
 	for (const key in obj) {
 		if (obj.hasOwnProperty(key)) {
 			const value = obj[key]
@@ -31,3 +31,5 @@ export function injectDates<Type extends {}>(obj: Type) {
 
 	return obj
 }
+
+export default injectDates

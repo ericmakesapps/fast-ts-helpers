@@ -1,7 +1,7 @@
-import { NestableList } from "./NestableList"
+import NestableList from "./NestableList"
 
-import { map } from "./map"
-import { flat } from "./flat"
+import map from "./map"
+import flat from "./flat"
 
 /**
  * Map the flattened version of a nestable array. This won't flatten what the mapper returns—use flatmap if you want that.
@@ -12,9 +12,11 @@ import { flat } from "./flat"
  * @param mapper The mapper function to use.
  * @returns The items mapped from the flattened version of the passed array.
  */
-export function mapflat<Type, Result>(
+function mapflat<Type, Result>(
 	array: NestableList<Type>,
 	mapper: (item: Type, index: number) => Result
 ) {
 	return map(flat(array), mapper)
 }
+
+export default mapflat

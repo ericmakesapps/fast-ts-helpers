@@ -7,7 +7,7 @@
  * @param keys The keys whose values to omit.
  * @returns A version of the object without the specified keys.
  */
-export function omit<Type extends object, Key extends keyof Type>(
+function omit<Type extends object, Key extends keyof Type>(
 	obj: Type,
 	...keys: Key[]
 ): Omit<Type, Key>
@@ -20,9 +20,9 @@ export function omit<Type extends object, Key extends keyof Type>(
  * @param pattern The pattern against which to test keys for those whose values to omit.
  * @returns A version of the object without the keys that match RegExp.
  */
-export function omit<Type extends object>(obj: Type, pattern: RegExp): Partial<Type>
+function omit<Type extends object>(obj: Type, pattern: RegExp): Partial<Type>
 
-export function omit<T extends object, K extends keyof T>(
+function omit<T extends object, K extends keyof T>(
 	obj: T,
 	patternOrKey: K | RegExp,
 	...keys: K[]
@@ -47,3 +47,5 @@ export function omit<T extends object, K extends keyof T>(
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return ret
 }
+
+export default omit

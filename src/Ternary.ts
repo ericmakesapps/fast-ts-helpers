@@ -1,6 +1,6 @@
-import { IdType } from "./IdType"
-import { Key } from "./Key"
-import { Union } from "./Union"
+import IdType from "./IdType"
+import Key from "./Key"
+import Union from "./Union"
 
 /**
  * Represents a type equivalent `TypeIfTrue` if the value of `Property` is `true` or `TypeIfFalse` if the value of `Property` is `false`.
@@ -9,7 +9,7 @@ import { Union } from "./Union"
  * @template TypeIfTrue The type to return if the value of `Property` is `true`.
  * @template TypeIfFalse The type to return if the value of `Property` is `false`.
  */
-export type Ternary<
+type Ternary<
 	Property extends Key,
 	TypeIfTrue extends object,
 	TypeIfFalse extends object
@@ -18,3 +18,5 @@ export type Ternary<
 		[{ [K in Property]: true } & TypeIfTrue, { [K in Property]: false } & TypeIfFalse]
 	>
 >
+
+export default Ternary

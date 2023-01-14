@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
-import { ReadonlyRefObject } from "./ReadonlyRefObject"
-import { useBackedRef } from "./useBackedRef"
+import ReadonlyRefObject from "./ReadonlyRefObject"
+import useBackedRef from "./useBackedRef"
 
 /**
  * Use a ref backed by a search parameter in the path.
@@ -10,16 +10,16 @@ import { useBackedRef } from "./useBackedRef"
  * @param defaultValue The default value, if any, of the parameter.
  * @requires history Must be called in a router context.
  */
-export function useSearchRef<T>(
+function useSearchRef<T>(
 	name: string,
 	defaultValue: T
 ): [ReadonlyRefObject<T>, (newValue: T) => void]
-export function useSearchRef<T>(
+function useSearchRef<T>(
 	name: string,
 	defaultValue?: T
 ): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
-export function useSearchRef<T>(name: string, defaultValue?: T) {
+function useSearchRef<T>(name: string, defaultValue?: T) {
 	return useBackedRef<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
@@ -48,3 +48,5 @@ export function useSearchRef<T>(name: string, defaultValue?: T) {
 		defaultValue
 	)
 }
+
+export default useSearchRef

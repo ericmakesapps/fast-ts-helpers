@@ -1,8 +1,8 @@
-import { combine } from "./combine"
-import { deleteOwnProperties } from "./deleteOwnProperties"
-import { Falsible } from "./Falsible"
-import { memoize } from "./memoize"
-import { truthy } from "./truthy"
+import combine from "./combine"
+import deleteOwnProperties from "./deleteOwnProperties"
+import Falsible from "./Falsible"
+import memoize from "./memoize"
+import truthy from "./truthy"
 
 /** The keys that are currently pressed. */
 const keysDown: Record<string, boolean> = {}
@@ -15,7 +15,7 @@ const keysDown: Record<string, boolean> = {}
  * @param extraOnKeyUp An additional listener to attach to the native `KeyUp` event.
  * @returns An object containing the callbacks to attach to the element.
  */
-export const onNonRepeatedKeyDown = memoize(
+const onNonRepeatedKeyDown = memoize(
 	(
 		action?: Falsible<(event: React.KeyboardEvent) => void>,
 		extraOnKeyDown?: Falsible<(event: React.KeyboardEvent) => void>,
@@ -47,3 +47,5 @@ export const onNonRepeatedKeyDown = memoize(
 		}
 	}
 )
+
+export default onNonRepeatedKeyDown

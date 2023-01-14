@@ -5,7 +5,7 @@
  * @param n The element count from the current element. Passing `0` will return the element itself.
  * @returns The sibling that is `n` away from the passed element.
  */
-export function getNthSibling(element: HTMLElement | undefined, n: number) {
+function getNthSibling(element: HTMLElement | undefined, n: number) {
 	n = Math.round(n)
 
 	while (n !== 0) {
@@ -21,3 +21,5 @@ export function getNthSibling(element: HTMLElement | undefined, n: number) {
 
 	return element
 }
+
+export default getNthSibling

@@ -4,10 +4,12 @@
  * @param fallback The value to return if this is not in the browser.
  * @returns The value from the function if run in the browser, or the fallback value if not in the browser.
  */
-export const ifBrowser = <T extends any>(cb: () => T, fallback: T) => {
+const ifBrowser = <T extends any>(cb: () => T, fallback: T) => {
 	if (typeof window !== "undefined" && typeof document !== "undefined") {
 		return cb()
 	}
 
 	return fallback
 }
+
+export default ifBrowser

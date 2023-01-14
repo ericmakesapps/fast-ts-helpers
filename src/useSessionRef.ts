@@ -1,5 +1,5 @@
-import { ReadonlyRefObject } from "./ReadonlyRefObject"
-import { useBackedRef } from "./useBackedRef"
+import ReadonlyRefObject from "./ReadonlyRefObject"
+import useBackedRef from "./useBackedRef"
 
 /**
  * Use a ref variable backed by session storage. This is designed only for local access to the variable value (not across different components/environments).
@@ -7,16 +7,16 @@ import { useBackedRef } from "./useBackedRef"
  * @param name The name under which to store the variable. This value should be unique across the app for this one component/page. Don’t use it across components/pages to try to share the value updates. That probably won’t work.
  * @param defaultValue The default value, if any, of the value.
  */
-export function useSessionRef<T>(
+function useSessionRef<T>(
 	name: string,
 	defaultValue: T
 ): [ReadonlyRefObject<T>, (newValue: T) => void]
-export function useSessionRef<T>(
+function useSessionRef<T>(
 	name: string,
 	defaultValue?: T
 ): [ReadonlyRefObject<T | undefined>, (newValue: T | undefined) => void]
 
-export function useSessionRef<T>(name: string, defaultValue?: T) {
+function useSessionRef<T>(name: string, defaultValue?: T) {
 	return useBackedRef<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
@@ -42,3 +42,5 @@ export function useSessionRef<T>(name: string, defaultValue?: T) {
 		defaultValue
 	)
 }
+
+export default useSessionRef

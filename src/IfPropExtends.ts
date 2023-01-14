@@ -1,6 +1,6 @@
-import { IdType } from "./IdType"
-import { Key } from "./Key"
-import { Never } from "./Never"
+import IdType from "./IdType"
+import Key from "./Key"
+import Never from "./Never"
 
 /**
  * Represents a type that has the properties in Type if the value of `Property` extends `Value`, otherwise will not if the value extends `FallbackValue`.
@@ -10,7 +10,7 @@ import { Never } from "./Never"
  * @template Type The type whose properties depend on the value of `Property`
  * @template FallbackValue The alternate value for `Property`.
  */
-export type IfPropExtends<
+type IfPropExtends<
 	Property extends Key,
 	Value,
 	Type extends object,
@@ -23,3 +23,5 @@ export type IfPropExtends<
 			[K in Property]: FallbackValue
 	  } & Never<Type>)
 >
+
+export default IfPropExtends

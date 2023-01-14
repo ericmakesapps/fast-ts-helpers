@@ -6,7 +6,7 @@
  * @param treatUndefinedAsEmptyString Whether `undefined` for the string should be treated the same as empty string.
  * @returns Whether the string fully matches the regular expression.
  */
-export function fullyMatches(
+function fullyMatches(
 	str: string | undefined | null,
 	regex: string | RegExp,
 	treatUndefinedAsEmptyString = false
@@ -24,3 +24,5 @@ export function fullyMatches(
 
 	return new RegExp(`^(${text})$`, flags).test(str)
 }
+
+export default fullyMatches

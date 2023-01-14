@@ -1,9 +1,9 @@
-import { Falsible } from "./Falsible"
+import Falsible from "./Falsible"
 
 /**
  * An interface representing the event handlers that should be present on interactible components.
  */
-export type EventHandlerComponent<T> = {
+type EventHandlerComponent<T> = {
 	onClick?: Falsible<React.MouseEventHandler<T>>
 	onKeyDown?: Falsible<React.KeyboardEventHandler<T>>
 	onFocus?: Falsible<React.FocusEventHandler<T>>
@@ -14,3 +14,5 @@ export type EventHandlerComponent<T> = {
 	onPointerUp?: Falsible<React.PointerEventHandler<T>>
 	onPointerLeave?: Falsible<React.PointerEventHandler<T>>
 }
+
+export default EventHandlerComponent

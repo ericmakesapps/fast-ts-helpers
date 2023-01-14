@@ -1,8 +1,10 @@
-import { Falsey } from "./Falsey"
+import Falsey from "./Falsey"
 
 /**
  * Allows any falsey values to be used as part of an optional property, not just undefined.
  *
  * @template Type The type to make optional.
  */
-export type Falsible<Type> = Type | Falsey
+type Falsible<Type> = Type | Falsey
+
+export default Falsible

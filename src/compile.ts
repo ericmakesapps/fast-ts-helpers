@@ -1,4 +1,4 @@
-import { escapeForRegex } from "./escapeForRegex"
+import escapeForRegex from "./escapeForRegex"
 
 type Group = {
 	[key: string]: Group
@@ -9,7 +9,7 @@ type Group = {
  *
  * @param options The options that should be matchable.
  */
-export function compile(options: string[]) {
+function compile(options: string[]) {
 	const groups: Group = {}
 
 	const put = (key: string, group: Group) => {
@@ -65,3 +65,5 @@ export function compile(options: string[]) {
 
 	return flat
 }
+
+export default compile

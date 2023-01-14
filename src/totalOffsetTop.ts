@@ -1,5 +1,5 @@
 /** Get the total offset top of the passed element. */
-export function totalOffsetTop(element: HTMLElement | null): number {
+function totalOffsetTop(element: HTMLElement | null): number {
 	let offset = 0
 
 	while (element) {
@@ -9,3 +9,5 @@ export function totalOffsetTop(element: HTMLElement | null): number {
 
 	return offset
 }
+
+export default totalOffsetTop

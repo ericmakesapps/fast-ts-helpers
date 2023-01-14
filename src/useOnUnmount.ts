@@ -5,10 +5,12 @@ import { useEffect, useRef } from "react"
  *
  * @param callback The callback to run on unmount.
  */
-export function useOnUnmount(callback: () => void) {
+function useOnUnmount(callback: () => void) {
 	const cb = useRef(callback)
 
 	cb.current = callback
 
 	useEffect(() => cb.current, [])
 }
+
+export default useOnUnmount

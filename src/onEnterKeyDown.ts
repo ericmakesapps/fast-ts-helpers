@@ -1,7 +1,7 @@
-import { Falsible } from "./Falsible"
-import { memoize } from "./memoize"
-import { onNonRepeatedKeyDown } from "./onNonRepeatedKeyDown"
-import { truthy } from "./truthy"
+import Falsible from "./Falsible"
+import memoize from "./memoize"
+import onNonRepeatedKeyDown from "./onNonRepeatedKeyDown"
+import truthy from "./truthy"
 
 /**
  * Respond to the event where the user presses the enter key, responding only to the actula press, not the repeated events if the user holds it.
@@ -11,7 +11,7 @@ import { truthy } from "./truthy"
  * @param extraOnKeyUp An additional listener to attach to the native `KeyUp` event.
  * @returns An object containing the callbacks to attach to the element.
  */
-export const onEnterKeyDown = memoize(
+const onEnterKeyDown = memoize(
 	(
 		action?: Falsible<(event: React.KeyboardEvent) => void>,
 		extraOnKeyDown?: Falsible<(event: React.KeyboardEvent) => void>,
@@ -28,3 +28,5 @@ export const onEnterKeyDown = memoize(
 		)
 	}
 )
+
+export default onEnterKeyDown

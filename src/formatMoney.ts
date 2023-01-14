@@ -1,4 +1,4 @@
-import { round } from "./round"
+import round from "./round"
 
 /**
  * Determines how to handle cent values in the `formatMoney` function.
@@ -25,7 +25,7 @@ export type FormatMoneyOption = "long" | "short" | "hybrid"
  * @param option Whether to return a long, short, or hybrid string. Defaults to `"long"`.
  * @returns The money string.
  */
-export function formatMoney(
+function formatMoney(
 	amount: number,
 	currency?: string,
 	option?: FormatMoneyOption
@@ -45,13 +45,13 @@ export function formatMoney(
  * @param option Whether to return a long, short, or hybrid string. Defaults to `"long"`.
  * @returns The money string.
  */
-export function formatMoney(
+function formatMoney(
 	amount: number | undefined,
 	currency?: string,
 	option?: FormatMoneyOption
 ): string | undefined
 
-export function formatMoney(
+function formatMoney(
 	amount: number | undefined,
 	currency = `USD`,
 	option: FormatMoneyOption = `long`
@@ -78,3 +78,5 @@ export function formatMoney(
 		minimumFractionDigits: digits
 	})
 }
+
+export default formatMoney

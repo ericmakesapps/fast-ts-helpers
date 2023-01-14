@@ -6,18 +6,18 @@
  * @param immediate Whether to trigger the function at the start instead of after the threshold. Default is `false`.
  * @returns A version of this function that will only trigger when it isn't called for the threshold amount of time.
  */
-export function debounce<T extends (...args: any[]) => void>(
+function debounce<T extends (...args: any[]) => void>(
 	func: T,
 	threshold: number,
 	immediate: false
 ): T
-export function debounce<T extends (...args: any[]) => unknown>(
+function debounce<T extends (...args: any[]) => unknown>(
 	func: T,
 	threshold: number,
 	immediate: boolean
 ): T
 
-export function debounce<T extends (...args: any[]) => unknown>(
+function debounce<T extends (...args: any[]) => unknown>(
 	func: T,
 	threshold = 100,
 	immediate = false
@@ -48,3 +48,5 @@ export function debounce<T extends (...args: any[]) => unknown>(
 		return undefined
 	} as T
 }
+
+export default debounce

@@ -1,6 +1,6 @@
-import { Func } from "./Func"
+import Func from "./Func"
 
-import { cacheKey } from "./cacheKey"
+import cacheKey from "./cacheKey"
 
 /** The options for the memoization. */
 export type MemoizeOptions = {
@@ -19,7 +19,7 @@ export type MemoizeOptions = {
  * @param options The options to use for memoization.
  * @returns A memoized version of the passed function.
  */
-export function memoize<F extends Func>(
+function memoize<F extends Func>(
 	func: F,
 	{ asynchronous = false, excludedArguments }: MemoizeOptions = {}
 ) {
@@ -73,3 +73,5 @@ export function memoize<F extends Func>(
 		return cache[key]
 	} as F
 }
+
+export default memoize

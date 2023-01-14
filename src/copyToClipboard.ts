@@ -5,7 +5,7 @@ import copy from "copy-to-clipboard"
  * @param text The text to copy to the clipboard
  * @returns A promise that resolves to the text that was copied, or rejects on failure.
  */
-export async function copyToClipboard<T extends string | undefined>(text: T) {
+async function copyToClipboard<T extends string | undefined>(text: T) {
 	if (text == null) {
 		return
 	}
@@ -24,3 +24,5 @@ export async function copyToClipboard<T extends string | undefined>(text: T) {
 		})
 	}
 }
+
+export default copyToClipboard

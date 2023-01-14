@@ -2,7 +2,7 @@
 
 import { SetStateAction } from "react"
 
-import { useBackedState } from "./useBackedState"
+import useBackedState from "./useBackedState"
 
 /**
  * Use a state backed by a search parameter in the path.
@@ -11,16 +11,16 @@ import { useBackedState } from "./useBackedState"
  * @param defaultValue The default value, if any, of the parameter.
  * @requires history Must be called in a router context.
  */
-export function useSearchState<T>(
+function useSearchState<T>(
 	name: string,
 	defaultValue: T
 ): [T, (newValue: SetStateAction<T>) => void]
-export function useSearchState<T>(
+function useSearchState<T>(
 	name: string,
 	defaultValue?: T
 ): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
 
-export function useSearchState<T>(name: string, defaultValue?: T) {
+function useSearchState<T>(name: string, defaultValue?: T) {
 	return useBackedState<T>(
 		(newValue) => {
 			const stringified = JSON.stringify(newValue)
@@ -49,3 +49,5 @@ export function useSearchState<T>(name: string, defaultValue?: T) {
 		defaultValue
 	)
 }
+
+export default useSearchState

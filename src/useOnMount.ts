@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react"
  *
  * @param callback The callback to run on mount, which can return a clean-up for unmount.
  */
-export function useOnMount(callback: (() => void) | (() => () => void)) {
+function useOnMount(callback: (() => void) | (() => () => void)) {
 	const cb = useRef(callback)
 
 	cb.current = callback
@@ -14,3 +14,5 @@ export function useOnMount(callback: (() => void) | (() => () => void)) {
 		return cb.current()
 	}, [])
 }
+
+export default useOnMount

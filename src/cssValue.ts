@@ -24,21 +24,21 @@ type BooleanProp = {
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue({ pseudo, prop, type }: StringProp): string
+function cssValue({ pseudo, prop, type }: StringProp): string
 /**
  * Get the computed css value of some prop on the body element.
  *
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue({ pseudo, prop, type }: NumberProp): number
+function cssValue({ pseudo, prop, type }: NumberProp): number
 /**
  * Get the computed css value of some prop on the body element.
  *
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue({ pseudo, prop, type }: BooleanProp): boolean
+function cssValue({ pseudo, prop, type }: BooleanProp): boolean
 /**
  * Get the computed css value of some prop of the passed element.
  *
@@ -46,7 +46,7 @@ export function cssValue({ pseudo, prop, type }: BooleanProp): boolean
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue(element: HTMLElement, { pseudo, prop, type }: StringProp): string
+function cssValue(element: HTMLElement, { pseudo, prop, type }: StringProp): string
 /**
  * Get the computed css value of some prop of the passed element.
  *
@@ -54,7 +54,7 @@ export function cssValue(element: HTMLElement, { pseudo, prop, type }: StringPro
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue(element: HTMLElement, { pseudo, prop, type }: NumberProp): number
+function cssValue(element: HTMLElement, { pseudo, prop, type }: NumberProp): number
 /**
  * Get the computed css value of some prop of the passed element.
  *
@@ -62,12 +62,9 @@ export function cssValue(element: HTMLElement, { pseudo, prop, type }: NumberPro
  * @param options The value to get.
  * @returns The computed value.
  */
-export function cssValue(
-	element: HTMLElement,
-	{ pseudo, prop, type }: BooleanProp
-): boolean
+function cssValue(element: HTMLElement, { pseudo, prop, type }: BooleanProp): boolean
 
-export function cssValue(
+function cssValue(
 	element: HTMLElement | PropParams = document.body,
 	params?: PropParams
 ) {
@@ -98,3 +95,5 @@ export function cssValue(
 	// Return the string response by default
 	return response
 }
+
+export default cssValue

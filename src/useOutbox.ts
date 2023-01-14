@@ -1,15 +1,15 @@
 import { Dispatch, SetStateAction, useCallback } from "react"
 
-import { Storage } from "./Storage"
-import { isCallable } from "./isCallable"
+import Storage from "./Storage"
+import isCallable from "./isCallable"
 
-export function useOutbox<T>(box: string, defaultValue: T): Dispatch<SetStateAction<T>>
-export function useOutbox<T>(
+function useOutbox<T>(box: string, defaultValue: T): Dispatch<SetStateAction<T>>
+function useOutbox<T>(
 	box: string,
 	defaultValue?: T
 ): Dispatch<SetStateAction<T | undefined>>
 
-export function useOutbox<T>(box: string, defaultValue: T) {
+function useOutbox<T>(box: string, defaultValue: T) {
 	if (defaultValue != null && !Storage.has(box)) {
 		Storage.set(box, defaultValue)
 	}
@@ -25,3 +25,5 @@ export function useOutbox<T>(box: string, defaultValue: T) {
 		[box]
 	)
 }
+
+export default useOutbox

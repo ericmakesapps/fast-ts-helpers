@@ -24,5 +24,7 @@
 		/* Advanced Options */
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true
-	}
+	},
+	"include": ["src"],
+	"exclude": ["**/*.test.ts"]
 }

@@ -5,4 +5,6 @@ import { MutableRefObject } from "react"
  *
  * @template Type The type pointed to by this ref object.
  */
-export type ReadonlyRefObject<T> = Readonly<MutableRefObject<T>>
+type ReadonlyRefObject<T> = Readonly<MutableRefObject<T>>
+
+export default ReadonlyRefObject

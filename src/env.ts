@@ -21,7 +21,7 @@ function get<T>(parser: (val: string) => T): {
 	}
 }
 
-export const env = {
+const env = {
 	str: get((val) => val),
 	int: get((val) => parseInt(val, 10)),
 	float: get((val) => parseFloat(val)),
@@ -31,3 +31,5 @@ export const env = {
 		<T extends {}>(name: string, defaultTo?: T): T | undefined
 	}
 } as const
+
+export default env

@@ -41,4 +41,6 @@ function createStoreFor(namespace: string) {
 /**
  * A wrapper around `localStorage` that stores values using `JSON.stringify`. You can use directly, or call it to create a storage with a namespace.
  */
-export const Storage = Object.assign(createStoreFor, createStoreFor(`øß√`))
+const Storage = Object.assign(createStoreFor, createStoreFor(`øß√`))
+
+export default Storage

@@ -3,6 +3,8 @@
  *
  * @returns Whether the user is using Internet Explorer.
  */
-export function isIe() {
+function isIE() {
 	return Boolean(/MSIE|Trident/i.test(navigator.userAgent))
 }
+
+export default isIE

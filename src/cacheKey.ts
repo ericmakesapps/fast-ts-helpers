@@ -1,7 +1,7 @@
 import stringify from "json-stable-stringify"
 
-import { truthy } from "./truthy"
-import { uuid } from "./uuid"
+import truthy from "./truthy"
+import uuid from "./uuid"
 
 /**
  * Make a stable cache key for a given object. That is to say, any equal object will return the same cache key.
@@ -10,7 +10,7 @@ import { uuid } from "./uuid"
  * @template Type The type of the object passed in.
  * @returns The stable cache key for the passed object.
  */
-export function cacheKey<Type>(obj: Type) {
+function cacheKey<Type>(obj: Type) {
 	function replacer(_: string, value: Type) {
 		if (typeof value !== `object` && stringify([value]) === `[null]`) {
 			if (typeof value === `function`) {
@@ -41,3 +41,5 @@ export function cacheKey<Type>(obj: Type) {
 
 	return stringify(obj, { replacer })
 }
+
+export default cacheKey

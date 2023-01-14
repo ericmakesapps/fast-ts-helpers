@@ -5,7 +5,7 @@
  * @param threshold How long to wait before allowing the function to be triggered again. Default is `100`.
  * @returns A version of this function that will only trigger once per threshold amount of time.
  */
-export function throttle<T extends (...args: any[]) => void>(func: T, threshold = 100) {
+function throttle<T extends (...args: any[]) => void>(func: T, threshold = 100) {
 	let suppress = false
 	let delay: (() => void) | undefined
 
@@ -28,3 +28,5 @@ export function throttle<T extends (...args: any[]) => void>(func: T, threshold 
 		}
 	} as T
 }
+
+export default throttle

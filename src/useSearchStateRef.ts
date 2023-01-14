@@ -1,8 +1,8 @@
 import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef } from "react"
 
-import { isCallable } from "./isCallable"
-import { tuple } from "./tuple"
-import { useSearchState } from "./useSearchState"
+import isCallable from "./isCallable"
+import tuple from "./tuple"
+import useSearchState from "./useSearchState"
 
 /**
  * Get a state value that is saved as a search param, that also has a ref pointing to the current value. The setter callback will set both the state, update the search param, and update the ref.
@@ -10,11 +10,11 @@ import { useSearchState } from "./useSearchState"
  * @param name The name under which to store the parameter. This value should be unique across the app for this one component/page. Don’t use it across components/pages to try to share the value updates. That probably won’t work.
  * @param defaultValue The default value, if any, of the parameter.
  */
-export function useSearchStateRef<T>(
+function useSearchStateRef<T>(
 	name: string,
 	defaultValue: T
 ): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
-export function useSearchStateRef<T>(
+function useSearchStateRef<T>(
 	name: string,
 	defaultValue?: T
 ): [
@@ -23,7 +23,7 @@ export function useSearchStateRef<T>(
 	T | undefined
 ]
 
-export function useSearchStateRef<T>(name: string, defaultValue?: T) {
+function useSearchStateRef<T>(name: string, defaultValue?: T) {
 	const ref = useRef(defaultValue)
 	const [state, setState] = useSearchState(name, defaultValue)
 
@@ -50,3 +50,5 @@ export function useSearchStateRef<T>(name: string, defaultValue?: T) {
 		state
 	)
 }
+
+export default useSearchStateRef

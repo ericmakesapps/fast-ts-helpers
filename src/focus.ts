@@ -1,6 +1,6 @@
-import { Falsible } from "./Falsible"
-import { focusableSelector } from "./focusableSelector"
-import { truthy } from "./truthy"
+import Falsible from "./Falsible"
+import focusableSelector from "./focusableSelector"
+import truthy from "./truthy"
 
 /**
  * Transfer the focus to an element, optionally preventing scrolling. You can use this to focus on elements that aren't actually focusable too, for accessibility.
@@ -8,7 +8,7 @@ import { truthy } from "./truthy"
  * @param element The element to focus.
  * @param preventScroll Whether scrolling should be prevented. Defaults to `true`.
  */
-export function focus(element: Falsible<HTMLElement | SVGElement>, preventScroll = true) {
+function focus(element: Falsible<HTMLElement | SVGElement>, preventScroll = true) {
 	if (!truthy(element)) {
 		return
 	}
@@ -29,3 +29,5 @@ export function focus(element: Falsible<HTMLElement | SVGElement>, preventScroll
 		window.scrollTo(scrollX, scrollY)
 	}
 }
+
+export default focus

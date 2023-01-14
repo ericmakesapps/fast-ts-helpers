@@ -1,4 +1,4 @@
-import { NonFalsible } from "./NonFalsible"
+import NonFalsible from "./NonFalsible"
 
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
@@ -7,7 +7,7 @@ import { NonFalsible } from "./NonFalsible"
  * @param p2 The second passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(p1: T, p2: U): NonFalsible<T> | U
+function fallback<T, U>(p1: T, p2: U): NonFalsible<T> | U
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
  *
@@ -16,7 +16,7 @@ export function fallback<T, U>(p1: T, p2: U): NonFalsible<T> | U
  * @param p3 The third passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(p1: T, p2: T, p3: U): NonFalsible<T> | U
+function fallback<T, U>(p1: T, p2: T, p3: U): NonFalsible<T> | U
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
  *
@@ -26,7 +26,7 @@ export function fallback<T, U>(p1: T, p2: T, p3: U): NonFalsible<T> | U
  * @param p4 The fourth passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(p1: T, p2: T, p3: T, p4: U): NonFalsible<T> | U
+function fallback<T, U>(p1: T, p2: T, p3: T, p4: U): NonFalsible<T> | U
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
  *
@@ -37,7 +37,7 @@ export function fallback<T, U>(p1: T, p2: T, p3: T, p4: U): NonFalsible<T> | U
  * @param p5 The fifth passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(p1: T, p2: T, p3: T, p4: T, p5: U): NonFalsible<T> | U
+function fallback<T, U>(p1: T, p2: T, p3: T, p4: T, p5: U): NonFalsible<T> | U
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
  *
@@ -49,14 +49,7 @@ export function fallback<T, U>(p1: T, p2: T, p3: T, p4: T, p5: U): NonFalsible<T
  * @param p6 The sixth passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(
-	p1: T,
-	p2: T,
-	p3: T,
-	p4: T,
-	p5: T,
-	p6: U
-): NonFalsible<T> | U
+function fallback<T, U>(p1: T, p2: T, p3: T, p4: T, p5: T, p6: U): NonFalsible<T> | U
 /**
  * Get the first truthy value of the passed values, or falls back to the last value.
  *
@@ -69,7 +62,7 @@ export function fallback<T, U>(
  * @param p7 The seventh passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(
+function fallback<T, U>(
 	p1: T,
 	p2: T,
 	p3: T,
@@ -91,7 +84,7 @@ export function fallback<T, U>(
  * @param p8 The eigth passed value.
  * @returns The first truthy value of the passed values, or falls back to the last value.
  */
-export function fallback<T, U>(
+function fallback<T, U>(
 	p1: T,
 	p2: T,
 	p3: T,
@@ -102,6 +95,8 @@ export function fallback<T, U>(
 	p8: U
 ): NonFalsible<T> | U
 
-export function fallback<T>(...things: T[]) {
+function fallback<T>(...things: T[]) {
 	return things.find(Boolean) ?? things[things.length - 1]
 }
+
+export default fallback

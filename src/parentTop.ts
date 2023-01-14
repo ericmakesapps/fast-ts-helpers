@@ -1,7 +1,7 @@
-import { totalOffsetTop } from "./totalOffsetTop"
+import totalOffsetTop from "./totalOffsetTop"
 
 /** Get how many pixel offset from the top of its parent the passed element is. */
-export function parentTop(element: HTMLElement) {
+function parentTop(element: HTMLElement) {
 	const offset = totalOffsetTop(element)
 
 	if (!element.parentElement) {
@@ -10,3 +10,5 @@ export function parentTop(element: HTMLElement) {
 
 	return offset - totalOffsetTop(element.parentElement)
 }
+
+export default parentTop

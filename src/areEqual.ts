@@ -7,7 +7,7 @@
  * @template Type The common type between all values.
  * @returns Whether all of the passed values are equal.
  */
-export function areEqual(...values: any[]) {
+function areEqual(...values: any[]) {
 	// Iteratively compare each item to all the ones after it in the list. If any are unequal, return false. Don't need any smarts here, as JS is always single threaded right now.
 	for (let i = 0; i < values.length - 1; i += 1) {
 		for (let j = i + 1; j < values.length; j += 1) {
@@ -66,3 +66,5 @@ export function areEqual(...values: any[]) {
 
 	return true
 }
+
+export default areEqual

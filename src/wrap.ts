@@ -5,6 +5,8 @@
  * @param array The arary or item to wrap in an array.
  * @returns The passed item itself if it already was an array, or the item wrapped in an array.
  */
-export function wrap<Type>(array: Type | Type[]): Type[] {
+function wrap<Type>(array: Type | Type[]): Type[] {
 	return Array.isArray(array) ? array : [array]
 }
+
+export default wrap

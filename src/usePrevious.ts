@@ -6,7 +6,7 @@ import { useRef } from "react"
  * @param value The current value
  * @returns The previous value passed to this hook (or undefined if this is the first time).
  */
-export function usePrevious<T>(value: T, startUndefined: true): T | undefined
+function usePrevious<T>(value: T, startUndefined: true): T | undefined
 
 /**
  * Return the previous value of a variable (good for change detection).
@@ -14,9 +14,9 @@ export function usePrevious<T>(value: T, startUndefined: true): T | undefined
  * @param value The current value
  * @returns The previous value passed to this hook (or the current value if this is the first time).
  */
-export function usePrevious<T>(value: T, startUndefined?: false): T
+function usePrevious<T>(value: T, startUndefined?: false): T
 
-export function usePrevious<T>(value: T, startUndefined = false) {
+function usePrevious<T>(value: T, startUndefined = false) {
 	const currentValue = useRef(startUndefined ? undefined : value)
 
 	// Store the previous value in a local variable, to return in a sec.
@@ -28,3 +28,5 @@ export function usePrevious<T>(value: T, startUndefined = false) {
 	// Return the previous value.
 	return previousValue
 }
+
+export default usePrevious

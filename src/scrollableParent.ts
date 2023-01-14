@@ -1,4 +1,4 @@
-import { isScrollable } from "./isScrollable"
+import isScrollable from "./isScrollable"
 
 /**
  * Get the nearest scrollable parent of the passed element, if one exists.
@@ -6,7 +6,7 @@ import { isScrollable } from "./isScrollable"
  * @param element The element whose scrollable parent to get.
  * @returns The nearest scrollable parent of the passed element, if one exists.
  */
-export function scrollableParent(element: HTMLElement) {
+function scrollableParent(element: HTMLElement) {
 	let parent = element.parentElement
 
 	while (parent && !isScrollable(parent)) {
@@ -15,3 +15,5 @@ export function scrollableParent(element: HTMLElement) {
 
 	return parent ?? undefined
 }
+
+export default scrollableParent

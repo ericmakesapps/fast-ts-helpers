@@ -1,5 +1,5 @@
-import { filter } from "./filter"
-import { map } from "./map"
+import filter from "./filter"
+import map from "./map"
 
 /**
  * Map an array, then filter out falsey values.
@@ -10,9 +10,11 @@ import { map } from "./map"
  * @param mapper The mapper function to use.
  * @returns A version of the passed array with its items mapped and falsible items filtered out.
  */
-export function filtermap<Type, Result>(
+function filtermap<Type, Result>(
 	array: Type | Type[],
 	mapper: (item: Type, index: number) => Result
 ) {
 	return filter(map(array, mapper))
 }
+
+export default filtermap

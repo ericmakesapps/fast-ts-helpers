@@ -1,11 +1,11 @@
 # Helpers
 
-This repository contains a set of helpers that I've collected over time. I like these! Use them if you want.
+This repository contains a set of helpers that I’ve created (unless otherwise specified) over time. I like these! Use them if you want.
 
 ## Testing
 
 Tests are being added! Feel free to add some tests too, and put up a PR.
 
-## Developing
+## Contributing
 
-Add your thing to src. Make a PR. I'll review :).
+Add your thing to src. Add some tests (please!). Make a PR. I'll review :).

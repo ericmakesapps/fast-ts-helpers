@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import { useOnMount } from "./useOnMount"
-import { useOnUnmount } from "./useOnUnmount"
+import useOnMount from "./useOnMount"
+import useOnUnmount from "./useOnUnmount"
 
 /** Updates state whenever this component mounts or unmounts. */
-export function useMounted() {
+function useMounted() {
 	const [mounted, setMounted] = useState(false)
 
 	useOnMount(() => setMounted(true))
@@ -12,3 +12,5 @@ export function useMounted() {
 
 	return mounted
 }
+
+export default useMounted

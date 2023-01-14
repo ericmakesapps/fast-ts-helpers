@@ -1,7 +1,7 @@
-import { totalOffsetLeft } from "./totalOffsetLeft"
+import totalOffsetLeft from "./totalOffsetLeft"
 
 /** Get how many pixel offset from the left of its parent the passed element is. */
-export function parentLeft(element: HTMLElement): number {
+function parentLeft(element: HTMLElement): number {
 	const offset = totalOffsetLeft(element)
 
 	if (!element.parentElement) {
@@ -10,3 +10,5 @@ export function parentLeft(element: HTMLElement): number {
 
 	return offset - totalOffsetLeft(element.parentElement)
 }
+
+export default parentLeft

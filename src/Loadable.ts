@@ -1,3 +1,5 @@
-import { IfPropIsTrue } from "./IfPropIsTrue"
+import IfPropIsTrue from "./IfPropIsTrue"
 
-export type Loadable<T extends object> = IfPropIsTrue<"loaded", T>
+type Loadable<T extends object> = IfPropIsTrue<"loaded", T>
+
+export default Loadable

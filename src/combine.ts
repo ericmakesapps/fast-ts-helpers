@@ -1,8 +1,8 @@
-import { Func } from "./Func"
-import { Falsible } from "./Falsible"
+import Func from "./Func"
+import Falsible from "./Falsible"
 
-import { flatfilter } from "./flatfilter"
-import { memoize } from "./memoize"
+import flatfilter from "./flatfilter"
+import memoize from "./memoize"
 
 const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
 	// @ts-expect-error
@@ -27,10 +27,12 @@ const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
  * @param callbacks The rest parameter optional list of callbacks to use.
  * @returns The combined callback, or undefined if there were no callbacks passed in.
  */
-export function combine<Args extends unknown[]>(
+function combine<Args extends unknown[]>(
 	...callbacks: Falsible<(...args: Args) => void>[]
 ): ((...arg: Args) => void) | undefined {
 	const filtered = flatfilter(callbacks)
 
 	return filtered.length > 0 ? doCombine(...filtered) : undefined
 }
+
+export default combine

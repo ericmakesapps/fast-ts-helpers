@@ -1,7 +1,7 @@
-import { NonFalsible } from "./NonFalsible"
-import { OptionalPropsOf } from "./OptionalPropsOf"
-import { Falsey } from "./Falsey"
-import { fallback } from "./fallback"
+import NonFalsible from "./NonFalsible"
+import OptionalPropsOf from "./OptionalPropsOf"
+import Falsey from "./Falsey"
+import fallback from "./fallback"
 
 /**
  * Map all falsey values in an object to undefined. **Don't** use this on objects that contain booleans, numbers, or strings where `false`, `0`, and/or `""` should retain their value. It will mess it up.
@@ -10,7 +10,7 @@ import { fallback } from "./fallback"
  * @param obj The object to simplify.
  * @returns A version of the object where all falsey values are mapped to undefined.
  */
-export function simplify<Type extends object>(
+function simplify<Type extends object>(
 	obj: Type
 ): {
 	[K in OptionalPropsOf<Type>]?: NonFalsible<Type[K]>
@@ -33,3 +33,5 @@ export function simplify<Type extends object>(
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return ret
 }
+
+export default simplify

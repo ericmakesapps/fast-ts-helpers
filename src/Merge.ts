@@ -1,4 +1,4 @@
-import { IdType } from "./IdType"
+import IdType from "./IdType"
 
 type MergeTwo<L, R> = Partial<Omit<L, keyof R> & Omit<R, keyof L>> & {
 	[P in keyof R & keyof L]: L[P] | R[P]
@@ -9,6 +9,8 @@ type MergeTwo<L, R> = Partial<Omit<L, keyof R> & Omit<R, keyof L>> & {
  *
  * If you have a union type that you to Merge, you can use UnionToTuple, but beware that order matters and it is a little unpredictable.
  */
-export type Merge<A extends readonly [...any]> = IdType<
+type Merge<A extends readonly [...any]> = IdType<
 	A extends [infer L, infer R, ...infer RR] ? MergeTwo<L, Merge<[R, ...RR]>> : A[0]
 >
+
+export default Merge

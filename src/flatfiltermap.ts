@@ -1,6 +1,6 @@
-import { NestableList } from "./NestableList"
-import { flat } from "./flat"
-import { filtermap } from "./filtermap"
+import NestableList from "./NestableList"
+import flat from "./flat"
+import filtermap from "./filtermap"
 
 /**
  * Completely flatten an array, map with the passed mapper, then filter out falsey values.
@@ -11,9 +11,11 @@ import { filtermap } from "./filtermap"
  * @param mapper The mapper function to use.
  * @returns A flattened version of the passed array with its items mapped and falsible items filtered out.
  */
-export function flatfiltermap<Type, Result>(
+function flatfiltermap<Type, Result>(
 	array: NestableList<Type>,
 	mapper: (item: Type, index: number) => Result
 ) {
 	return filtermap(flat(array), mapper)
 }
+
+export default flatfiltermap

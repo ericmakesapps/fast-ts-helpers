@@ -1,8 +1,8 @@
-import { Falsible } from "./Falsible"
+import Falsible from "./Falsible"
 
-import { combine } from "./combine"
-import { onEnterKeyDown } from "./onEnterKeyDown"
-import { memoize } from "./memoize"
+import combine from "./combine"
+import onEnterKeyDown from "./onEnterKeyDown"
+import memoize from "./memoize"
 
 /**
  * Attach an action to both the onClick and the enter key's actual keypress (ignoring the repeated keydown events if the user holds the enter key).
@@ -13,7 +13,7 @@ import { memoize } from "./memoize"
  * @param extraOnKeyUp An additional listener to attach to the native `KeyUp` event.
  * @returns An object containing the callbacks to attach to the element.
  */
-export const onClickOrEnterKeyDown = memoize(
+const onClickOrEnterKeyDown = memoize(
 	(
 		action?: Falsible<(event: React.MouseEvent | React.KeyboardEvent) => void>,
 		extraOnClick?: Falsible<(event: React.MouseEvent) => void>,
@@ -26,3 +26,5 @@ export const onClickOrEnterKeyDown = memoize(
 		}
 	}
 )
+
+export default onClickOrEnterKeyDown

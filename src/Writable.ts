@@ -3,6 +3,8 @@
  *
  * @template Type The type to make writable.
  */
-export type Writable<Type> = {
+type Writable<Type> = {
 	-readonly [K in keyof Type]: Type[K]
 }
+
+export default Writable

@@ -12,7 +12,7 @@ type FormatDateOption = "short" | "long" | "month" | "time"
  * @param option Whether to return a short or long date string. Defaults to `"short"`.
  * @returns The date string.
  */
-export function formatDate(date: Date, option?: FormatDateOption): string
+function formatDate(date: Date, option?: FormatDateOption): string
 /**
  * Format a date into a user friendly date string based on the passed option, as follows:
  *
@@ -25,12 +25,9 @@ export function formatDate(date: Date, option?: FormatDateOption): string
  * @param option What format of date to use. Defaults to `"short"`.
  * @returns The date string.
  */
-export function formatDate(
-	date: Date | undefined,
-	option?: FormatDateOption
-): string | undefined
+function formatDate(date: Date | undefined, option?: FormatDateOption): string | undefined
 
-export function formatDate(date: Date | undefined, option: FormatDateOption = `short`) {
+function formatDate(date: Date | undefined, option: FormatDateOption = `short`) {
 	if (!date) {
 		return undefined
 	}
@@ -60,3 +57,5 @@ export function formatDate(date: Date | undefined, option: FormatDateOption = `s
 				.replace(/[A-Z]/g, (match) => `${match.toLowerCase()}.`)
 	}
 }
+
+export default formatDate

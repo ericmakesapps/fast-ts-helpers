@@ -21,7 +21,7 @@ export type ThroughRangeParameters = {
  * @param step The step between each value. Defaults to `1` or `-1`.
  * @returns An array containing the specified range.
  */
-export function range({ start, until, step }: UntilRangeParameters): number[]
+function range({ start, until, step }: UntilRangeParameters): number[]
 /**
  * Create a range of numbers for iterating through them.
  *
@@ -30,14 +30,14 @@ export function range({ start, until, step }: UntilRangeParameters): number[]
  * @param step The step between each value. Defaults to `1` or `-1`.
  * @returns An array containing the specified range.
  */
-export function range({ start, through, step }: ThroughRangeParameters): number[]
+function range({ start, through, step }: ThroughRangeParameters): number[]
 /**
  * Create a range up to the passed number, stepping by `1` or `-1`.
  *
  * @param until The (non-inclusive) end of the range.
  * @returns An array containing the specified range.
  */
-export function range(until: number): number[]
+function range(until: number): number[]
 /**
  * Create a range of from the start (inclusively) to end (non-inclusively), stepping by `1` or `-1`.
  *
@@ -45,7 +45,7 @@ export function range(until: number): number[]
  * @param until The (non-inclusive) end of the range.
  * @returns An array containing the specified range.
  */
-export function range(start: number, until: number): number[]
+function range(start: number, until: number): number[]
 /**
  * Create a range of numbers from start (inclusively) to end (non-inclusively) with the passed step.
  *
@@ -54,9 +54,9 @@ export function range(start: number, until: number): number[]
  * @param step The step between each value. Defaults to `1` or `-1`.
  * @returns An array containing the specified range.
  */
-export function range(start: number, until: number, step: number): number[]
+function range(start: number, until: number, step: number): number[]
 
-export function range(
+function range(
 	start: number | UntilRangeParameters | ThroughRangeParameters,
 	until?: number,
 	step?: number
@@ -103,3 +103,5 @@ export function range(
 		(_, i) => _start + _step * i
 	)
 }
+
+export default range

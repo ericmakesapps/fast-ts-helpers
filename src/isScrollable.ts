@@ -1,5 +1,5 @@
 /** Whether the passed element is scrollable. */
-export function isScrollable(element: HTMLElement) {
+function isScrollable(element: HTMLElement) {
 	const style = window.getComputedStyle(element)
 
 	return (
@@ -9,3 +9,5 @@ export function isScrollable(element: HTMLElement) {
 		style.overflowX === `scroll`
 	)
 }
+
+export default isScrollable
