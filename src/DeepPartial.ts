@@ -3,8 +3,10 @@
  *
  * @template Type The type whose properties to make optional.
  */
-type DeepPartial<Type extends object> = {
-	[P in keyof Type]?: Type[P] extends object ? DeepPartial<Type[P]> : Type[P]
-}
+type DeepPartial<Type> = Type extends object
+	? {
+			[P in keyof Type]?: DeepPartial<Type[P]>
+	  }
+	: Type | undefined
 
 export default DeepPartial
