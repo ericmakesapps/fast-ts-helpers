@@ -1,5 +1,6 @@
 import wait from "./wait"
 import firstTruthy from "./firstTruthy"
+import assertType from "./assertType"
 
 describe("firstTruthy helper", () => {
 	test("should resolve to the first truthy value from an array of promises, as soon as it resolves", async () => {
@@ -19,13 +20,15 @@ describe("firstTruthy helper", () => {
 	})
 
 	test("should reject if no passed promise resolves to a truthy value", async () => {
-		await expect(
-			firstTruthy([
-				wait(40).then(() => 0),
-				wait(30).then(() => ""),
-				wait(20).then(() => undefined),
-				wait(10).then(() => null)
-			])
-		).rejects.toThrow()
+		const race = firstTruthy([
+			wait(40).then(() => 0),
+			wait(30).then(() => ""),
+			wait(20).then(() => undefined),
+			wait(10).then(() => null)
+		])
+
+		assertType<Promise<string | number>>(race)
+
+		await expect(race).rejects.toThrow()
 	})
 })
