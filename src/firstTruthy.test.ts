@@ -21,7 +21,8 @@ describe("firstTruthy helper", () => {
 	test("should reject if no passed promise resolves to a truthy value", async () => {
 		await expect(
 			firstTruthy([
-				wait(30).then(() => 0),
+				wait(40).then(() => 0),
+				wait(30).then(() => ""),
 				wait(20).then(() => undefined),
 				wait(10).then(() => null)
 			])
