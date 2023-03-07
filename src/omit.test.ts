@@ -1,6 +1,10 @@
 import omit from "./omit"
 
 describe("omit helper", () => {
+	test("should omit a prop from an object by array of strings", () => {
+		expect(omit({ id: "hi", notId: "hello" }, ["id"])).toEqual({ notId: "hello" })
+	})
+
 	test("should omit a prop from an object by string", () => {
 		expect(omit({ id: "hi", notId: "hello" }, "id")).toEqual({ notId: "hello" })
 	})

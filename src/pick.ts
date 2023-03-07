@@ -9,6 +9,34 @@
  */
 function pick<Type extends object, Key extends keyof Type>(
 	obj: Type,
+	keys: Key[]
+): Pick<Type, Key>
+
+/**
+ * Get a version of the passed object which includes only the properties with the passed keys.
+ *
+ * @template Type The type of object from which properties are being picked.
+ * @template Key The keys that should be picked.
+ * @param obj The object from which to pick the values.
+ * @param keys The keys whose values to pick.
+ * @returns A version of the object with only the specified keys.
+ */
+function pick<Type extends object, Key extends keyof Type>(
+	obj: Type | undefined,
+	keys: Key[]
+): Pick<Type, Key> | undefined
+
+/**
+ * Get a version of the passed object which includes only the properties with the passed keys.
+ *
+ * @template Type The type of object from which properties are being picked.
+ * @template Key The keys that should be picked.
+ * @param obj The object from which to pick the values.
+ * @param keys The keys whose values to pick.
+ * @returns A version of the object with only the specified keys.
+ */
+function pick<Type extends object, Key extends keyof Type>(
+	obj: Type,
 	...keys: Key[]
 ): Pick<Type, Key>
 
@@ -51,7 +79,7 @@ function pick<Type extends object>(obj: Type, pattern: RegExp): Partial<Type>
 
 function pick<T extends object, K extends keyof T>(
 	obj: T | undefined,
-	patternOrKey: K | RegExp,
+	patternOrKey: K | RegExp | K[],
 	...keys: K[]
 ) {
 	if (!obj) {
@@ -68,7 +96,9 @@ function pick<T extends object, K extends keyof T>(
 			}
 		})
 	} else {
-		for (const k of [patternOrKey, ...keys]) {
+		for (const k of Array.isArray(patternOrKey)
+			? patternOrKey
+			: [patternOrKey, ...keys]) {
 			ret[k] = obj[k]
 		}
 	}

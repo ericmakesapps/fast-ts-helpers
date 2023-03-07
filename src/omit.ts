@@ -9,6 +9,34 @@
  */
 function omit<Type extends object, Key extends keyof Type>(
 	obj: Type,
+	keys: Key[]
+): Omit<Type, Key>
+
+/**
+ * Return a version of the passed object which excludes the properties with the passed keys.
+ *
+ * @template Type The type of object from which properties are being omitted.
+ * @template Key The keys that should be omitted.
+ * @param obj The object from which to omit values.
+ * @param keys The keys whose values to omit.
+ * @returns A version of the object without the specified keys.
+ */
+function omit<Type extends object, Key extends keyof Type>(
+	obj: Type | undefined,
+	keys: Key[]
+): Omit<Type, Key> | undefined
+
+/**
+ * Return a version of the passed object which excludes the properties with the passed keys.
+ *
+ * @template Type The type of object from which properties are being omitted.
+ * @template Key The keys that should be omitted.
+ * @param obj The object from which to omit values.
+ * @param keys The keys whose values to omit.
+ * @returns A version of the object without the specified keys.
+ */
+function omit<Type extends object, Key extends keyof Type>(
+	obj: Type,
 	...keys: Key[]
 ): Omit<Type, Key>
 
@@ -51,7 +79,7 @@ function omit<Type extends object>(
 
 function omit<T extends object, K extends keyof T>(
 	obj: T | undefined,
-	patternOrKey: K | RegExp,
+	patternOrKey: K | RegExp | K[],
 	...keys: K[]
 ) {
 	if (!obj) {
@@ -62,17 +90,19 @@ function omit<T extends object, K extends keyof T>(
 	const ret: any = {}
 
 	if (patternOrKey instanceof RegExp) {
-		Object.keys(obj).forEach((k) => {
+		for (const k of Object.keys(obj)) {
 			if (!patternOrKey.test(k)) {
 				ret[k] = obj[k as K]
 			}
-		})
+		}
 	} else {
-		Object.keys(obj).forEach((k) => {
-			if (k !== String(patternOrKey) && !keys.includes(`${k}` as K)) {
+		keys = Array.isArray(patternOrKey) ? patternOrKey : [patternOrKey, ...keys]
+
+		for (const k of Object.keys(obj)) {
+			if (!keys.includes(k as K)) {
 				ret[k] = obj[k as K]
 			}
-		})
+		}
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
