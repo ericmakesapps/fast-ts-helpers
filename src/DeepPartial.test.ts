@@ -1,5 +1,5 @@
-import DeepPartial from "./DeepPartial"
 import assertType from "./assertType"
+import DeepPartial from "./DeepPartial"
 
 describe("DeepPartial helper", () => {
 	test("should make all properties optional", () => {

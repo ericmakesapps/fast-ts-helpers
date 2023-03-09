@@ -1,7 +1,7 @@
 import { DependencyList, SetStateAction, useCallback, useMemo, useState } from "react"
 
-import tuple from "./tuple"
 import isCallable from "./isCallable"
+import tuple from "./tuple"
 
 /**
  * Use a state that has some backing for its initial value.

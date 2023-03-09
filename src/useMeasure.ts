@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import useObserveSize from "./useObserveSize"
 import tuple from "./tuple"
+import useObserveSize from "./useObserveSize"
 
 /**
  * Do something based on the bounds of an element. This hook will trigger a state update whenever the bounds of the watched element changes. Don't use this in any element that changes size frequently, unless you want to slow the page down a lot.

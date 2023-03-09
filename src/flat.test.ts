@@ -1,5 +1,5 @@
-import flat from "./flat"
 import assertType from "./assertType"
+import flat from "./flat"
 
 describe("flat helper", () => {
 	test("should accept a single value and wrap it", () => {

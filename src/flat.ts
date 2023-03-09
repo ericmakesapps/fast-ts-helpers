@@ -1,5 +1,4 @@
 import NestableList from "./NestableList"
-
 import wrap from "./wrap"
 
 /**

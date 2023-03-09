@@ -1,6 +1,6 @@
+import checkBounds, { Orientation } from "./checkBounds"
 import mobileBreakpoint from "./mobileBreakpoint"
 import tabletBreakpoint from "./tabletBreakpoint"
-import checkBounds, { Orientation } from "./checkBounds"
 
 /**
  * Check whether the screen is currently at a tablet viewport size.

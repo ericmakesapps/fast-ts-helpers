@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-globals */
-
 import { SetStateAction } from "react"
 
 import useBackedState from "./useBackedState"

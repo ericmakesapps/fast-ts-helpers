@@ -1,6 +1,6 @@
 import assertType from "./assertType"
-import ValueOf from "./ValueOf"
 import enumize from "./enumize"
+import ValueOf from "./ValueOf"
 
 describe("enumize helper", () => {
 	test("should create an enum from the passed strings", () => {

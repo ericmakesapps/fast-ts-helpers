@@ -1,6 +1,5 @@
-import Func from "./Func"
-
 import cacheKey from "./cacheKey"
+import Func from "./Func"
 
 /** The options for the memoization. */
 export type MemoizeOptions = {

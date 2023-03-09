@@ -1,4 +1,5 @@
 import { DependencyList, useEffect, useMemo, useState } from "react"
+
 import * as maybeResizeObserver from "resize-observer-polyfill"
 
 import throttle from "./throttle"

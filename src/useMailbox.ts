@@ -7,10 +7,10 @@ import {
 	useState
 } from "react"
 
-import Storage from "./Storage"
 import areEqual from "./areEqual"
-import tuple from "./tuple"
 import isCallable from "./isCallable"
+import Storage from "./Storage"
+import tuple from "./tuple"
 
 /** Use a state variable that is stored in localStorage as well, such that other contexts at the same host can change the value. This polls every 100 millis for a value change. */
 function useMailbox<T>(box: string, defaultValue: T): [T, Dispatch<SetStateAction<T>>]

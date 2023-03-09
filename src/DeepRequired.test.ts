@@ -1,5 +1,5 @@
-import DeepRequired from "./DeepRequired"
 import assertType from "./assertType"
+import DeepRequired from "./DeepRequired"
 
 describe("DeepRequired helper", () => {
 	test("should make all properties required", () => {

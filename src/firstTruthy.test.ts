@@ -1,6 +1,6 @@
-import wait from "./wait"
-import firstTruthy from "./firstTruthy"
 import assertType from "./assertType"
+import firstTruthy from "./firstTruthy"
+import wait from "./wait"
 
 describe("firstTruthy helper", () => {
 	test("should resolve to the first truthy value from an array of promises, as soon as it resolves", async () => {

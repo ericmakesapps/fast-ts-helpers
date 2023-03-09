@@ -1,5 +1,5 @@
-import keys from "./keys"
 import assertType from "./assertType"
+import keys from "./keys"
 
 describe("keys helper", () => {
 	test("should get the keys from the passed object", () => {

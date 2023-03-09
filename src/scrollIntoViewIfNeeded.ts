@@ -1,7 +1,7 @@
+import animateScrollTo from "./animateScrollTo"
+import isScrollable from "./isScrollable"
 import parentLeft from "./parentLeft"
 import parentTop from "./parentTop"
-import isScrollable from "./isScrollable"
-import animateScrollTo from "./animateScrollTo"
 
 /**
  * Scroll the passed element into view if it is not currently in the view.

@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-globals */
-
 import ReadonlyRefObject from "./ReadonlyRefObject"
 import useBackedRef from "./useBackedRef"
 

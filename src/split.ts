@@ -1,5 +1,5 @@
-import pick from "./pick"
 import omit from "./omit"
+import pick from "./pick"
 import tuple from "./tuple"
 
 /**

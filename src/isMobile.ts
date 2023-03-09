@@ -1,6 +1,5 @@
-import mobileBreakpoint from "./mobileBreakpoint"
-
 import checkBounds, { Orientation } from "./checkBounds"
+import mobileBreakpoint from "./mobileBreakpoint"
 
 /**
  * Check whether the screen is currently at a mobile viewport size.

@@ -1,5 +1,5 @@
-import tabletBreakpoint from "./tabletBreakpoint"
 import checkBounds from "./checkBounds"
+import tabletBreakpoint from "./tabletBreakpoint"
 
 /**
  * Check whether the screen is currently at a desktop viewport size.

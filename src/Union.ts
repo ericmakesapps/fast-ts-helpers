@@ -1,5 +1,5 @@
-import Never from "./Never"
 import IdType from "./IdType"
+import Never from "./Never"
 
 type UnionOfTwo<First, Second> =
 	| (First & Never<Omit<Second, keyof First>>)

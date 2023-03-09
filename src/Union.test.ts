@@ -1,5 +1,5 @@
-import Union from "./Union"
 import assertType from "./assertType"
+import Union from "./Union"
 
 describe("Union helper", () => {
 	test("should combine types into a union", () => {

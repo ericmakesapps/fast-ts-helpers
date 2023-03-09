@@ -1,7 +1,7 @@
+import fallback from "./fallback"
+import Falsey from "./Falsey"
 import NonFalsible from "./NonFalsible"
 import OptionalPropsOf from "./OptionalPropsOf"
-import Falsey from "./Falsey"
-import fallback from "./fallback"
 
 /**
  * Map all falsey values in an object to undefined. **Don't** use this on objects that contain booleans, numbers, or strings where `false`, `0`, and/or `""` should retain their value. It will mess it up.

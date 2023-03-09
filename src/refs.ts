@@ -1,7 +1,7 @@
-import Writable from "./Writable"
 import FalsibleList from "./FalsibleList"
 import filter from "./filter"
 import flat from "./flat"
+import Writable from "./Writable"
 
 /**
  * Combine a set of refs into a single ref callback.

@@ -1,5 +1,5 @@
-import Merge from "./Merge"
 import assertType from "./assertType"
+import Merge from "./Merge"
 
 describe("Merge helper", () => {
 	test("should combine types into a merged type", () => {

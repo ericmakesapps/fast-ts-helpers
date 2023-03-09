@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import useObserveWindowWidth from "./useObserveWindowWidth"
 import isMobile from "./isMobile"
+import useObserveWindowWidth from "./useObserveWindowWidth"
 
 /**
  * Triggers a state update whenever the value of isMobile changes.

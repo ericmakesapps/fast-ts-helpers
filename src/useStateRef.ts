@@ -7,8 +7,8 @@ import {
 	useState
 } from "react"
 
-import tuple from "./tuple"
 import isCallable from "./isCallable"
+import tuple from "./tuple"
 
 /**
  * Get a ref and state value for a given value. The callback that is returned sets both the ref and state.

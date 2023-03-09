@@ -1,8 +1,8 @@
 import { DependencyList, useCallback, useMemo, useRef } from "react"
 
+import areEqual from "./areEqual"
 import ReadonlyRefObject from "./ReadonlyRefObject"
 import tuple from "./tuple"
-import areEqual from "./areEqual"
 
 /**
  * Use a ref that has some backing for its initial value.

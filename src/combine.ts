@@ -1,9 +1,8 @@
-import Func from "./Func"
 import Falsible from "./Falsible"
-
-import memoize from "./memoize"
 import filter from "./filter"
 import flat from "./flat"
+import Func from "./Func"
+import memoize from "./memoize"
 
 const doCombine = memoize(<T extends Func>(...callbacks: T[]): T => {
 	// @ts-expect-error

@@ -1,8 +1,7 @@
-import Falsible from "./Falsible"
-
 import combine from "./combine"
-import onEnterKeyDown from "./onEnterKeyDown"
+import Falsible from "./Falsible"
 import memoize from "./memoize"
+import onEnterKeyDown from "./onEnterKeyDown"
 
 /**
  * Attach an action to both the onClick and the enter key's actual keypress (ignoring the repeated keydown events if the user holds the enter key).

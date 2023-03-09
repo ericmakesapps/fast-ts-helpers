@@ -1,7 +1,6 @@
-import NestableList from "./NestableList"
-
-import map from "./map"
 import flat from "./flat"
+import map from "./map"
+import NestableList from "./NestableList"
 
 /**
  * Map the flattened version of a nestable array. This won't flatten what the mapper returns—use flatmap if you want that.

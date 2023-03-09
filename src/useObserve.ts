@@ -1,8 +1,8 @@
 import { DependencyList, useEffect, useMemo, useState } from "react"
 
-import throttle from "./throttle"
 import cacheKey from "./cacheKey"
 import ifBrowser from "./ifBrowser"
+import throttle from "./throttle"
 
 declare const require: (thing: string) => unknown
 
