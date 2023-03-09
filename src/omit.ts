@@ -27,34 +27,6 @@ function omit<Type extends object, Key extends keyof Type>(
 ): Omit<Type, Key> | undefined
 
 /**
- * Return a version of the passed object which excludes the properties with the passed keys.
- *
- * @template Type The type of object from which properties are being omitted.
- * @template Key The keys that should be omitted.
- * @param obj The object from which to omit values.
- * @param keys The keys whose values to omit.
- * @returns A version of the object without the specified keys.
- */
-function omit<Type extends object, Key extends keyof Type>(
-	obj: Type,
-	...keys: Key[]
-): Omit<Type, Key>
-
-/**
- * Return a version of the passed object which excludes the properties with the passed keys.
- *
- * @template Type The type of object from which properties are being omitted.
- * @template Key The keys that should be omitted.
- * @param obj The object from which to omit values.
- * @param keys The keys whose values to omit.
- * @returns A version of the object without the specified keys.
- */
-function omit<Type extends object, Key extends keyof Type>(
-	obj: Type | undefined,
-	...keys: Key[]
-): Omit<Type, Key> | undefined
-
-/**
  * Return a version of the passed object which excludes the properties with keys that match the passed RegExp.
  *
  * @template Type The type of object from which properties are being omitted.
@@ -79,8 +51,7 @@ function omit<Type extends object>(
 
 function omit<T extends object, K extends keyof T>(
 	obj: T | undefined,
-	patternOrKey: K | RegExp | K[],
-	...keys: K[]
+	patternOrKeys: RegExp | K[]
 ) {
 	if (!obj) {
 		return obj
@@ -89,17 +60,15 @@ function omit<T extends object, K extends keyof T>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const ret: any = {}
 
-	if (patternOrKey instanceof RegExp) {
+	if (patternOrKeys instanceof RegExp) {
 		for (const k of Object.keys(obj)) {
-			if (!patternOrKey.test(k)) {
+			if (!patternOrKeys.test(k)) {
 				ret[k] = obj[k as K]
 			}
 		}
 	} else {
-		keys = Array.isArray(patternOrKey) ? patternOrKey : [patternOrKey, ...keys]
-
 		for (const k of Object.keys(obj)) {
-			if (!keys.includes(k as K)) {
+			if (!patternOrKeys.includes(k as K)) {
 				ret[k] = obj[k as K]
 			}
 		}

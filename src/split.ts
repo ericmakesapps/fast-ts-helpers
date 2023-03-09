@@ -1,6 +1,5 @@
 import omit from "./omit"
 import pick from "./pick"
-import tuple from "./tuple"
 
 /**
  * Returns two versions of this object – one where the passed keys are included, and one where the passed keys are omitted.
@@ -13,7 +12,7 @@ import tuple from "./tuple"
  */
 function split<Type extends object, Key extends keyof Type>(
 	obj: Type,
-	...keys: Key[]
+	keys: Key[]
 ): [Pick<Type, Key>, Omit<Type, Key>]
 /**
  * Returns two versions of this object – one where the keys matching the passed pattern are included, and one where the keys matching the pattern are omitted.
@@ -28,8 +27,9 @@ function split<Type extends object>(
 	pattern: RegExp
 ): [Partial<Type>, Partial<Type>]
 
-function split<T extends object, K extends keyof T>(obj: T, ...keys: K[]) {
-	return tuple(pick(obj, ...keys), omit(obj, ...keys))
+function split<T extends object, K extends keyof T>(obj: T, keys: K[] | RegExp) {
+	// We have to cast this so TypeScript accepts it, but both signatures are compatible
+	return [pick(obj, keys as RegExp), omit(obj, keys as RegExp)]
 }
 
 export default split

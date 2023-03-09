@@ -5,10 +5,6 @@ describe("pick helper", () => {
 		expect(pick({ id: "hi", notId: "hello" }, ["id"])).toEqual({ id: "hi" })
 	})
 
-	test("should pick a prop from an object by string", () => {
-		expect(pick({ id: "hi", notId: "hello" }, "id")).toEqual({ id: "hi" })
-	})
-
 	test("should pick a prop from an object by regex", () => {
 		expect(pick({ id: "hi", notId: "hello" }, /id/)).toEqual({ id: "hi" })
 	})
