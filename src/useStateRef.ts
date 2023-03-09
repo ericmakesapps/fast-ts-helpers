@@ -8,48 +8,39 @@ import {
 } from "react"
 
 import isCallable from "./isCallable"
-import tuple from "./tuple"
 
 /**
  * Get a ref and state value for a given value. The callback that is returned sets both the ref and state.
  *
- * @param defaultValue The default value of the state/ref.
+ * @param initialValue The initial value of the state/ref.
  * @returns A tuple containing the ref, the setter, and the state values.
  */
 function useStateRef<T>(
-	defaultValue: T
+	initialValue: T | (() => T)
 ): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
 function useStateRef<T>(
-	defaultValue?: T
+	initialState?: T | (() => T | undefined) | undefined
 ): [
 	Readonly<MutableRefObject<T | undefined>>,
 	Dispatch<SetStateAction<T | undefined>>,
 	T | undefined
 ]
 
-function useStateRef<T>(defaultValue?: T) {
-	const ref = useRef(defaultValue)
-	const [state, setState] = useState(defaultValue)
+function useStateRef<T>(initialState?: T | (() => T)) {
+	const [state, setState] = useState(initialState)
+	const ref = useRef(state)
 
-	return tuple(
-		ref as Readonly<typeof ref>,
+	return [
+		ref,
 		useCallback<typeof setState>((valueOrFunction) => {
-			if (isCallable(valueOrFunction)) {
-				setState((currentValue) => {
-					const value = valueOrFunction(currentValue)
-
-					ref.current = value
-
-					return value
-				})
-			} else {
-				ref.current = valueOrFunction
-
-				setState(valueOrFunction)
-			}
+			setState(
+				isCallable(valueOrFunction)
+					? (currentValue) => (ref.current = valueOrFunction(currentValue))
+					: (ref.current = valueOrFunction)
+			)
 		}, []),
 		state
-	)
+	]
 }
 
 export default useStateRef

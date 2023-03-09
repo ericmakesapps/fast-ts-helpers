@@ -1,61 +1,52 @@
-import { DependencyList, SetStateAction, useCallback, useMemo, useState } from "react"
+import { DependencyList, Dispatch, SetStateAction, useCallback, useState } from "react"
 
 import isCallable from "./isCallable"
-import tuple from "./tuple"
 
 /**
  * Use a state that has some backing for its initial value.
  *
  * @param set A callback to set the value in the backing. This is used each time the setter is called.
  * @param deps The dependency list for the set callback.
- * @param get A callback to get the initial value from backing. This is only used in initializing this ref.
- * @param defaultValue The default value to use for the value.
+ * @param getInitialValue A callback to get the initial value (from the backing store, or whatever, as desired). This is only called once, in initializing this state.
  */
 function useBackedState<T>(
 	set: (newValue: T) => void,
 	deps: DependencyList,
-	get: () => T,
-	defaultValue: T
-): [T, (newValue: SetStateAction<T>) => void]
+	getInitialValue: () => T
+): [T, Dispatch<SetStateAction<T>>]
 function useBackedState<T>(
 	set: (newValue: T | undefined) => void,
 	deps: DependencyList,
-	get: () => T | undefined,
-	defaultValue?: T
-): [T | undefined, (newValue: SetStateAction<T | undefined>) => void]
+	getInitialValue: () => T | undefined
+): [T | undefined, Dispatch<SetStateAction<T | undefined>>]
 
 function useBackedState<T>(
 	set: (newValue: T | undefined) => void,
 	deps: DependencyList,
-	get: () => T | undefined,
-	defaultValue?: T
+	getInitialValue: () => T | undefined
 ) {
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const [value, setValue] = useState(useMemo(get, []) ?? defaultValue)
+	const [value, setValue] = useState(getInitialValue)
 
-	return tuple(
+	return [
 		value,
 		useCallback<typeof setValue>(
 			(valueOrGetter) => {
-				if (isCallable(valueOrGetter)) {
-					setValue((value) => {
-						const newValue = valueOrGetter(value)
+				setValue((value) => {
+					const newValue = isCallable(valueOrGetter)
+						? valueOrGetter(value)
+						: valueOrGetter
 
+					if (newValue !== value) {
 						set(newValue)
+					}
 
-						return newValue
-					})
-				} else {
-					const newValue = valueOrGetter
-
-					set(newValue)
-					setValue(newValue)
-				}
+					return newValue
+				})
 			},
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 			deps
 		)
-	)
+	]
 }
 
 export default useBackedState
