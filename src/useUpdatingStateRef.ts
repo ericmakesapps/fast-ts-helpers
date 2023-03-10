@@ -14,15 +14,15 @@ import useStateRef from "./useStateRef"
  * having access to the value through a react ref. It's useful for when the state/ref
  * value also needs to track an external value.
  */
-export function useUpdatingStateRef<T>(
+function useUpdatingStateRef<T>(
 	value: T & Exclude<T, Function>
 ): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
-export function useUpdatingStateRef<T>(
+function useUpdatingStateRef<T>(
 	getter: (currentValue?: T) => T,
 	deps: DependencyList
 ): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
 
-export function useUpdatingStateRef<T>(
+function useUpdatingStateRef<T>(
 	valueOrGetter: (T & Exclude<T, Function>) | ((currentValue?: T) => T),
 	deps?: DependencyList
 ) {
@@ -42,3 +42,5 @@ export function useUpdatingStateRef<T>(
 
 	return state
 }
+
+export default useUpdatingStateRef
