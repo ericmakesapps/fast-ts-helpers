@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"private": true,
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"license": "MIT",
@@ -9,15 +9,14 @@
 	"scripts": {
 		"build": "tsc",
 		"check": "run-p lint format \"test -- --watchAll=false\"",
-		"clean-lib": "rimraf lib/*",
 		"fix": "run-s fix:lint fix:format \"test -- --watchAll=false\"",
 		"fix:format": "npm run format -- --write",
 		"fix:lint": "npm run lint -- --fix",
 		"format": "prettier -c --ignore-path .gitignore \"**/?*.@(js|ts|jsx|tsx|json|md|html|css|scss)\"",
 		"lint": "eslint src --ext .ts,.tsx --max-warnings 0",
 		"postbuild": "node scripts/copy-for-publish.js",
-		"prebuild": "run-p clean-lib check",
-		"publish": "npm run build && cd lib && npm publish",
+		"prebuild": "rimraf lib/*",
+		"publish": "run-s check build && cd lib && npm publish",
 		"test": "jest --coverage --watch",
 		"version": "npm --no-git-tag-version version"
 	},
