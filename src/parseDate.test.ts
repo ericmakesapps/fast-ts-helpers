@@ -12,13 +12,26 @@ describe("parseDate helper", () => {
 	})
 
 	test("should convert a date string date", () => {
-		expect(parseDate("2022-01-01T12:30:30")).toEqual(
-			new Date(2022, 0, 1, 12, 30 - new Date().getTimezoneOffset(), 30)
+		expect(parseDate("2022-01-01T12:30:30").toISOString()).toEqual(
+			"2022-01-01T12:30:30.000Z"
 		)
 	})
+
+	test("should use DST if the date falls within DST", () => {
+		expect(parseDate("2023-03-01T12:30:30").toISOString()).toEqual(
+			"2023-03-01T12:30:30.000Z"
+		)
+	})
+
+	test("should use standard time if the date falls within standard time", () => {
+		expect(parseDate("2023-03-15T12:30:30").toISOString()).toEqual(
+			"2023-03-15T12:30:30.000Z"
+		)
+	})
+
 	test("should convert a date string date with timezone", () => {
-		expect(parseDate("2022-01-01T12:30:30+05:00")).toEqual(
-			new Date(2022, 0, 1, 12 - 5, 30 - new Date().getTimezoneOffset(), 30)
+		expect(parseDate("2022-01-01T12:30:30+05:00").toISOString()).toEqual(
+			"2022-01-01T07:30:30.000Z"
 		)
 	})
 
