@@ -81,25 +81,26 @@ function parseDate(date: string | number | Date | undefined) {
 	}
 
 	// The time constructed by the date and time parts
-	const manualDate = new Date(year, month, day, hours, minutes, seconds)
+	const manualDate = new Date(Date.UTC(year, month, day, hours, minutes, seconds))
 
-	// Offset from local time to UTC. The other `if` statement below will offset to the passed time zone.
-	offset = manualDate.getTimezoneOffset() * 60 * 1000
+	manualDate.setUTCFullYear(year, month, day)
 
 	// If the zone half of the time part is defined, do that offset here
 	if (truthy(zoneHalf)) {
 		const [offsetHours, offsetMinutes] = zoneHalf.split(`:`).map(parseFloat)
 
-		offset += offsetHours * 60 * 60 * 1000
+		offset += offsetHours * 60
 
 		if (offsetMinutes != null) {
 			const sign = offsetHours < 0 ? -1 : 1
 
-			offset += sign * (offsetMinutes * 60 * 1000)
+			offset += sign * offsetMinutes
 		}
 	}
 
-	return new Date(manualDate.getTime() - offset)
+	manualDate.setMinutes(manualDate.getMinutes() - offset)
+
+	return manualDate
 }
 
 export default parseDate

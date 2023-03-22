@@ -17,6 +17,17 @@ describe("parseDate helper", () => {
 		)
 	})
 
+	test("should work on dates before and after the time zone standardization (see [this article](https://time.com/5730146/standardized-time/))", () => {
+		expect(parseDate("1883-11-18").toISOString()).toEqual("1883-11-18T00:00:00.000Z")
+		expect(parseDate("1883-11-19").toISOString()).toEqual("1883-11-19T00:00:00.000Z")
+	})
+
+	test("should work on very early dates", () => {
+		expect(parseDate("0001-01-01").toISOString()).toEqual("0001-01-01T00:00:00.000Z")
+		expect(parseDate("0012-01-01").toISOString()).toEqual("0012-01-01T00:00:00.000Z")
+		expect(parseDate("0095-01-01").toISOString()).toEqual("0095-01-01T00:00:00.000Z")
+	})
+
 	test("should use DST if the date falls within DST", () => {
 		expect(parseDate("2023-03-01T12:30:30").toISOString()).toEqual(
 			"2023-03-01T12:30:30.000Z"
