@@ -7,6 +7,9 @@ import NonFalsible from "./NonFalsible"
  * @returns A promise that resolves to the first truthy value from any of the passed promises, or rejects if none of the passed promises resolve to a truthy value.
  */
 async function firstTruthy<T extends Promise<any>>(promises: T[]) {
+	// Let's create this here so we have the correct stack trace
+	const error = new Error("None of the promises resolved to a truthy value")
+
 	return new Promise<NonFalsible<Awaited<T>>>(async (resolve, reject) => {
 		let resolved = false
 
@@ -23,7 +26,7 @@ async function firstTruthy<T extends Promise<any>>(promises: T[]) {
 		)
 
 		if (!resolved) {
-			reject(new Error("None of the promises resolved to a truthy value"))
+			reject(error)
 		}
 	})
 }
