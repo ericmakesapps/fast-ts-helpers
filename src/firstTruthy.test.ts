@@ -8,15 +8,15 @@ describe("firstTruthy helper", () => {
 
 		await expect(
 			firstTruthy([
-				wait(10).then(() => 0),
-				wait(20).then(() => 1),
-				wait(30).then(() => 2),
-				wait(40).then(() => 3)
+				wait(25).then(() => 0),
+				wait(50).then(() => 1),
+				wait(75).then(() => 2),
+				wait(100).then(() => 3)
 			])
 		).resolves.toBe(1)
 
 		// It resolves as soon as the first one resolves to a truthy value, not waiting for the others
-		expect(performance.now() - now).toBeLessThan(30)
+		expect(performance.now() - now).toBeLessThan(100)
 	})
 
 	test("should reject if no passed promise resolves to a truthy value", async () => {

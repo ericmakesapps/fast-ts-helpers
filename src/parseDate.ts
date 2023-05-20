@@ -91,7 +91,7 @@ function parseDate(date: string | number | Date | undefined) {
 
 		offset += offsetHours * 60
 
-		if (offsetMinutes != null) {
+		if (offsetMinutes) {
 			const sign = offsetHours < 0 ? -1 : 1
 
 			offset += sign * offsetMinutes

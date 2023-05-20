@@ -11,9 +11,15 @@ describe("parseDate helper", () => {
 		expect(parseDate(undefined)).toBeUndefined()
 	})
 
-	test("should convert a date string date", () => {
+	test("should convert a date string", () => {
 		expect(parseDate("2022-01-01T12:30:30").toISOString()).toEqual(
 			"2022-01-01T12:30:30.000Z"
+		)
+	})
+
+	test("should convert non-standard date strings", () => {
+		expect(parseDate("20223-120-365T12:30:30").toISOString()).toEqual(
+			"+020233-11-30T12:30:30.000Z"
 		)
 	})
 
@@ -40,9 +46,27 @@ describe("parseDate helper", () => {
 		)
 	})
 
-	test("should convert a date string date with timezone", () => {
+	test("should convert a date string date with timezone offset", () => {
 		expect(parseDate("2022-01-01T12:30:30+05:00").toISOString()).toEqual(
 			"2022-01-01T07:30:30.000Z"
+		)
+	})
+
+	test("should convert a date string date with negative timezone offset", () => {
+		expect(parseDate("2022-01-01T12:30:30-05:00").toISOString()).toEqual(
+			"2022-01-01T17:30:30.000Z"
+		)
+	})
+
+	test("should convert a date string date with timezone offset with minute offset", () => {
+		expect(parseDate("2022-01-01T12:30:30+05:30").toISOString()).toEqual(
+			"2022-01-01T07:00:30.000Z"
+		)
+	})
+
+	test("should convert a date string date with negative timezone offset with minute offset", () => {
+		expect(parseDate("2022-01-01T12:30:30-05:30").toISOString()).toEqual(
+			"2022-01-01T18:00:30.000Z"
 		)
 	})
 
