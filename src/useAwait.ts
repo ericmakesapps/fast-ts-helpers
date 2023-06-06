@@ -10,7 +10,7 @@ import useConstructor from "./useConstructor"
  * @param callback The callback that returns the promise or a tuple with the cached value and an update promise.
  * @returns A tuple containing the current value, a setter to change the value at a later time, and the underlying promise
  */
-function useAwait<T>(callback: () => Promise<T> | [T, Promise<T>]) {
+function useAwait<T>(callback: () => PromiseLike<T> | [T, PromiseLike<T>]) {
 	const cb = useRef(callback)
 	const promiseOrCacheAndPromise = useMemo(() => cb.current(), [])
 
