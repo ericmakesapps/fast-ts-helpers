@@ -6,12 +6,20 @@ import parseDate from "./parseDate"
  *
  * @template Type The type of the object where dates are being injected.
  * @param obj The object in which to inject Dates for all date properties.
+ * @param omit A function that determines whether any given property and value should be Datified.
  * @returns The same object that was passed in.
  */
-function injectDates<Type extends {}>(obj: Type) {
+function injectDates<Type extends {}>(
+	obj: Type,
+	omit?: (key: string, value: any) => boolean
+) {
 	for (const key in obj) {
 		if (obj.hasOwnProperty(key)) {
 			const value = obj[key]
+
+			if (omit?.(key, value)) {
+				continue
+			}
 
 			if (
 				(typeof value === `string` &&
