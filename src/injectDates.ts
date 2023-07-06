@@ -17,10 +17,6 @@ function injectDates<Type extends {}>(
 		if (obj.hasOwnProperty(key)) {
 			const value = obj[key]
 
-			if (omit?.(key, value)) {
-				continue
-			}
-
 			if (
 				(typeof value === `string` &&
 					fullyMatches(
@@ -30,9 +26,13 @@ function injectDates<Type extends {}>(
 					)) ||
 				(typeof value === `number` && /(^d|D)ate([A-Z0-9_]|$)/.test(key))
 			) {
+				if (omit?.(key, value)) {
+					continue
+				}
+
 				obj[key] = parseDate(value) as unknown as typeof value
 			} else if (value && typeof value === `object`) {
-				obj[key] = injectDates(value)
+				obj[key] = injectDates(value, omit)
 			}
 		}
 	}
