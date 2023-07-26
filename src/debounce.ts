@@ -6,21 +6,23 @@
  * @param immediate Whether to trigger the function at the start instead of after the threshold. Default is `false`.
  * @returns A version of this function that will only trigger when it isn't called for the threshold amount of time.
  */
-function debounce<T extends (...args: any[]) => void>(
-	func: T,
-	threshold: number,
-	immediate: false
-): T
 function debounce<T extends (...args: any[]) => unknown>(
 	func: T,
-	threshold: number,
-	immediate: boolean
+	threshold?: number | undefined,
+	immediate?: false | undefined,
+	withLatestResult?: ((result: ReturnType<T>) => void) | undefined
+): (...args: Parameters<T>) => void
+function debounce<T extends (...args: any[]) => unknown>(
+	func: T,
+	threshold: number | undefined,
+	immediate: true
 ): T
 
 function debounce<T extends (...args: any[]) => unknown>(
 	func: T,
 	threshold = 100,
-	immediate = false
+	immediate = false,
+	withLatestResult?: (result: ReturnType<T>) => void
 ) {
 	let timeout: number | NodeJS.Timeout | undefined
 	let returnVal: unknown
@@ -30,7 +32,9 @@ function debounce<T extends (...args: any[]) => unknown>(
 			timeout = undefined
 
 			if (!immediate) {
-				func.apply(this, args)
+				const result = func.apply(this, args)
+
+				withLatestResult?.(result as ReturnType<T>)
 			}
 		}
 
