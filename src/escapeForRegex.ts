@@ -5,7 +5,7 @@
  * @returns The escaped string.
  */
 function escapeForRegex(str: string) {
-	return str.replace(/[.*+\-?^${}()|[\]\\]/g, `\\$&`)
+	return str.replace(/[.*+?^${}()|[\]\\]/g, `\\$&`)
 }
 
 export default escapeForRegex
