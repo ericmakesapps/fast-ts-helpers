@@ -8,18 +8,34 @@ describe("firstTruthy helper", () => {
 
 		await expect(
 			firstTruthy([
-				wait(25).then(() => 0),
-				wait(50).then(() => 1),
-				wait(75).then(() => 2),
-				wait(100).then(() => 3)
+				wait(250).then(() => 0),
+				wait(500).then(() => 1),
+				wait(750).then(() => 2),
+				wait(1000).then(() => 3)
 			])
 		).resolves.toBe(1)
 
 		// It resolves as soon as the first one resolves to a truthy value, not waiting for the others
-		expect(performance.now() - now).toBeLessThan(100)
+		expect(performance.now() - now).toBeLessThan(750)
 	})
 
-	test("should reject if no passed promise resolves to a truthy value", async () => {
+	test("should reject to the passed error if no passed promise resolves to a truthy value", async () => {
+		const race = firstTruthy(
+			[
+				wait(40).then(() => 0),
+				wait(30).then(() => ""),
+				wait(20).then(() => undefined),
+				wait(10).then(() => null)
+			],
+			new Error("Oh no")
+		)
+
+		assertType<Promise<string | number>>(race)
+
+		await expect(race).rejects.toThrow("Oh no")
+	})
+
+	test("should reject to a default error if no passed promise resolves to a truthy value", async () => {
 		const race = firstTruthy([
 			wait(40).then(() => 0),
 			wait(30).then(() => ""),
@@ -29,6 +45,22 @@ describe("firstTruthy helper", () => {
 
 		assertType<Promise<string | number>>(race)
 
-		await expect(race).rejects.toThrow()
+		await expect(race).rejects.toThrow("None of the promises resolved to a truthy value")
+	})
+
+	test("should resolve to undefined if null is passed for error and no passed promise resolves to a truthy value", async () => {
+		const race = firstTruthy(
+			[
+				wait(40).then(() => 0),
+				wait(30).then(() => ""),
+				wait(20).then(() => undefined),
+				wait(10).then(() => null)
+			],
+			null
+		)
+
+		assertType<Promise<string | number | undefined>>(race)
+
+		await expect(race).resolves.toBeUndefined()
 	})
 })
