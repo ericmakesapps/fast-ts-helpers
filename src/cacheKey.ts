@@ -6,6 +6,8 @@ import uuid from "./uuid"
 /**
  * Make a stable cache key for a given object. That is to say, any equal object will return the same cache key.
  *
+ * **Depends on `json-stable-stringify`**.
+ *
  * @param obj The object for which a cache key is wanted.
  * @template Type The type of the object passed in.
  * @returns The stable cache key for the passed object.

@@ -13,6 +13,8 @@ export type MemoizeOptions = {
 /**
  * Memoize this function so that future calls with the same parameters will return the same result without recalculating. Functions are checked by identity, while other parameters are checked by equality.
  *
+ * **Depends on `json-stable-stringify`**.
+ *
  * @template F The type of the function being memoized.
  * @param func The function to memoize.
  * @param options The options to use for memoization.
