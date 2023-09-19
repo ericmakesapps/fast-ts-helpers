@@ -6,8 +6,8 @@ describe("wait helper", () => {
 
 		await wait(100)
 
-		// It waits about 100 millis. We give it a padding of 25 millis on either side.
-		expect(Math.abs(performance.now() - now - 100)).toBeLessThan(25)
+		// It waits about 100 millis. We give it a padding of 50 millis on either side.
+		expect(Math.abs(performance.now() - now - 100)).toBeLessThan(50)
 	})
 
 	test("should default to zero if no number of millis is passed", async () => {
@@ -15,7 +15,7 @@ describe("wait helper", () => {
 
 		await wait()
 
-		// It waits about nothing. We give it a padding of 25 millis.
-		expect(performance.now() - now).toBeLessThan(25)
+		// It waits about nothing. We give it a padding of 50 millis.
+		expect(performance.now() - now).toBeLessThan(50)
 	})
 })

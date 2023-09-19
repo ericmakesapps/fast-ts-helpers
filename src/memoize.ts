@@ -8,6 +8,14 @@ export type MemoizeOptions = {
 
 	/** Whether it is an async function. This is needed if the result **is not** the standard Promise type, but should still be treated as a Promise. If the result **is** of type Promise, this is **not** needed. Default is `false`. */
 	asynchronous?: boolean
+
+	/** If you want to store the cache somewhere other than local memory (like in a DB). */
+	store?: {
+		set: <TValue>(key: string, value: TValue) => TValue
+		get: (key: string) => any
+		has: (key: string) => boolean
+		remove: (key: string) => void
+	}
 }
 
 /**
@@ -22,9 +30,23 @@ export type MemoizeOptions = {
  */
 function memoize<F extends Func>(
 	func: F,
-	{ asynchronous = false, excludedArguments }: MemoizeOptions = {}
+	{
+		asynchronous = false,
+		excludedArguments,
+		store = undefined as any
+	}: MemoizeOptions = {}
 ) {
-	const cache: Record<string, unknown> = {}
+	if (!store) {
+		// If store wasn't defined, use a local, in-memory store.
+		const cache: Record<string, unknown> = {}
+
+		store = {
+			get: (key) => cache[key],
+			has: (key) => key in cache,
+			set: (key, value) => (cache[key] = value),
+			remove: (key) => delete cache[key]
+		}
+	}
 
 	if (excludedArguments) {
 		excludedArguments = excludedArguments.sort().reverse()
@@ -61,17 +83,22 @@ function memoize<F extends Func>(
 
 		const key = cacheKey(keys)
 
-		if (!(key in cache)) {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			const value = (cache[key] = func.apply(this, args))
+		if (!store.has(key)) {
+			let value = func.apply(this, args)
 
 			if (catchable(value)) {
-				value.catch(() => delete cache[key])
+				value = value.catch(async (err) => {
+					store.remove(key)
+
+					// Rethrow any error
+					throw err
+				})
 			}
+
+			store.set(key, value)
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-		return cache[key]
+		return store.get(key)
 	} as F
 }
 

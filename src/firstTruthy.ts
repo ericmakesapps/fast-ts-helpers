@@ -39,8 +39,10 @@ async function firstTruthy<T extends PromiseLike<any>>(
 						}
 					},
 					(err) => {
-						if (rethrow) {
-							throw err
+						if (rethrow && !resolved) {
+							resolved = true
+
+							reject(err)
 						}
 					}
 				)

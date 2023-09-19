@@ -63,4 +63,20 @@ describe("firstTruthy helper", () => {
 
 		await expect(race).resolves.toBeUndefined()
 	})
+
+	test("ignores errors if rethrow is not passed", async () => {
+		const race = firstTruthy([Promise.reject(new Error()), wait(100).then(() => 1)])
+
+		await expect(race).resolves.toBe(1)
+	})
+
+	test("rethrows errors if rethrow is true", async () => {
+		const race = firstTruthy(
+			[Promise.reject(new Error()), wait(100).then(() => 1)],
+			undefined,
+			true
+		)
+
+		await expect(race).rejects.toThrow()
+	})
 })

@@ -31,7 +31,7 @@ function cacheKey<Type>(obj: Type) {
 			}
 
 			// Let's make sure others are treated differently from null
-			return `~.~${value}~.~`
+			return `~.~${value?.toString()}~.~`
 		}
 
 		return value
