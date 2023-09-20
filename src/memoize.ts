@@ -2,7 +2,7 @@ import cacheKey from "./cacheKey"
 import Func from "./Func"
 
 /** The options for the memoization. */
-export type MemoizeOptions = {
+export type MemoizeOptions<TValue = any> = {
 	/** Array of indices to not use for indexing. */
 	excludedArguments?: number[]
 
@@ -11,14 +11,14 @@ export type MemoizeOptions = {
 
 	/** If you want to store the cache somewhere other than local memory (like in a DB). */
 	store?: {
-		set: <TValue>(key: string, value: TValue) => void
-		get: (key: string) => any
+		set: (key: string, value: TValue) => void
+		get: (key: string) => TValue
 		has: (key: string) => boolean
 		remove: (key: string) => void
 	}
 }
 
-export type AsyncMemoizeOptions = {
+export type AsyncMemoizeOptions<TValue = any> = {
 	/** Array of indices to not use for indexing. */
 	excludedArguments?: number[]
 
@@ -28,8 +28,8 @@ export type AsyncMemoizeOptions = {
 	/** If you want to store the cache somewhere other than local memory (like in a DB). */
 	store?: {
 		set: <TValue>(key: string, valuePromise: Promise<TValue>) => void
-		get: (key: string) => any
-		has: (key: string) => boolean | Promise<boolean>
+		get: (key: string) => TValue | PromiseLike<TValue>
+		has: (key: string) => boolean | PromiseLike<boolean>
 		remove: (key: string) => void
 	}
 }
@@ -46,10 +46,10 @@ export type AsyncMemoizeOptions = {
  */
 function memoize<F extends Func<any[], PromiseLike<any>>>(
 	func: F,
-	options?: AsyncMemoizeOptions
+	options?: AsyncMemoizeOptions<Awaited<ReturnType<F>>>
 ): F
 
-function memoize<F extends Func>(func: F, options?: MemoizeOptions): F
+function memoize<F extends Func>(func: F, options?: MemoizeOptions<ReturnType<F>>): F
 
 function memoize<F extends Func>(
 	func: F,
