@@ -7,13 +7,29 @@ export type MemoizeOptions = {
 	excludedArguments?: number[]
 
 	/** Whether it is an async function. This is needed if the result **is not** the standard Promise type, but should still be treated as a Promise. If the result **is** of type Promise, this is **not** needed. Default is `false`. */
-	asynchronous?: boolean
+	asynchronous?: false
 
 	/** If you want to store the cache somewhere other than local memory (like in a DB). */
 	store?: {
-		set: <TValue>(key: string, value: TValue) => TValue
+		set: <TValue>(key: string, value: TValue) => void
 		get: (key: string) => any
 		has: (key: string) => boolean
+		remove: (key: string) => void
+	}
+}
+
+export type AsyncMemoizeOptions = {
+	/** Array of indices to not use for indexing. */
+	excludedArguments?: number[]
+
+	/** Whether it is an async function. This is needed if the result **is not** the standard Promise type, but should still be treated as a Promise. If the result **is** of type Promise, this is **not** needed. Default is `false`. */
+	asynchronous?: true
+
+	/** If you want to store the cache somewhere other than local memory (like in a DB). */
+	store?: {
+		set: <TValue>(key: string, valuePromise: Promise<TValue>) => void
+		get: (key: string) => any
+		has: (key: string) => boolean | Promise<boolean>
 		remove: (key: string) => void
 	}
 }
@@ -28,13 +44,20 @@ export type MemoizeOptions = {
  * @param options The options to use for memoization.
  * @returns A memoized version of the passed function.
  */
+function memoize<F extends Func<any[], PromiseLike<any>>>(
+	func: F,
+	options?: AsyncMemoizeOptions
+): F
+
+function memoize<F extends Func>(func: F, options?: MemoizeOptions): F
+
 function memoize<F extends Func>(
 	func: F,
 	{
 		asynchronous = false,
 		excludedArguments,
 		store = undefined as any
-	}: MemoizeOptions = {}
+	}: MemoizeOptions | AsyncMemoizeOptions = {}
 ) {
 	if (!store) {
 		// If store wasn't defined, use a local, in-memory store.
@@ -45,17 +68,17 @@ function memoize<F extends Func>(
 			has: (key) => key in cache,
 			set: (key, value) => (cache[key] = value),
 			remove: (key) => delete cache[key]
-		}
+		} as MemoizeOptions["store"] & {}
 	}
 
 	if (excludedArguments) {
 		excludedArguments = excludedArguments.sort().reverse()
 	}
 
-	function catchable(obj: unknown): obj is { catch: Promise<unknown>["catch"] } {
+	function isPromiseLike(obj: unknown): obj is PromiseLike<any> {
 		return (
 			obj instanceof Promise ||
-			(asynchronous && typeof (obj as Promise<unknown>)?.catch === `function`)
+			(asynchronous && typeof (obj as Promise<unknown>)?.then === `function`)
 		)
 	}
 
@@ -83,22 +106,47 @@ function memoize<F extends Func>(
 
 		const key = cacheKey(keys)
 
-		if (!store.has(key)) {
-			let value = func.apply(this, args)
+		const has = store.has(key)
 
-			if (catchable(value)) {
-				value = value.catch(async (err) => {
-					store.remove(key)
+		if (typeof has === "boolean") {
+			if (!has) {
+				let value = func.apply(this, args)
 
-					// Rethrow any error
-					throw err
-				})
+				store.set(key, value)
+
+				if (isPromiseLike(value)) {
+					return value.then(undefined, async (err) => {
+						store.remove(key)
+
+						throw err
+					})
+				}
+
+				return value
 			}
 
-			store.set(key, value)
+			return store.get(key)
 		}
 
-		return store.get(key)
+		return has.then((has) => {
+			if (!has) {
+				let value = func.apply(this, args)
+
+				store.set(key, value)
+
+				if (isPromiseLike(value)) {
+					return value.then(undefined, async (err) => {
+						store.remove(key)
+
+						throw err
+					})
+				}
+
+				return value
+			}
+
+			return store.get(key)
+		})
 	} as F
 }
 
