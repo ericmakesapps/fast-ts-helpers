@@ -47,7 +47,7 @@ export type AsyncMemoizeOptions<TValue = any> = {
 function memoize<F extends Func<any[], PromiseLike<any>>>(
 	func: F,
 	options?: AsyncMemoizeOptions<Awaited<ReturnType<F>>>
-): F
+): Func<Parameters<F>, ReturnType<F> & { __cacheHit: Promise<boolean> }>
 
 function memoize<F extends Func>(func: F, options?: MemoizeOptions<ReturnType<F>>): F
 
@@ -115,11 +115,15 @@ function memoize<F extends Func>(
 				store.set(key, value)
 
 				if (isPromiseLike(value)) {
-					return value.then(undefined, async (err) => {
-						store.remove(key)
+					return Object.assign(
+						(async () =>
+							value.then(undefined, async (err) => {
+								store.remove(key)
 
-						throw err
-					})
+								throw err
+							}))(),
+						{ __cacheHit: Promise.resolve(false) }
+					)
 				}
 
 				return value
@@ -128,25 +132,28 @@ function memoize<F extends Func>(
 			return store.get(key)
 		}
 
-		return has.then((has) => {
-			if (!has) {
-				let value = func.apply(this, args)
+		return Object.assign(
+			has.then((has) => {
+				if (!has) {
+					let value = func.apply(this, args)
 
-				store.set(key, value)
+					store.set(key, value)
 
-				if (isPromiseLike(value)) {
-					return value.then(undefined, async (err) => {
-						store.remove(key)
+					if (isPromiseLike(value)) {
+						return value.then(undefined, async (err) => {
+							store.remove(key)
 
-						throw err
-					})
+							throw err
+						})
+					}
+
+					return value
 				}
 
-				return value
-			}
-
-			return store.get(key)
-		})
+				return store.get(key)
+			}),
+			{ __cacheHit: has }
+		)
 	} as F
 }
 

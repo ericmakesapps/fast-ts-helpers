@@ -126,7 +126,7 @@ describe("memoize helper", () => {
 		expect(Object.values(store)).toMatchObject(["hello"])
 	})
 
-	test("will use an async store", async () => {
+	test("will use an async store, and return whether the cache was hit", async () => {
 		const store: Record<string, any> = {}
 
 		const memoized = memoize(
@@ -148,6 +148,8 @@ describe("memoize helper", () => {
 		await memoized("hello")
 
 		expect(Object.values(store)).toMatchObject(["hello"])
+
+		await expect(memoized("hello").__cacheHit).resolves.toBe(true)
 	})
 
 	test("will not memoize the result if the promise throws with async store", async () => {
