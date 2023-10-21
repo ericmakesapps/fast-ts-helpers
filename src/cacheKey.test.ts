@@ -5,6 +5,20 @@ describe("cacheKey helper", () => {
 		expect(cacheKey({ hello: "world" })).toEqual(cacheKey({ hello: "world" }))
 	})
 
+	test("will return the same cache key for the object with same keys in different order", () => {
+		expect(
+			cacheKey({
+				hello: "world",
+				foo: "bar"
+			})
+		).toEqual(
+			cacheKey({
+				foo: "bar",
+				hello: "world"
+			})
+		)
+	})
+
 	test("will return the same cache key each call for the same function instance", () => {
 		const fn = () => {}
 
