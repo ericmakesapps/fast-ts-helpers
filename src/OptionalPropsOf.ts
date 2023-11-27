@@ -3,11 +3,8 @@
  *
  * @template Type The type from which to extract the keys of the optional properties.
  */
-type OptionalPropsOf<Type extends object> = Exclude<
-	{
-		[K in keyof Type]: Type extends Record<K, Type[K]> ? never : K
-	}[keyof Type],
-	undefined
->
+type OptionalPropsOf<Type> = {
+	[K in keyof Type]-?: object extends { [P in K]: Type[K] } ? K : never
+}[keyof Type]
 
 export default OptionalPropsOf
