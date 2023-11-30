@@ -20,15 +20,9 @@ function sortAsync<T, U>(
 			: 0
 ): (array: T[]) => Promise<T[]> {
 	return async (array: T[]) => {
-		const withSortValues = await Promise.all(
+		return Promise.all(
 			array.map(async (value) => tuple(value, await compareValue(value)))
-		)
-
-		return withSortValues
-			.sort(([, a], [, b]) => {
-				return compareFn(a, b)
-			})
-			.map(([v]) => v)
+		).then((values) => values.sort(([, a], [, b]) => compareFn(a, b)).map(([v]) => v))
 	}
 }
 
