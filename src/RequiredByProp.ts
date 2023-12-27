@@ -7,7 +7,7 @@ import IdType from "./IdType"
  * @template Key The properties of the type to make required.
  */
 type RequiredByProp<Type extends object, Key extends keyof Type> = IdType<
-	Omit<Type, Key> & Required<Pick<Type, Key>>
+	Type & Required<Pick<Type, Key>>
 >
 
 export default RequiredByProp

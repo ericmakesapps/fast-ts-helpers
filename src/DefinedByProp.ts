@@ -7,7 +7,7 @@ import IdType from "./IdType"
  * @template Key The properties of the type to make required.
  */
 type DefinedByProp<Type extends object, Key extends keyof Type> = IdType<
-	Omit<Type, Key> & { [K in keyof Pick<Type, Key>]-?: NonNullable<Type[K]> }
+	Type & { [K in keyof Type & Key]-?: {} }
 >
 
 export default DefinedByProp
