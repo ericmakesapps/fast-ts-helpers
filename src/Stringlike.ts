@@ -6,8 +6,8 @@
 type Stringlike<Key> = Key extends string
 	? Key
 	: Key extends number
-	? StringForNumber[Key]
-	: string
+		? StringForNumber[Key]
+		: string
 
 type StringForNumber = {
 	0: `0`

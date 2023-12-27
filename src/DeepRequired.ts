@@ -6,7 +6,7 @@
 type DeepRequired<Type> = Type extends object
 	? {
 			[P in keyof Type]-?: DeepRequired<Type[P]>
-	  }
+		}
 	: NonNullable<Type>
 
 export default DeepRequired

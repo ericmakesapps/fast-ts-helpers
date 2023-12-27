@@ -6,7 +6,7 @@
 type GetType<Type> = Type extends (infer U)[]
 	? U
 	: Type extends PromiseLike<infer U>
-	? U
-	: never
+		? U
+		: never
 
 export default GetType

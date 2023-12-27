@@ -39,8 +39,8 @@ function useSearchState<T>(name: string, initialValue?: T | (() => T)) {
 			return params.has(name)
 				? (JSON.parse(params.get(name)!) as T)
 				: isCallable(initialValue)
-				? initialValue()
-				: initialValue
+					? initialValue()
+					: initialValue
 		}
 	)
 }

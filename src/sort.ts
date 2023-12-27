@@ -14,10 +14,10 @@ function sort<T, U>(
 		typeof l === "string" && typeof r === "string"
 			? l.localeCompare(r, "en-US", { numeric: true, sensitivity: "base" })
 			: l > r
-			? 1
-			: l < r
-			? -1
-			: 0
+				? 1
+				: l < r
+					? -1
+					: 0
 ): T[] {
 	return array
 		.map((value) => tuple(value, compareValue(value)))

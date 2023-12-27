@@ -34,8 +34,8 @@ function useLocalStorageRef<T>(name: string, initialValue?: T | (() => T)) {
 			Storage.has(name)
 				? Storage.get<T>(name)
 				: isCallable(initialValue)
-				? initialValue()
-				: initialValue
+					? initialValue()
+					: initialValue
 	)
 }
 

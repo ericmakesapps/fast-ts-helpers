@@ -8,15 +8,15 @@
  * @returns A copy of the passed array with the duplicates removed.
  */
 function unique<T>(array: T[], comparator?: (a: T, b: T) => boolean): T[] {
-	return !comparator
-		? Array.from(new Set(array))
-		: array.reduce<T[]>((array, b) => {
+	return comparator
+		? array.reduce<T[]>((array, b) => {
 				if (!array.some((a) => comparator(a, b))) {
 					array.push(b)
 				}
 
 				return array
-		  }, [])
+			}, [])
+		: Array.from(new Set(array))
 }
 
 export default unique

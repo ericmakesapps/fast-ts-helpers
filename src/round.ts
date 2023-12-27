@@ -10,7 +10,7 @@ function round(value: number, places = 0): number {
 		? round(value / Math.pow(10, places)) * Math.pow(10, places)
 		: Math.round(
 				(value + (value >= 0 ? Number.EPSILON : -Number.EPSILON)) * Math.pow(10, places)
-		  ) / Math.pow(10, places)
+			) / Math.pow(10, places)
 }
 
 export default round

@@ -33,8 +33,8 @@ function useSessionRef<T>(name: string, initialValue?: T | (() => T)) {
 			name in sessionStorage
 				? JSON.parse(sessionStorage.getItem(name)!)
 				: isCallable(initialValue)
-				? initialValue()
-				: initialValue
+					? initialValue()
+					: initialValue
 	)
 }
 

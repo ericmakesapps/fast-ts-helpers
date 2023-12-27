@@ -32,8 +32,8 @@ function useSessionState<T>(name: string, initialValue?: T | (() => T)) {
 			name in sessionStorage
 				? (JSON.parse(sessionStorage.getItem(name)!) as T)
 				: isCallable(initialValue)
-				? initialValue()
-				: initialValue
+					? initialValue()
+					: initialValue
 	)
 }
 

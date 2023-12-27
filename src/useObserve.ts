@@ -14,7 +14,7 @@ const MyMutationObserver =
 		: ifBrowser(
 				() => require(`mutation-observer`) as MutationObserverConstructor,
 				undefined
-		  )
+			)
 
 /**
  * Calls a function when this component mounts, and any time changes falling under the passed options happen to the element to which the ref as attached.

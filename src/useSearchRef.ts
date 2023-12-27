@@ -40,8 +40,8 @@ function useSearchRef<T>(name: string, initialValue?: T | (() => T)) {
 			return name in params
 				? (JSON.parse(params.get(name)!) as T)
 				: isCallable(initialValue)
-				? initialValue()
-				: initialValue
+					? initialValue()
+					: initialValue
 		}
 	)
 }

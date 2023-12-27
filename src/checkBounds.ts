@@ -10,8 +10,8 @@ function checkBounds(
 	return !orientation
 		? bounds[0] <= width && width <= bounds[1]
 		: orientation === `portrait`
-		? checkBounds(width, [bounds[0], mid])
-		: checkBounds(width, [mid + 1, bounds[1]])
+			? checkBounds(width, [bounds[0], mid])
+			: checkBounds(width, [mid + 1, bounds[1]])
 }
 
 export default checkBounds

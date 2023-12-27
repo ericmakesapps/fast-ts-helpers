@@ -1,6 +1,7 @@
 {
 	"useTabs": true,
 	"semi": false,
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
 	"printWidth": 90,
 	"arrowParens": "always",
 	"trailingComma": "none",
