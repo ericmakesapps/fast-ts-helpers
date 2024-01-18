@@ -53,23 +53,67 @@ describe("areEqual helper", () => {
 		expect(areEqual(new Test(0), new Test(1))).toBeFalsy()
 	})
 
-	test("should not consider items of different type equal", () => {
+	test("should consider items of different type as not equal", () => {
 		expect(areEqual("1", 1)).toBeFalsy()
 	})
 
-	test("should not consider an array and not an array as equal", () => {
+	test("should consider an array and not an array as not equal", () => {
 		expect(areEqual([0], { 0: 0 })).toBeFalsy()
 	})
 
-	test("should not consider arrays of different lengths as equal", () => {
+	test("should consider arrays of different lengths as not equal", () => {
 		expect(areEqual([0, 1], [0])).toBeFalsy()
 	})
 
-	test("should not consider objects of different keys as equal", () => {
+	test("should consider arrays with the same values as equal", () => {
+		expect(areEqual([0, 1], [0, 1])).toBeTruthy()
+	})
+
+	test("should consider objects of different keys as not equal", () => {
 		expect(areEqual({ hello: "world" }, { foo: "bar" })).toBeFalsy()
 	})
 
-	test("should not consider objects with different values as equal", () => {
+	test("should consider objects with different values as not equal", () => {
 		expect(areEqual({ hello: "world" }, { hello: "eric" })).toBeFalsy()
+	})
+
+	test("should consider objects with different number of keys as not equal", () => {
+		expect(areEqual({ hello: "world", foo: "bar" }, { baz: "eric" })).toBeFalsy()
+	})
+
+	test("should consider a map and a set not equal", () => {
+		expect(areEqual(new Map(), new Set())).toBeFalsy()
+	})
+
+	test("should consider maps containing the same key/value pairs equal", () => {
+		expect(areEqual(new Map([[1, "hello"]]), new Map([[1, "hello"]]))).toBeTruthy()
+	})
+
+	test("should consider maps containing different key/value pairs not equal", () => {
+		expect(areEqual(new Map([[1, "hello"]]), new Map([[2, "world"]]))).toBeFalsy()
+	})
+
+	test("should consider sets containing the same values equal", () => {
+		expect(areEqual(new Set([1, 2, 3]), new Set([1, 2, 3]))).toBeTruthy()
+	})
+
+	test("should consider sets containing different values not equal", () => {
+		expect(areEqual(new Set([1, 2, 3]), new Set([4, 5, 6]))).toBeFalsy()
+	})
+
+	test("should consider dates with the same time equal", () => {
+		expect(areEqual(new Date(0), new Date(0))).toBeTruthy()
+	})
+
+	test("should consider dates with different times not equal", () => {
+		expect(areEqual(new Date(0), new Date(1))).toBeFalsy()
+	})
+
+	test("should consider regular expressions that have the same source and flags equal, regardless of flag order", () => {
+		expect(areEqual(/hello/gi, /hello/gi)).toBeTruthy()
+	})
+
+	test("should consider regular expressions that have different sources not equal", () => {
+		expect(areEqual(/hello/gi, /world/gi)).toBeFalsy()
 	})
 })
