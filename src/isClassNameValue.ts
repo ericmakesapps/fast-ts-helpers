@@ -1,4 +1,5 @@
-import { ClassNameValue } from "tailwind-merge/dist/lib/tw-join"
+type ClassNameValue = ClassNameArray | string | null | undefined | 0 | false
+type ClassNameArray = ClassNameValue[]
 
 /**
  * Check whether the passed param is a ClassNameValue. Tailwind's tree shaking requires that you put classes in `className` or `class` props, so passing non-standard class name props breaks it. The work-around is to pass additional classes through objects in the `className` prop.
