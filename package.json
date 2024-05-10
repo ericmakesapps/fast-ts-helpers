@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"repository": "github:ericmakesapps/fast-ts-helpers",
 	"author": "Eric Ferreira <eric@ericmakesapps.com>",
@@ -25,7 +25,8 @@
 		"fast-json-stable-stringify": ">= 1.0.2",
 		"mutation-observer": ">= 1.0.0",
 		"react": ">= 16.8",
-		"resize-observer-polyfill": ">= 1.5.1"
+		"resize-observer-polyfill": ">= 1.5.1",
+		"tailwind-merge": ">= 1.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/jest-dom": "^6.4.2",
@@ -52,6 +53,7 @@
 		"react": "^18.2.0",
 		"resize-observer-polyfill": "^1.5.1",
 		"rimraf": "^5.0.5",
+		"tailwind-merge": "^2.3.0",
 		"ts-jest": "^29.1.2",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3"
