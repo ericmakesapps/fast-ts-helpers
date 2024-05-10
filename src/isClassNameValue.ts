@@ -5,7 +5,9 @@ import { ClassNameValue } from "tailwind-merge"
  * @param param The object or ClassNameValue to check
  * @returns Whether the passed param is a ClassNameValue.
  */
-function isClassNameValue(param: ClassNameValue): param is ClassNameValue {
+function isClassNameValue(
+	param: Record<string, any> | ClassNameValue
+): param is ClassNameValue {
 	return !(typeof param === "object" && !Array.isArray(param))
 }
 
