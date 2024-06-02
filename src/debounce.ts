@@ -24,7 +24,7 @@ function debounce<T extends (...args: any[]) => unknown>(
 	immediate = false,
 	withLatestResult?: (result: ReturnType<T>) => void
 ) {
-	let timeout: number | undefined
+	let timeout: number | NodeJS.Timeout | undefined
 	let returnVal: unknown
 
 	return function (this: T, ...args: unknown[]) {
