@@ -25,29 +25,6 @@ async function run() {
 				return fs.writeFile(`${lib}/package.json`, JSON.stringify(json, undefined, `\t`))
 			}),
 		fs
-			.readFile(`package-lock.json`)
-			.then((data) => JSON.parse(data.toString()))
-			.then((lock) => {
-				delete lock.packages[""].devDependencies
-
-				for (const key of Object.keys(lock.packages)) {
-					if (lock.packages[key].dev) {
-						delete lock.packages[key]
-					}
-				}
-
-				for (const key of Object.keys(lock.dependencies)) {
-					if (lock.dependencies[key].dev) {
-						delete lock.dependencies[key]
-					}
-				}
-
-				return fs.writeFile(
-					`${lib}/package-lock.json`,
-					JSON.stringify(lock, undefined, `\t`)
-				)
-			}),
-		fs
 			.readdir(".")
 			.then((files) =>
 				Promise.all(
