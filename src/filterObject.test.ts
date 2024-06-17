@@ -49,4 +49,13 @@ describe("filterObject helper", () => {
 
 		expect(result).toEqual(testObject)
 	})
+
+	it("includes symbol keys", () => {
+		const key = Symbol("foo")
+		const testObject = { [key]: "bar" }
+
+		const result = filterObject(testObject)
+
+		expect(result).toEqual({ [key]: "bar" })
+	})
 })

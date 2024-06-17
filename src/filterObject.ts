@@ -50,7 +50,10 @@ type FilteredObject<T> = IdType<
 function filterObject<Type extends object>(object: Type): FilteredObject<Type> {
 	const clonedObject: any = {}
 
-	for (const key in object) {
+	for (const key of [
+		...Object.getOwnPropertyNames(object),
+		...Object.getOwnPropertySymbols(object)
+	] as (keyof Type)[]) {
 		if (object[key]) {
 			clonedObject[key] = object[key]
 		}
