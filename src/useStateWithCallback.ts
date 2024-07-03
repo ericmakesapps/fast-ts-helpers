@@ -20,27 +20,27 @@ function useStateWithCallback<T>(
 	initialValue: T | (() => T),
 	callback: (value: T) => void,
 	deps: DependencyList
-): [(value: SetStateAction<T>, callback?: (value: T) => void) => void, T]
+): [T, (value: SetStateAction<T>, callback?: (value: T) => void) => void]
 function useStateWithCallback<T>(
 	initialValue: T | (() => T)
-): [(value: SetStateAction<T>, callback?: (value: T) => void) => void, T]
+): [T, (value: SetStateAction<T>, callback?: (value: T) => void) => void]
 function useStateWithCallback<T>(
 	initialState?: T | (() => T | undefined) | undefined
 ): [
+	T | undefined,
 	(
 		value: SetStateAction<T | undefined>,
 		callback?: (value: T | undefined) => void
-	) => void,
-	T | undefined
+	) => void
 ]
 function useStateWithCallback<T>(
 	initialState?: T | (() => T | undefined) | undefined
 ): [
+	T | undefined,
 	(
 		value: SetStateAction<T | undefined>,
 		callback?: (value: T | undefined) => void
-	) => void,
-	T | undefined
+	) => void
 ]
 
 function useStateWithCallback<T>(
@@ -72,6 +72,7 @@ function useStateWithCallback<T>(
 	}, [cb, state])
 
 	return [
+		state,
 		useCallback<
 			(value: SetStateAction<T | undefined>, cb?: (value: T | undefined) => void) => void
 		>((valueOrFunction, callback) => {
@@ -90,8 +91,7 @@ function useStateWithCallback<T>(
 
 				return value
 			})
-		}, []),
-		state
+		}, [])
 	]
 }
 
