@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 
 import isCallable from "./isCallable"
+import useConstructor from "./useConstructor"
 import uuid from "./uuid"
 
 const subscribers: Record<
@@ -29,18 +30,23 @@ function useSharedRef<T>(name: string, initialValue?: T | (() => T)) {
 	/** The ID for this instance, for tracking active subscribers. */
 	const id = useMemo(() => uuid(), [])
 
-	if (!subscribers[name]) {
-		subscribers[name] = {
-			ids: new Set([id]),
-			ref: { current: isCallable(initialValue) ? initialValue() : initialValue }
+	const init = useCallback(() => {
+		if (!subscribers[name]) {
+			subscribers[name] = {
+				ids: new Set([id]),
+				ref: { current: isCallable(initialValue) ? initialValue() : initialValue }
+			}
+		} else {
+			subscribers[name].ids.add(id)
 		}
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id, name])
 
-	if (!subscribers[name].ids.has(id)) {
-		subscribers[name].ids.add(id)
-	}
+	useConstructor(init)
 
 	useEffect(() => {
+		init()
+
 		return () => {
 			subscribers[name].ids.delete(id)
 
@@ -48,7 +54,7 @@ function useSharedRef<T>(name: string, initialValue?: T | (() => T)) {
 				delete subscribers[name]
 			}
 		}
-	}, [id, name])
+	}, [id, init, name])
 
 	return subscribers[name].ref
 }
