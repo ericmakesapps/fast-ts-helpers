@@ -33,10 +33,12 @@ export default function useAwait<T>(
 		return [
 			cached,
 			promise.then((fetched) => {
-				setLoading(false)
+				if (mounted.current) {
+					setLoading(false)
 
-				if (mounted.current && !areEqual(cached, fetched)) {
-					setData(fetched)
+					if (!areEqual(cached, fetched)) {
+						setData(fetched)
+					}
 				}
 
 				return fetched
