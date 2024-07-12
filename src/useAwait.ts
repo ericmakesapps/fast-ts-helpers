@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useState } from "react"
 
 import areEqual from "./areEqual"
 import tuple from "./tuple"
-import useConstructor from "./useConstructor"
-import usePrevious from "./usePrevious"
+import useMountedRef from "./useMountedRef"
 
 /**
  * Use a state that is initialized asynchronously, potentially with a cached value.
@@ -20,50 +19,33 @@ export default function useAwait<T>(
 	deps: React.DependencyList = []
 ) {
 	const [loading, setLoading] = useState(true)
+	const mounted = useMountedRef()
 
-	const [cached, fetch] = useMemo(() => {
+	const [cached, promise] = useMemo(() => {
 		setLoading(true)
 
 		const promiseOrCacheAndPromise = callback()
 
-		return Array.isArray(promiseOrCacheAndPromise)
+		const [cached, promise] = Array.isArray(promiseOrCacheAndPromise)
 			? promiseOrCacheAndPromise
 			: [undefined, promiseOrCacheAndPromise]
+
+		return [
+			cached,
+			promise.then((fetched) => {
+				setLoading(false)
+
+				if (mounted.current && !areEqual(cached, fetched)) {
+					setData(fetched)
+				}
+
+				return fetched
+			})
+		]
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, deps)
 
 	const [data, setData] = useState(cached)
 
-	// Do the first fetch immediately
-	useConstructor(async () => {
-		const fetchedValue = await fetch
-
-		if (!areEqual(cached, fetchedValue)) {
-			setData(fetchedValue)
-		}
-	})
-
-	// Record what the first promise was so we don't await it more than once
-	const initialPromise = useRef(fetch)
-
-	// Do future fetches if the dependencies change (which will change the promise)
-	useEffect(() => {
-		if (initialPromise.current !== fetch) {
-			const doFetch = async () => {
-				const fetchedValue = await fetch
-
-				if (!areEqual(cached, fetchedValue)) {
-					setData(fetchedValue)
-				}
-			}
-
-			void doFetch()
-		}
-	}, [cached, fetch])
-
-	if (data !== usePrevious(data) && loading) {
-		setTimeout(() => setLoading(false), 0)
-	}
-
-	return tuple(data, setData, fetch, loading)
+	return tuple(data, setData, promise, loading)
 }
