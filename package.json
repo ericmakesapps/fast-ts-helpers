@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "6.1.2",
+	"version": "6.2.0",
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"repository": "github:ericmakesapps/fast-ts-helpers",
 	"author": "Eric Ferreira <eric@ericmakesapps.com>",
