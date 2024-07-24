@@ -27,11 +27,11 @@ export default function useAwait<T>(
 	const abortControllerRef = useRef<AbortController>()
 
 	// When the component gets unmounted, cancel any in-flight requests
-	useOnUnmount(() => abortControllerRef.current?.abort())
+	useOnUnmount(() => abortControllerRef.current?.abort("Component unmounted"))
 
 	const [cached, promise] = useMemo(() => {
 		// Any time we call process a new request, we cancel the previous one
-		abortControllerRef.current?.abort()
+		abortControllerRef.current?.abort("New request superseded")
 
 		// Create a new abort controller for this request
 		const abortController = new AbortController()
