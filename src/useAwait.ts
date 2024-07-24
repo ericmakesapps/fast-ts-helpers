@@ -2,7 +2,7 @@ import { useMemo, useState } from "react"
 
 import areEqual from "./areEqual"
 import tuple from "./tuple"
-import useMountedRef from "./useMountedRef"
+import useUnmountedRef from "./useUnmountedRef"
 
 /**
  * Use a state that is initialized asynchronously, potentially with a cached value.
@@ -19,7 +19,7 @@ export default function useAwait<T>(
 	deps: React.DependencyList = []
 ) {
 	const [loading, setLoading] = useState(true)
-	const mounted = useMountedRef()
+	const unmounted = useUnmountedRef()
 
 	const [cached, promise] = useMemo(() => {
 		setLoading(true)
@@ -33,7 +33,7 @@ export default function useAwait<T>(
 		return [
 			cached,
 			promise.then((fetched) => {
-				if (mounted.current) {
+				if (!unmounted.current) {
 					setLoading(false)
 
 					if (!areEqual(cached, fetched)) {
