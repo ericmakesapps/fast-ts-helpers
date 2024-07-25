@@ -1,3 +1,5 @@
+import { __subscribers } from "./useSharedState"
+
 function createStoreFor(namespace: string) {
 	const prefix = `${namespace}™øå`
 
@@ -18,20 +20,46 @@ function createStoreFor(namespace: string) {
 
 			return undefined
 		},
-		set<T>(key: string, value: T) {
+		set<T>(key: string, value: T, updateSubscribers = false) {
 			// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just stringify it.
 			localStorage.setItem(p(key), JSON.stringify(value) ?? ``)
+
+			if (updateSubscribers) {
+				if (key in __subscribers) {
+					for (const setValue of __subscribers[key].setters) {
+						setValue(value)
+					}
+				}
+			}
 		},
-		remove(key: string) {
+		remove(key: string, updateSubscribers = false) {
 			localStorage.removeItem(p(key))
+
+			if (updateSubscribers) {
+				if (key in __subscribers) {
+					for (const setValue of __subscribers[key].setters) {
+						setValue(undefined)
+					}
+				}
+			}
 		},
 		has(key: string) {
 			return Object.keys(localStorage).includes(p(key))
 		},
-		clear() {
+		clear(updateSubscribers = false) {
 			for (const key of Object.keys(localStorage)) {
 				if (key.startsWith(prefix)) {
 					localStorage.removeItem(key)
+
+					if (updateSubscribers) {
+						const baseKey = key.slice(prefix.length)
+
+						if (baseKey in __subscribers) {
+							for (const setValue of __subscribers[baseKey].setters) {
+								setValue(undefined)
+							}
+						}
+					}
 				}
 			}
 		}

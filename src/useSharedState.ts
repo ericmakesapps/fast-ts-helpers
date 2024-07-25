@@ -2,7 +2,8 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "reac
 
 import useConstructor from "./useConstructor"
 
-const subscribers: Record<
+/** Internal record of subscribers. This may be removed at any time. */
+export const __subscribers: Record<
 	string,
 	{
 		value: any
@@ -26,17 +27,17 @@ function useSharedState<T>(
 
 function useSharedState<T>(name: string, initialValue?: T | (() => T)) {
 	const [value, _setValue] = useState(
-		name in subscribers ? subscribers[name].value : initialValue
+		name in __subscribers ? __subscribers[name].value : initialValue
 	)
 
 	const init = useCallback(() => {
-		if (!subscribers[name]) {
-			subscribers[name] = {
+		if (!__subscribers[name]) {
+			__subscribers[name] = {
 				value: value,
 				setters: new Set([_setValue])
 			}
 		} else {
-			subscribers[name].setters.add(_setValue)
+			__subscribers[name].setters.add(_setValue)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [name])
@@ -48,11 +49,11 @@ function useSharedState<T>(name: string, initialValue?: T | (() => T)) {
 
 		return () => {
 			// On unmount or name changes, remove the setter from the list of setters.
-			subscribers[name].setters.delete(_setValue)
+			__subscribers[name].setters.delete(_setValue)
 
 			// If there's no more setters, delete the subscriber.
-			if (subscribers[name].setters.size === 0) {
-				delete subscribers[name]
+			if (__subscribers[name].setters.size === 0) {
+				delete __subscribers[name]
 			}
 		}
 	}, [init, name])
@@ -61,9 +62,9 @@ function useSharedState<T>(name: string, initialValue?: T | (() => T)) {
 		value,
 		useCallback(
 			(newValue: T) => {
-				subscribers[name].value = newValue
+				__subscribers[name].value = newValue
 
-				for (const setValue of subscribers[name].setters) {
+				for (const setValue of __subscribers[name].setters) {
 					setValue(newValue)
 				}
 			},
