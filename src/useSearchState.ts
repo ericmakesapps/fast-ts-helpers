@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react"
 
 import isCallable from "./isCallable"
+import isJsonlike from "./isJsonlike"
 import useBackedState from "./useBackedState"
 
 /**
@@ -25,7 +26,12 @@ function useSearchState<T>(name: string, initialValue?: T | (() => T)) {
 			const url = new URL(location.href)
 
 			if (newValue !== undefined) {
-				url.searchParams.set(name, JSON.stringify(newValue))
+				url.searchParams.set(
+					name,
+					typeof newValue !== "string" || isJsonlike(newValue)
+						? JSON.stringify(newValue)
+						: newValue
+				)
 			} else {
 				url.searchParams.delete(name)
 			}
@@ -36,8 +42,12 @@ function useSearchState<T>(name: string, initialValue?: T | (() => T)) {
 		() => {
 			const params = new URLSearchParams(location.search)
 
-			return params.has(name)
-				? (JSON.parse(params.get(name)!) as T)
+			const value = params.get(name)
+
+			return value != null
+				? isJsonlike(value)
+					? JSON.parse(value)
+					: value
 				: isCallable(initialValue)
 					? initialValue()
 					: initialValue

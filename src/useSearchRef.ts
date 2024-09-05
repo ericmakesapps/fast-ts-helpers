@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react"
 
 import isCallable from "./isCallable"
+import isJsonlike from "./isJsonlike"
 import ReadonlyRefObject from "./ReadonlyRefObject"
 import useBackedRef from "./useBackedRef"
 
@@ -26,7 +27,12 @@ function useSearchRef<T>(name: string, initialValue?: T | (() => T)) {
 			const url = new URL(location.href)
 
 			if (newValue !== undefined) {
-				url.searchParams.set(name, JSON.stringify(newValue))
+				url.searchParams.set(
+					name,
+					typeof newValue !== "string" || isJsonlike(newValue)
+						? JSON.stringify(newValue)
+						: newValue
+				)
 			} else {
 				url.searchParams.delete(name)
 			}
@@ -37,8 +43,12 @@ function useSearchRef<T>(name: string, initialValue?: T | (() => T)) {
 		() => {
 			const params = new URLSearchParams(location.search)
 
-			return name in params
-				? (JSON.parse(params.get(name)!) as T)
+			const value = params.get(name)
+
+			return value != null
+				? isJsonlike(value)
+					? JSON.parse(value)
+					: value
 				: isCallable(initialValue)
 					? initialValue()
 					: initialValue
