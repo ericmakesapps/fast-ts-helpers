@@ -1,5 +1,6 @@
 import stringify from "fast-json-stable-stringify"
 
+import transform from "./transform"
 import uuid from "./uuid"
 
 /**
@@ -16,14 +17,25 @@ function cacheKey<Type>(obj: Type) {
 }
 
 function replace(value: any): any {
+	// For plain javascript objects, recursively replace values.
 	if (value && typeof value === "object") {
-		const newValue = Object.assign({}, value)
-
-		for (const key in newValue) {
-			newValue[key] = replace(newValue[key])
+		// Arrays
+		if (Array.isArray(value)) {
+			return value.map(replace)
 		}
 
-		return newValue
+		// Dates and Regular Expressions
+		if (["Date", "RegExp"].includes(value.constructor.name)) {
+			return value
+		}
+
+		// Errors
+		if (value instanceof Error) {
+			return [value.name, value.message]
+		}
+
+		// Objects, including plain objects and custom classes
+		return transform(value, (_, value) => replace(value))
 	}
 
 	if (typeof value !== `object` && stringify([value]) === `[null]`) {
