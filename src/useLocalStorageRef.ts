@@ -36,7 +36,7 @@ function useLocalStorageRef<T>(name: string, initialValue?: T | (() => T)) {
 				: isCallable(initialValue)
 					? initialValue()
 					: initialValue
-	)
+	) as any
 }
 
 export default useLocalStorageRef

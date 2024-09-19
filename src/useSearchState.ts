@@ -46,7 +46,10 @@ function useSearchState<T>(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [name])
 
-	const [value, setter] = useBackedState<T, [action?: "replace" | "push"]>(
+	const [value, setter, underlyingSetter] = useBackedState<
+		T,
+		[action?: "replace" | "push"]
+	>(
 		(newValue, action = defaultAction) => {
 			const url = new URL(location.href)
 
@@ -68,12 +71,12 @@ function useSearchState<T>(
 	)
 
 	useEffect(() => {
-		const handleNav = () => setter(getValue(), "replace")
+		const handleNav = () => underlyingSetter(getValue())
 
 		window.addEventListener("popstate", handleNav)
 
 		return () => window.removeEventListener("popstate", handleNav)
-	}, [getValue, setter])
+	}, [getValue, underlyingSetter])
 
 	return [value, setter]
 }

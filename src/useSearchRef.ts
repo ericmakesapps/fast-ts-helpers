@@ -47,7 +47,7 @@ function useSearchRef<T>(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [name])
 
-	const [value, setter] = useBackedRef<T, [action?: "replace" | "push"]>(
+	const [value, setter, underlyingRef] = useBackedRef<T, [action?: "replace" | "push"]>(
 		(newValue, action = defaultAction) => {
 			const url = new URL(location.href)
 
@@ -69,12 +69,12 @@ function useSearchRef<T>(
 	)
 
 	useEffect(() => {
-		const handleNav = () => setter(getValue(), "replace")
+		const handleNav = () => (underlyingRef.current = getValue())
 
 		window.addEventListener("popstate", handleNav)
 
 		return () => window.removeEventListener("popstate", handleNav)
-	}, [getValue, setter])
+	}, [getValue, underlyingRef])
 
 	return [value, setter]
 }

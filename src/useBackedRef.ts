@@ -1,4 +1,11 @@
-import { DependencyList, SetStateAction, useCallback, useMemo, useRef } from "react"
+import {
+	DependencyList,
+	MutableRefObject,
+	SetStateAction,
+	useCallback,
+	useMemo,
+	useRef
+} from "react"
 
 import isCallable from "./isCallable"
 import ReadonlyRefObject from "./ReadonlyRefObject"
@@ -14,14 +21,19 @@ function useBackedRef<T, Args extends any[] = []>(
 	set: (newValue: T, ...args: Args) => void,
 	deps: DependencyList,
 	getInitialValue: () => T
-): [ReadonlyRefObject<T>, (value: SetStateAction<T>, ...args: Args) => void]
+): [
+	ReadonlyRefObject<T>,
+	(value: SetStateAction<T>, ...args: Args) => void,
+	underlyingRef: MutableRefObject<T>
+]
 function useBackedRef<T, Args extends any[] = []>(
 	set: (newValue: T | undefined, ...args: Args) => void,
 	deps: DependencyList,
 	getInitialValue: () => T | undefined
 ): [
 	ReadonlyRefObject<T | undefined>,
-	(value: SetStateAction<T | undefined>, ...args: Args) => void
+	(value: SetStateAction<T | undefined>, ...args: Args) => void,
+	underlyingRef: MutableRefObject<T>
 ]
 
 function useBackedRef<T, Args extends any[] = []>(
@@ -47,7 +59,8 @@ function useBackedRef<T, Args extends any[] = []>(
 			},
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 			deps
-		)
+		),
+		value
 	]
 }
 

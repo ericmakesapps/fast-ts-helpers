@@ -1,4 +1,4 @@
-import { DependencyList, SetStateAction, useCallback, useState } from "react"
+import { DependencyList, Dispatch, SetStateAction, useCallback, useState } from "react"
 
 import isCallable from "./isCallable"
 
@@ -13,12 +13,20 @@ function useBackedState<T, Args extends any[] = []>(
 	set: (newValue: T, ...args: Args) => void,
 	deps: DependencyList,
 	getInitialValue: () => T
-): [T, (value: SetStateAction<T>, ...args: Args) => void]
+): [
+	T,
+	(value: SetStateAction<T>, ...args: Args) => void,
+	underlyingSetter: Dispatch<SetStateAction<T>>
+]
 function useBackedState<T, Args extends any[] = []>(
 	set: (newValue: T | undefined) => void,
 	deps: DependencyList,
 	getInitialValue: () => T | undefined
-): [T | undefined, (value: SetStateAction<T | undefined>, ...args: Args) => void]
+): [
+	T | undefined,
+	(value: SetStateAction<T | undefined>, ...args: Args) => void,
+	underlyingSetter: Dispatch<SetStateAction<T | undefined>>
+]
 
 function useBackedState<T, Args extends any[] = []>(
 	set: (newValue: T | undefined, ...args: Args) => void,
@@ -45,7 +53,8 @@ function useBackedState<T, Args extends any[] = []>(
 			},
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 			deps
-		)
+		),
+		setValue
 	]
 }
 

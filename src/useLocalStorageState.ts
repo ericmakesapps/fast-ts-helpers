@@ -35,7 +35,7 @@ function useLocalStorageState<T>(name: string, initialValue?: T | (() => T)) {
 				: isCallable(initialValue)
 					? initialValue()
 					: initialValue
-	)
+	) as any
 }
 
 export default useLocalStorageState
