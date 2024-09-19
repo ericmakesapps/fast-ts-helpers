@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import { SetStateAction, useCallback, useEffect } from "react"
+import { SetStateAction, useCallback, useEffect, useMemo } from "react"
 
 import isCallable from "./isCallable"
 import isJsonlike from "./isJsonlike"
@@ -29,52 +29,59 @@ function useSearchRef<T>(
 
 function useSearchRef<T>(
 	name: string,
-	initialValue?: T | (() => T),
+	__initialValue?: T | (() => T),
 	defaultAction: "replace" | "push" = "replace"
 ) {
-	const getValue = useCallback(() => {
-		const params = new URLSearchParams(location.search)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const initialValue = useMemo(() => __initialValue, [])
 
-		const value = params.get(name)
+	const getValue = useCallback(
+		(initialValue?: typeof __initialValue) => {
+			const params = new URLSearchParams(location.search)
 
-		return value != null
-			? isJsonlike(value)
-				? JSON.parse(value)
-				: value
-			: isCallable(initialValue)
-				? initialValue()
-				: initialValue
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [name])
+			const value = params.get(name)
+
+			return value != null
+				? isJsonlike(value)
+					? JSON.parse(value)
+					: value
+				: isCallable(initialValue)
+					? initialValue()
+					: initialValue
+		},
+		[name]
+	)
 
 	const [value, setter, underlyingRef] = useBackedRef<T, [action?: "replace" | "push"]>(
 		(newValue, action = defaultAction) => {
-			const url = new URL(location.href)
+			if (newValue !== getValue()) {
+				const url = new URL(location.href)
 
-			if (newValue !== undefined) {
-				url.searchParams.set(
-					name,
-					typeof newValue !== "string" || isJsonlike(newValue)
-						? JSON.stringify(newValue)
-						: newValue
-				)
-			} else {
-				url.searchParams.delete(name)
+				if (newValue !== undefined) {
+					url.searchParams.set(
+						name,
+						typeof newValue !== "string" || isJsonlike(newValue)
+							? JSON.stringify(newValue)
+							: newValue
+					)
+				} else {
+					url.searchParams.delete(name)
+				}
+
+				history[`${action}State`](history.state, "", url)
 			}
-
-			history[`${action}State`](history.state, "", url)
 		},
-		[defaultAction, name],
-		getValue
+		[defaultAction, getValue, name],
+		() => getValue(initialValue)
 	)
 
 	useEffect(() => {
-		const handleNav = () => (underlyingRef.current = getValue())
+		const handleNav = () => (underlyingRef.current = getValue(initialValue))
 
 		window.addEventListener("popstate", handleNav)
 
 		return () => window.removeEventListener("popstate", handleNav)
-	}, [getValue, underlyingRef])
+	}, [getValue, initialValue, underlyingRef])
 
 	return [value, setter]
 }
