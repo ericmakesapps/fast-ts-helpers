@@ -24,9 +24,14 @@ function replace(value: any): any {
 			return value.map(replace)
 		}
 
-		// Dates and Regular Expressions
-		if (["Date", "RegExp"].includes(value.constructor.name)) {
+		// Dates
+		if (value.constructor.name === "Date") {
 			return value
+		}
+
+		// Regular expressions
+		if (value.constructor.name === "RegExp") {
+			return { "\u180Eregexp": value.toString() }
 		}
 
 		// Errors
@@ -55,7 +60,7 @@ function replace(value: any): any {
 		}
 
 		// Let's make sure others are treated differently from null
-		return `~.~${value?.toString()}~.~`
+		return `\u180E${value?.toString()}`
 	}
 
 	return value

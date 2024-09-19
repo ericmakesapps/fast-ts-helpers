@@ -1,4 +1,4 @@
-import { MutableRefObject, SetStateAction, useCallback, useRef } from "react"
+import { MutableRefObject, SetStateAction, useCallback, useEffect, useRef } from "react"
 
 import isCallable from "./isCallable"
 import useSearchState from "./useSearchState"
@@ -38,6 +38,10 @@ function useSearchStateRef<T>(
 ) {
 	const [state, setState] = useSearchState(name, initialValue, defaultAction)
 	const ref = useRef(state)
+
+	useEffect(() => {
+		ref.current = state
+	}, [state])
 
 	return [
 		ref,

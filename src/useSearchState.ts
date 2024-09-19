@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import { SetStateAction } from "react"
+import { SetStateAction, useCallback, useEffect } from "react"
 
 import isCallable from "./isCallable"
 import isJsonlike from "./isJsonlike"
@@ -31,7 +31,22 @@ function useSearchState<T>(
 	initialValue?: T | (() => T),
 	defaultAction: "replace" | "push" = "replace"
 ) {
-	return useBackedState<T, [action?: "replace" | "push"]>(
+	const getValue = useCallback(() => {
+		const params = new URLSearchParams(location.search)
+
+		const value = params.get(name)
+
+		return value != null
+			? isJsonlike(value)
+				? JSON.parse(value)
+				: value
+			: isCallable(initialValue)
+				? initialValue()
+				: initialValue
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [name])
+
+	const [value, setter] = useBackedState<T, [action?: "replace" | "push"]>(
 		(newValue, action = defaultAction) => {
 			const url = new URL(location.href)
 
@@ -49,20 +64,18 @@ function useSearchState<T>(
 			history[`${action}State`](history.state, "", url)
 		},
 		[defaultAction, name],
-		() => {
-			const params = new URLSearchParams(location.search)
-
-			const value = params.get(name)
-
-			return value != null
-				? isJsonlike(value)
-					? JSON.parse(value)
-					: value
-				: isCallable(initialValue)
-					? initialValue()
-					: initialValue
-		}
+		getValue
 	)
+
+	useEffect(() => {
+		const handleNav = () => setter(getValue(), "replace")
+
+		window.addEventListener("popstate", handleNav)
+
+		return () => window.removeEventListener("popstate", handleNav)
+	}, [getValue, setter])
+
+	return [value, setter]
 }
 
 export default useSearchState
