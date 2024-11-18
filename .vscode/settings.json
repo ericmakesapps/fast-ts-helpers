@@ -1,4 +1,4 @@
 {
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"cSpell.words": ["ericmakesapps", "Ferreira", "postbuild", "trivago"]
+	"cSpell.words": ["ericmakesapps", "Ferreira", "jsonlike", "postbuild", "trivago"]
 }
