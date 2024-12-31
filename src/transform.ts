@@ -15,13 +15,16 @@ function transform<Type extends object, Result>(
 ): {
 	[K in keyof Type]: Result
 } {
-	// eslint-disable-next-line
-	return entries(obj).reduce<any>((trans, [prop, value]) => {
-		trans[prop] = mapper(prop as keyof Type, value)
+	return entries(obj).reduce(
+		(trans, [prop, value]) => {
+			trans[prop as unknown as keyof Type] = mapper(prop as unknown as keyof Type, value)
 
-		// eslint-disable-next-line
-		return trans
-	}, {})
+			return trans
+		},
+		{} as {
+			[K in keyof Type]: Result
+		}
+	)
 }
 
 export default transform

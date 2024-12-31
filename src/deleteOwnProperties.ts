@@ -9,7 +9,7 @@ import keys from "./keys"
  */
 function deleteOwnProperties<Type extends object>(obj: Type) {
 	for (const key of keys(obj)) {
-		delete obj[key as keyof Type]
+		delete obj[key as unknown as keyof Type]
 	}
 
 	return obj as {}
