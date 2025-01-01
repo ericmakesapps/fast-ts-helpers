@@ -9,8 +9,8 @@ function addAnimator(animator: Animator) {
 }
 
 export type ScrollOptions = {
-	top?: number
-	left?: number
+	top?: number | undefined
+	left?: number | undefined
 }
 
 function makeTween(
