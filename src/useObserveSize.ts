@@ -1,13 +1,12 @@
 import { DependencyList, useEffect, useMemo, useState } from "react"
 
-import * as maybeResizeObserver from "resize-observer-polyfill"
-
 import throttle from "./throttle"
 
-const ResizeObserver =
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-	maybeResizeObserver.default ??
-	(maybeResizeObserver as unknown as (typeof maybeResizeObserver)["default"])
+if (!window.ResizeObserver) {
+	throw new Error(
+		"ResizeObserver is not supported in this browser. Please include a polyfill."
+	)
+}
 
 /**
  * Calls a function when this component mounts, and any time the element to which the ref is attached resizes.
