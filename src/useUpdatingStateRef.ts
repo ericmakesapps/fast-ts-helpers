@@ -15,11 +15,11 @@ import useStateRef from "./useStateRef"
  * value also needs to track an external value.
  */
 function useUpdatingStateRef<T>(
-	value: T & Exclude<T, Function>
-): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
-function useUpdatingStateRef<T>(
 	getter: (currentValue?: T) => T,
 	deps: DependencyList
+): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
+function useUpdatingStateRef<T>(
+	value: T
 ): [Readonly<MutableRefObject<T>>, Dispatch<SetStateAction<T>>, T]
 
 function useUpdatingStateRef<T>(

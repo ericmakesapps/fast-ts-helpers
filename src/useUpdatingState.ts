@@ -7,12 +7,10 @@ import isCallable from "./isCallable"
  * for when the state value also needs to track an external value.
  */
 function useUpdatingState<T>(
-	value: T & Exclude<T, Function>
-): [T, Dispatch<SetStateAction<T>>]
-function useUpdatingState<T>(
 	getter: (currentValue?: T) => T,
 	deps: DependencyList
 ): [T, Dispatch<SetStateAction<T>>]
+function useUpdatingState<T>(value: T): [T, Dispatch<SetStateAction<T>>]
 
 function useUpdatingState<T>(
 	valueOrGetter: (T & Exclude<T, Function>) | ((currentValue?: T) => T),
