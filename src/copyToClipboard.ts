@@ -7,7 +7,7 @@ import copy from "copy-to-clipboard"
  */
 async function copyToClipboard<T extends string | undefined>(text: T) {
 	if (text == null) {
-		return
+		return undefined
 	}
 
 	try {

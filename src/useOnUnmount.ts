@@ -10,7 +10,9 @@ function useOnUnmount(callback: () => void) {
 
 	cb.current = callback
 
-	useEffect(() => cb.current, [])
+	useEffect(() => {
+		return cb.current
+	}, [])
 }
 
 export default useOnUnmount

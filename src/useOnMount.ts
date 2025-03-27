@@ -11,7 +11,13 @@ function useOnMount(callback: (() => void) | (() => () => void)) {
 	cb.current = callback
 
 	useEffect(() => {
-		return cb.current()
+		const destroy = cb.current()
+
+		if (typeof destroy === "function") {
+			return destroy
+		}
+
+		return undefined
 	}, [])
 }
 
