@@ -4,16 +4,15 @@ import transform from "./transform"
 import uuid from "./uuid"
 
 /**
- * Make a stable cache key for a given object. That is to say, any equal object will return the same cache key.
+ * Make a stable cache key for any given values. That is to say, any equal values will return the same cache key.
  *
  * **Depends on `fast-json-stable-stringify`**.
  *
- * @param obj The object for which a cache key is wanted.
- * @template Type The type of the object passed in.
- * @returns The stable cache key for the passed object.
+ * @param values The values for which a cache key is wanted.
+ * @returns The stable cache key for the passed values.
  */
-function cacheKey<Type>(obj: Type) {
-	return stringify(replace(obj))
+function cacheKey(...values: any[]) {
+	return stringify(values.map(replace))
 }
 
 function replace(value: any): any {
