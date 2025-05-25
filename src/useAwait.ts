@@ -4,6 +4,21 @@ import areEqual from "./areEqual"
 import tuple from "./tuple"
 import useOnUnmount from "./useOnUnmount"
 
+type LoadedData<T> = [
+	data: T,
+	setData: React.Dispatch<React.SetStateAction<T>>,
+	promise: PromiseLike<T>,
+	loading: false,
+	abortController: AbortController
+]
+type LoadingData<T> = [
+	data: T | undefined,
+	setData: React.Dispatch<React.SetStateAction<T>>,
+	promise: PromiseLike<T>,
+	loading: true,
+	abortController: AbortController
+]
+
 /**
  * Use a state that is initialized asynchronously, potentially with a cached value.
  *
@@ -14,13 +29,29 @@ import useOnUnmount from "./useOnUnmount"
  * @returns A tuple containing the current value, a setter to change the value at a later
  *   time, the underlying promise, and whether we are currently loading a new result.
  */
-export default function useAwait<T>(
+function useAwait<T>(
+	callback: (
+		abortSignal: AbortSignal,
+		abortController: AbortController
+	) => [T, PromiseLike<T>],
+	deps?: React.DependencyList
+): LoadedData<T>
+
+function useAwait<T>(
+	callback: (
+		abortSignal: AbortSignal,
+		abortController: AbortController
+	) => PromiseLike<T>,
+	deps?: React.DependencyList
+): LoadingData<T> | LoadedData<T>
+
+function useAwait<T>(
 	callback: (
 		abortSignal: AbortSignal,
 		abortController: AbortController
 	) => PromiseLike<T> | [T, PromiseLike<T>],
 	deps: React.DependencyList = []
-) {
+): any {
 	const [loading, setLoading] = useState(true)
 
 	// Create a ref for the abort controller. This is to allow cancelling externally.
@@ -70,3 +101,5 @@ export default function useAwait<T>(
 
 	return tuple(data, setData, promise, loading, abortControllerRef.current)
 }
+
+export default useAwait
