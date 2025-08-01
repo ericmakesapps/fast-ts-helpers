@@ -1,5 +1,6 @@
 import { useRef } from "react"
 
+import ReadonlyRefObject from "./ReadonlyRefObject"
 import useOnMount from "./useOnMount"
 
 /** Get a ref that contains whether the component is currently mounted. */
@@ -14,5 +15,5 @@ export default function useMountedRef() {
 		}
 	})
 
-	return mounted as React.RefObject<boolean>
+	return mounted as ReadonlyRefObject<boolean>
 }

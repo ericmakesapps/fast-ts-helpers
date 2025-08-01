@@ -1,5 +1,6 @@
 import { useRef } from "react"
 
+import ReadonlyRefObject from "./ReadonlyRefObject"
 import useOnUnmount from "./useOnUnmount"
 
 /** Get a ref that contains whether the component has been unmounted. */
@@ -8,5 +9,5 @@ export default function useUnmountedRef() {
 
 	useOnUnmount(() => (unmounted.current = true))
 
-	return unmounted as React.RefObject<boolean>
+	return unmounted as ReadonlyRefObject<boolean>
 }

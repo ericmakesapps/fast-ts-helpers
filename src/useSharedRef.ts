@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useMemo } from "react"
 
 import isCallable from "./isCallable"
+import ReadonlyRefObject from "./ReadonlyRefObject"
 import useConstructor from "./useConstructor"
 import uuid from "./uuid"
 
 const subscribers: Record<
 	string,
 	{
-		ref: React.RefObject<any>
+		ref: ReadonlyRefObject<any>
 		ids: Set<string>
 	}
 > = {}
