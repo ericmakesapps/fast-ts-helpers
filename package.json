@@ -1,6 +1,6 @@
 {
 	"name": "fast-ts-helpers",
-	"version": "6.8.8",
+	"version": "6.10.0",
 	"description": "A package containing some helpful functions, constants, types, and react hooks.",
 	"repository": "github:ericmakesapps/fast-ts-helpers",
 	"author": "Eric Ferreira <eric@ericmakesapps.com>",
@@ -23,6 +23,7 @@
 	"peerDependencies": {
 		"copy-to-clipboard": ">= 2.0.0",
 		"fast-json-stable-stringify": ">= 1.0.2",
+		"luxon": ">=3.0.0",
 		"mutation-observer": ">= 1.0.0",
 		"react": ">= 16.8",
 		"tailwind-merge": ">= 1.0.0"
@@ -32,6 +33,7 @@
 		"@testing-library/react": "^14.2.1",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
 		"@types/jest": "^29.5.12",
+		"@types/luxon": "^3.7.1",
 		"@types/node": "^20.14.0",
 		"@types/react": ">=18.2.55",
 		"@types/react-router": "^5.1.20",
@@ -46,6 +48,7 @@
 		"fast-json-stable-stringify": "^2.1.0",
 		"jest": "^29.7.0",
 		"jest-environment-jsdom": "^29.7.0",
+		"luxon": "^3.7.2",
 		"mutation-observer": "^1.0.3",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.2.5",

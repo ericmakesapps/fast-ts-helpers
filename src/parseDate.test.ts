@@ -7,19 +7,13 @@ describe("parseDate helper", () => {
 		expect(parseDate(date)).toBe(date)
 	})
 
-	test("should return undefined if the param is undefined", () => {
-		expect(parseDate(undefined)).toBeUndefined()
+	test("should return null if the param is undefined", () => {
+		expect(parseDate(undefined)).toBeNull()
 	})
 
 	test("should convert a date string", () => {
-		expect(parseDate("2022-01-01T12:30:30").toISOString()).toEqual(
+		expect(parseDate("2022-01-01T12:30:30Z").toISOString()).toEqual(
 			"2022-01-01T12:30:30.000Z"
-		)
-	})
-
-	test("should convert non-standard date strings", () => {
-		expect(parseDate("20223-120-365T12:30:30").toISOString()).toEqual(
-			"+020233-11-30T12:30:30.000Z"
 		)
 	})
 

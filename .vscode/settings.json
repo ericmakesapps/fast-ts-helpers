@@ -5,6 +5,8 @@
 		"Falsible",
 		"Ferreira",
 		"jsonlike",
+		"luxon",
+		"millis",
 		"postbuild",
 		"trivago"
 	]
