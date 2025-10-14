@@ -5,6 +5,12 @@ describe("last helper", () => {
 		expect(last(["hello", "world"])).toEqual("world")
 	})
 
+	test("should have the express type of last in a tuple", () => {
+		const val: "world" = last(["hello", "world"] as const)
+
+		expect(val).toEqual("world")
+	})
+
 	test("should return undefined for an empty array", () => {
 		expect(last([])).toBeUndefined()
 	})
