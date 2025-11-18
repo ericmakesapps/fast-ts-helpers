@@ -10,6 +10,10 @@ function createStoreFor(namespace: string) {
 
 	return {
 		get<T>(key: string) {
+			if (typeof localStorage === "undefined") {
+				return undefined
+			}
+
 			const string = localStorage.getItem(p(key))
 
 			if (string != null) {
@@ -21,6 +25,10 @@ function createStoreFor(namespace: string) {
 			return undefined
 		},
 		set<T>(key: string, value: T, updateSubscribers = false) {
+			if (typeof localStorage === "undefined") {
+				return undefined
+			}
+
 			// If something JSON cannot stringify is passed, it returns undefined. Let's make that save empty string instead, as localStorage would just stringify it.
 			localStorage.setItem(p(key), JSON.stringify(value) ?? ``)
 
@@ -33,6 +41,10 @@ function createStoreFor(namespace: string) {
 			}
 		},
 		remove(key: string, updateSubscribers = false) {
+			if (typeof localStorage === "undefined") {
+				return undefined
+			}
+
 			localStorage.removeItem(p(key))
 
 			if (updateSubscribers) {
@@ -44,9 +56,17 @@ function createStoreFor(namespace: string) {
 			}
 		},
 		has(key: string) {
+			if (typeof localStorage === "undefined") {
+				return false
+			}
+
 			return Object.keys(localStorage).includes(p(key))
 		},
 		clear(updateSubscribers = false) {
+			if (typeof localStorage === "undefined") {
+				return undefined
+			}
+
 			for (const key of Object.keys(localStorage)) {
 				if (key.startsWith(prefix)) {
 					localStorage.removeItem(key)

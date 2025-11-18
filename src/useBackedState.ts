@@ -1,6 +1,14 @@
-import { DependencyList, Dispatch, SetStateAction, useCallback, useState } from "react"
+import {
+	DependencyList,
+	Dispatch,
+	SetStateAction,
+	useCallback,
+	useRef,
+	useState
+} from "react"
 
 import isCallable from "./isCallable"
+import useOnMount from "./useOnMount"
 
 /**
  * Use a state that has some backing for its initial value.
@@ -33,7 +41,24 @@ function useBackedState<T, Args extends any[] = []>(
 	deps: DependencyList,
 	getInitialValue: () => T | undefined
 ) {
+	const ssrContext = useRef(typeof window === "undefined")
 	const [value, setValue] = useState(getInitialValue)
+
+	useOnMount(() => {
+		// If this was set to true, this was initialized in an SSR context. If we were
+		//   initialized in an SSR context, we potentially need to hydrate the value from
+		//   the client side source. Let's try to do that now.
+		if (!ssrContext.current) {
+			return
+		}
+
+		const initialValue = getInitialValue()
+
+		// On component mount, check if we need to update the value if in an SSR context.
+		if (initialValue !== value) {
+			setValue(initialValue)
+		}
+	})
 
 	return [
 		value,

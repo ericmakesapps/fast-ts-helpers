@@ -30,7 +30,7 @@ function useSessionRef<T>(name: string, initialValue?: T | (() => T)) {
 		},
 		[name],
 		() =>
-			name in sessionStorage
+			typeof sessionStorage !== "undefined" && name in sessionStorage
 				? JSON.parse(sessionStorage.getItem(name)!)
 				: isCallable(initialValue)
 					? initialValue()
