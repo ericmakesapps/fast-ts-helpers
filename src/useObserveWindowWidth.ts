@@ -1,21 +1,21 @@
-import { DependencyList } from "react"
+import { DependencyList, MutableRefObject } from "react"
 
-import useConstructor from "./useConstructor"
 import useObserveSize from "./useObserveSize"
 
 /**
- * Calls a function when this component mounts, and any time the window width changes. This is higher fidelity than the window resize event (which sometimes skips sizes which can result in unexpected behavior).
+ * Calls a function when this component mounts, and any time the window width changes.
+ *   This is higher fidelity than the window resize event (which sometimes skips sizes
+ *   which can result in unexpected behavior).
  *
  * @param callback The function that will be called.
  * @param deps The dependencies of the passed function.
  */
-function useObserveWindowWidth(callback: ResizeObserverCallback, deps: DependencyList) {
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const ref = useObserveSize(callback, deps)
+function useObserveWindowWidth(callback: () => void, deps: DependencyList) {
+	const ref = useObserveSize(callback, deps) as MutableRefObject<HTMLElement>
 
-	useConstructor(() => {
-		ref(document.documentElement)
-	})
+	if (typeof document !== "undefined") {
+		ref.current = document.documentElement
+	}
 }
 
 export default useObserveWindowWidth

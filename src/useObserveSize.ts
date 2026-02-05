@@ -1,8 +1,8 @@
-import { DependencyList, useEffect, useMemo, useState } from "react"
+import { DependencyList, useEffect, useMemo, useRef } from "react"
 
 import throttle from "./throttle"
 
-if (!window.ResizeObserver) {
+if (typeof window !== "undefined" && !window.ResizeObserver) {
 	throw new Error(
 		"ResizeObserver is not supported in this browser. Please include a polyfill."
 	)
@@ -15,17 +15,22 @@ if (!window.ResizeObserver) {
  * @param deps The dependencies of the function (for caching).
  * @returns The ref callback to attach to the component to observe.
  */
-function useObserveSize(callback: ResizeObserverCallback, deps: DependencyList) {
-	const [element, setElement] = useState<Element | null>(null)
+function useObserveSize<T extends Element>(
+	callback: (target: T) => void,
+	deps: DependencyList
+) {
+	const elementRef = useRef<T>(null)
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const cb = useMemo(() => throttle(callback), deps)
 
 	useEffect(() => {
-		if (element) {
-			const observer = new ResizeObserver(cb)
+		const element = elementRef.current
 
-			cb([], observer)
+		if (element) {
+			cb(element)
+
+			const observer = new ResizeObserver(() => cb(element))
 
 			observer.observe(element)
 
@@ -33,9 +38,9 @@ function useObserveSize(callback: ResizeObserverCallback, deps: DependencyList) 
 		}
 
 		return undefined
-	}, [cb, element])
+	}, [cb])
 
-	return setElement as (element: Element | null) => void
+	return elementRef
 }
 
 export default useObserveSize

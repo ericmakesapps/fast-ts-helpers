@@ -21,13 +21,7 @@ function useMeasure(
 	const [bounds, setBounds] = useState(() => new DOMRect())
 
 	const ref = useObserveSize(
-		(entries) => {
-			const target = entries[0]?.target
-
-			if (!target) {
-				return
-			}
-
+		(target) => {
 			const newBounds = target.getBoundingClientRect()
 
 			if (

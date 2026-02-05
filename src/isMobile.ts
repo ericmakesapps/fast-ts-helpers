@@ -8,7 +8,10 @@ import mobileBreakpoint from "./mobileBreakpoint"
  * @returns Whether the viewport is currently mobile.
  */
 function isMobile(orientation?: Orientation) {
-	return checkBounds(window.innerWidth, [0, mobileBreakpoint], orientation)
+	return (
+		typeof window !== "undefined" &&
+		checkBounds(window.innerWidth, [0, mobileBreakpoint], orientation)
+	)
 }
 
 export default isMobile

@@ -25,7 +25,11 @@ function focus(element: Falsible<HTMLElement | SVGElement>, preventScroll = true
 		preventScroll
 	})
 
-	if (preventScroll && (window.scrollY !== scrollY || window.scrollX !== scrollX)) {
+	if (
+		preventScroll &&
+		typeof window !== "undefined" &&
+		(window.scrollY !== scrollY || window.scrollX !== scrollX)
+	) {
 		window.scrollTo(scrollX, scrollY)
 	}
 }

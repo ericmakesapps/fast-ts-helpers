@@ -7,7 +7,10 @@ import tabletBreakpoint from "./tabletBreakpoint"
  * @returns Whether the viewport is currently desktop.
  */
 function isDesktop() {
-	return checkBounds(window.innerWidth, [tabletBreakpoint + 1, Infinity])
+	return (
+		typeof window !== "undefined" &&
+		checkBounds(window.innerWidth, [tabletBreakpoint + 1, Infinity])
+	)
 }
 
 export default isDesktop

@@ -5,7 +5,7 @@
  */
 function inBrowser(callback: () => void) {
 	if (
-		Boolean(window) ||
+		typeof window !== "undefined" ||
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(typeof process !== `undefined` && Boolean((process as any)?.browser))
 	) {
