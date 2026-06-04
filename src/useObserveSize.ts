@@ -17,12 +17,16 @@ if (typeof window !== "undefined" && !window.ResizeObserver) {
  */
 function useObserveSize<T extends Element>(
 	callback: (target: T) => void,
-	deps: DependencyList
+	deps: DependencyList,
+	{ noThrottle = false }: { noThrottle?: boolean } = {}
 ) {
 	const elementRef = useRef<T>(null)
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const cb = useMemo(() => throttle(callback), deps)
+	const cb = useMemo(
+		() => (noThrottle ? callback : throttle(callback)),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[...deps, noThrottle]
+	)
 
 	useEffect(() => {
 		const element = elementRef.current

@@ -9,9 +9,14 @@ import useObserveSize from "./useObserveSize"
  *
  * @param callback The function that will be called.
  * @param deps The dependencies of the passed function.
+ * @param options An object of options.
  */
-function useObserveWindowWidth(callback: () => void, deps: DependencyList) {
-	const ref = useObserveSize(callback, deps) as MutableRefObject<HTMLElement>
+function useObserveWindowWidth(
+	callback: () => void,
+	deps: DependencyList,
+	options: { noThrottle?: boolean } = {}
+) {
+	const ref = useObserveSize(callback, deps, options) as MutableRefObject<HTMLElement>
 
 	if (typeof document !== "undefined") {
 		ref.current = document.documentElement

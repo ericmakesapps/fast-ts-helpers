@@ -27,12 +27,16 @@ const MyMutationObserver =
 function useObserve(
 	callback: MutationCallback,
 	deps: DependencyList,
-	options: MutationObserverInit
+	{ noThrottle = false, ...options }: MutationObserverInit & { noThrottle?: boolean }
 ) {
 	const [node, setNode] = useState<Node | null>(null)
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const cb = useMemo(() => throttle(callback), deps)
+	const cb = useMemo(
+		() => (noThrottle ? callback : throttle(callback)),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[...deps, noThrottle]
+	)
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const opt = useMemo(() => options, [cacheKey(options)])
 

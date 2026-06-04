@@ -9,9 +9,14 @@ import useObserve from "./useObserve"
  * @param deps The dependencies of the function (for caching).
  * @returns The ref callback to attach to the component to observe.
  */
-function useObserveChildList(callback: MutationCallback, deps: DependencyList) {
+function useObserveChildList(
+	callback: MutationCallback,
+	deps: DependencyList,
+	options: { noThrottle?: boolean } = {}
+) {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	return useObserve(callback, deps, {
+		...options,
 		childList: true
 	})
 }

@@ -67,7 +67,7 @@ describe("parseDate helper", () => {
 	test("should convert a time string", () => {
 		const now = new Date()
 
-		expect(parseDate("12:30:30")).toEqual(
+		expect(parseDate("12:30:30").toTimeString()).toEqual(
 			new Date(
 				now.getFullYear(),
 				now.getMonth(),
@@ -75,7 +75,7 @@ describe("parseDate helper", () => {
 				12,
 				30 - new Date().getTimezoneOffset(),
 				30
-			)
+			).toTimeString()
 		)
 	})
 
