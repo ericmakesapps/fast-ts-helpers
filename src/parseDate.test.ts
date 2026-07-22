@@ -1,85 +1,23 @@
 import parseDate from "./parseDate"
 
+// Underlying logic is tested in parseDateTime, so we just need to test the wrapper here.
+
 describe("parseDate helper", () => {
-	test("should leave a date object untouched", () => {
+	test("should return the same date instance when given a Date", () => {
 		const date = new Date()
 
 		expect(parseDate(date)).toBe(date)
 	})
 
-	test("should return null if the param is undefined", () => {
+	test("should return a JS Date for parseable values", () => {
+		expect(parseDate("2022-01-01T12:30:30Z")).toBeInstanceOf(Date)
+		expect(parseDate(0)).toBeInstanceOf(Date)
+	})
+
+	test("should return null for unparseable values", () => {
 		expect(parseDate(undefined)).toBeNull()
-	})
-
-	test("should convert a date string", () => {
-		expect(parseDate("2022-01-01T12:30:30Z").toISOString()).toEqual(
-			"2022-01-01T12:30:30.000Z"
-		)
-	})
-
-	test("should work on dates before and after the time zone standardization (see [this article](https://time.com/5730146/standardized-time/))", () => {
-		expect(parseDate("1883-11-18").toISOString()).toEqual("1883-11-18T00:00:00.000Z")
-		expect(parseDate("1883-11-19").toISOString()).toEqual("1883-11-19T00:00:00.000Z")
-	})
-
-	test("should work on very early dates", () => {
-		expect(parseDate("0001-01-01").toISOString()).toEqual("0001-01-01T00:00:00.000Z")
-		expect(parseDate("0012-01-01").toISOString()).toEqual("0012-01-01T00:00:00.000Z")
-		expect(parseDate("0095-01-01").toISOString()).toEqual("0095-01-01T00:00:00.000Z")
-	})
-
-	test("should use DST if the date falls within DST", () => {
-		expect(parseDate("2023-03-01T12:30:30").toISOString()).toEqual(
-			"2023-03-01T12:30:30.000Z"
-		)
-	})
-
-	test("should use standard time if the date falls within standard time", () => {
-		expect(parseDate("2023-03-15T12:30:30").toISOString()).toEqual(
-			"2023-03-15T12:30:30.000Z"
-		)
-	})
-
-	test("should convert a date string date with timezone offset", () => {
-		expect(parseDate("2022-01-01T12:30:30+05:00").toISOString()).toEqual(
-			"2022-01-01T07:30:30.000Z"
-		)
-	})
-
-	test("should convert a date string date with negative timezone offset", () => {
-		expect(parseDate("2022-01-01T12:30:30-05:00").toISOString()).toEqual(
-			"2022-01-01T17:30:30.000Z"
-		)
-	})
-
-	test("should convert a date string date with timezone offset with minute offset", () => {
-		expect(parseDate("2022-01-01T12:30:30+05:30").toISOString()).toEqual(
-			"2022-01-01T07:00:30.000Z"
-		)
-	})
-
-	test("should convert a date string date with negative timezone offset with minute offset", () => {
-		expect(parseDate("2022-01-01T12:30:30-05:30").toISOString()).toEqual(
-			"2022-01-01T18:00:30.000Z"
-		)
-	})
-
-	test("should convert a time string", () => {
-		const now = new Date()
-
-		expect(parseDate("12:30:30").toTimeString()).toEqual(
-			new Date(
-				now.getFullYear(),
-				now.getMonth(),
-				now.getDate(),
-				12,
-				30 - new Date().getTimezoneOffset(),
-				30
-			).toTimeString()
-		)
-	})
-
-	test("should convert a number date", () => {
-		expect(parseDate(0)).toEqual(new Date(0))
+		expect(parseDate(null)).toBeNull()
+		expect(parseDate("not-a-date")).toBeNull()
+		expect(parseDate({})).toBeNull()
 	})
 })

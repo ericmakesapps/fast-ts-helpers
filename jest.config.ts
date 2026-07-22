@@ -4,7 +4,9 @@ export default {
 	collectCoverage: true,
 	// collectCoverageFrom: ["src/**/*.{js,ts}"],
 	coverageDirectory: "coverage",
-	coverageProvider: "v8",
+	// v8 drops coverage for modules loaded from multiple test files (e.g. parseDateTime
+	// imported both directly and via parseDate/injectDates). babel merges correctly.
+	coverageProvider: "babel",
 	transform: {
 		"^.+\\.(ts|tsx)$": "ts-jest"
 	},
