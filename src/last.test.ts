@@ -2,24 +2,32 @@ import last from "./last"
 
 describe("last helper", () => {
 	test("should get the last item from the passed array", () => {
-		expect(last(["hello", "world"])).toEqual("world")
+		const val = last(["hello", "world"] as string[]) satisfies string | undefined
+
+		expect(val).toEqual("world")
 	})
 
 	test("should have the express type of last in a tuple", () => {
-		const val: "world" = last(["hello", "world"] as const)
+		const val = last(["hello", "world"] as const) satisfies "world"
 
 		expect(val).toEqual("world")
 	})
 
 	test("should return undefined for an empty array", () => {
-		expect(last([])).toBeUndefined()
+		const val = last([])
+
+		expect(val).toBeUndefined()
 	})
 
 	test("should return undefined for undefined", () => {
-		expect(last(undefined)).toBeUndefined()
+		const val = last(undefined)
+
+		expect(val).toBeUndefined()
 	})
 
 	test("should return undefined for null", () => {
-		expect(last(null)).toBeUndefined()
+		const val = last(null)
+
+		expect(val).toBeUndefined()
 	})
 })
