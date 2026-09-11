@@ -1,4 +1,3 @@
-import fullyMatches from "./fullyMatches"
 import parseDate from "./parseDate"
 
 /**
@@ -19,10 +18,10 @@ function injectDates<Type extends {}>(
 
 			if (
 				(typeof value === `string` &&
-					fullyMatches(
-						value,
-						// Regex that matches any valid ISO date string. See the [format](https://www.w3.org/TR/NOTE-datetime).
-						/\d{4}(-\d{2})?(-\d{2})?(T\d{2}(:\d{2}(:\d{2}(\.\d+)?)?)?([+-]\d+(:\d{2})?|Z)?)?|\d{2}:\d{2}(:\d{2}(\.\d+)?)?([+-]\d+(:\d{2})?|Z)?/
+					// Only match full date strings, not partials.
+
+					value.match(
+						/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})?)?$/
 					)) ||
 				(typeof value === `number` && /(^d|D)ate([A-Z0-9_]|$)/.test(key))
 			) {
